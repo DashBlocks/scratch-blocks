@@ -2,17 +2,6 @@
 
 goog.provide('Blockly.IntersectionObserver');
 
-function queueMicrotask(callback) {
-  // Prefer native when possible.
-  // Otherwise, use a polyfill based on Promise
-  if (window.queueMicrotask) {
-    window.queueMicrotask(callback);
-  } else {
-    // eslint-disable-next-line no-undef
-    Promise.resolve().then(callback);
-  }
-}
-
 Blockly.IntersectionObserver = function(workspace) {
   this.workspace = workspace;
   this.observing = [];
@@ -45,7 +34,15 @@ Blockly.IntersectionObserver.prototype.queueIntersectionCheck = function() {
     return;
   }
   this.intersectionCheckQueued = true;
-  queueMicrotask(this.checkForIntersections);
+  // Check for intersections on the next microtick
+  // Prefer to use the native method when available, otherwise fallback to a Promise-based polyfill
+  // Otherwise, use a polyfill based on Promise
+  if (window.queueMicrotask) {
+    window.queueMicrotask(this.checkForIntersections);
+  } else {
+    // eslint-disable-next-line no-undef
+    Promise.resolve().then(this.checkForIntersections);
+  }
 };
 
 Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
@@ -54,6 +51,9 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
   if (!this.workspace) {
     return;
   }
+
+  // Allow blocks to go slightly offscreen so that effects such as glow do not get cut off.
+  var PADDING = 10;
 
   var workspace = this.workspace;
   var workspaceScale = workspace.scale;
@@ -72,17 +72,17 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
     blockPos.y *= workspaceScale;
 
     var visible = true;
-    if (canvasPos.y + blockPos.y > workspaceHeight) {
+    if (canvasPos.y + blockPos.y - PADDING > workspaceHeight) {
       visible = false;
-    } else if (canvasPos.x + blockPos.x > workspaceWidth) {
+    } else if (canvasPos.x + blockPos.x - PADDING > workspaceWidth) {
       visible = false;
     } else {
       var blockSize = block.getHeightWidth();
       blockSize.width *= workspaceScale;
       blockSize.height *= workspaceScale;
-      if (canvasPos.x + blockPos.x + blockSize.width < 0) {
+      if (canvasPos.x + blockPos.x + blockSize.width + PADDING < 0) {
         visible = false;
-      } else if (canvasPos.y + blockPos.y + blockSize.height < 0) {
+      } else if (canvasPos.y + blockPos.y + blockSize.height + PADDING < 0) {
         visible = false;
       }
     }
