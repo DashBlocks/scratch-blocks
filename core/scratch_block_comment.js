@@ -236,7 +236,9 @@ Blockly.ScratchBlockComment.prototype.createEditor_ = function() {
       this.textareaFocus_, true, true); // noCapture and do not prevent default
   // Don't zoom with mousewheel.
   Blockly.bindEventWithChecks_(textarea, 'wheel', this, function(e) {
-    e.stopPropagation();
+    if (!e.ctrlKey && textarea.clientHeight !== textarea.scrollHeight) {
+      e.stopPropagation();
+    }
   });
   Blockly.bindEventWithChecks_(textarea, 'change', this, function(_e) {
     if (this.text_ != textarea.value) {
@@ -261,7 +263,6 @@ Blockly.ScratchBlockComment.prototype.createEditor_ = function() {
  * @private
  */
 Blockly.ScratchBlockComment.prototype.textareaFocus_ = function(e) {
-  Blockly.ScratchBlockComment.superClass_.textareaFocus_.call(this, e);
   // Stop event from propagating to the workspace to make sure preventDefault _is not called_.
   e.stopPropagation();
 };
