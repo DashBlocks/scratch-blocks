@@ -104,6 +104,8 @@ Blockly.WorkspaceSvg = function(options, opt_blockDragSurface, opt_wsDragSurface
    */
   this.audioManager_ = new Blockly.WorkspaceAudio(options.parentWorkspace);
 
+  this.disableMouseDown = false;
+
   /**
    * This workspace's grid object or null.
    * @type {Blockly.Grid}
@@ -504,6 +506,10 @@ Blockly.WorkspaceSvg.prototype.dispose = function() {
   if (this.currentGesture_) {
     this.currentGesture_.cancel();
   }
+  if (this.intersectionObserver) {
+    this.intersectionObserver.dispose();
+    this.intersectionObserver = null;
+  }
   Blockly.WorkspaceSvg.superClass_.dispose.call(this);
   if (this.svgGroup_) {
     goog.dom.removeNode(this.svgGroup_);
@@ -556,9 +562,6 @@ Blockly.WorkspaceSvg.prototype.dispose = function() {
   if (this.resizeHandlerWrapper_) {
     Blockly.unbindEvent_(this.resizeHandlerWrapper_);
     this.resizeHandlerWrapper_ = null;
-  }
-  if (this.intersectionObserver) {
-    this.intersectionObserver.dispose();
   }
 };
 
@@ -1272,6 +1275,9 @@ Blockly.WorkspaceSvg.prototype.isInsideBlocksArea = function(e) {
  * @private
  */
 Blockly.WorkspaceSvg.prototype.onMouseDown_ = function(e) {
+  if (this.disableMouseDown) {
+    return;
+  }
   var gesture = this.getGesture(e);
   if (gesture) {
     gesture.handleWsStart(e, this);
