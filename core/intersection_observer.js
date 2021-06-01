@@ -35,7 +35,14 @@ Blockly.IntersectionObserver.prototype.queueIntersectionCheck = function() {
     return;
   }
   this.intersectionCheckQueued = true;
-  requestAnimationFrame(this.checkForIntersections);
+  // Check for intersections on the next microtick
+  // Prefer to use the native method when available, otherwise fallback to a Promise-based polyfill
+  if (window.queueMicrotask) {
+    window.queueMicrotask(this.checkForIntersections);
+  } else {
+    // eslint-disable-next-line no-undef
+    Promise.resolve().then(this.checkForIntersections);
+  }
 };
 
 Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
@@ -47,6 +54,7 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
 
   var workspace = this.workspace;
   var workspaceScale = workspace.scale;
+  var RTL = workspace.RTL;
   var workspaceHeight = workspace.getParentSvg().height.baseVal.value;
   var workspaceWidth = workspace.getParentSvg().width.baseVal.value;
   if (workspace.isDragSurfaceActive_) {
@@ -61,6 +69,13 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
   for (var i = 0; i < this.observing.length; i++) {
     var block = this.observing[i];
     var blockPos = block.getRelativeToSurfaceXY();
+    var blockSize;
+    if (RTL) {
+      blockSize = block.getHeightWidth();
+      blockPos.x -= blockSize.width;
+      blockSize.width *= workspaceScale;
+      blockSize.height *= workspaceScale;
+    }
     blockPos.x *= workspaceScale;
     blockPos.y *= workspaceScale;
 
@@ -70,9 +85,11 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
     } else if (canvasPos.x + blockPos.x - margin > workspaceWidth) {
       visible = false;
     } else {
-      var blockSize = block.getHeightWidth();
-      blockSize.width *= workspaceScale;
-      blockSize.height *= workspaceScale;
+      if (!blockSize) {
+        blockSize = block.getHeightWidth();
+        blockSize.width *= workspaceScale;
+        blockSize.height *= workspaceScale;
+      }
       if (canvasPos.x + blockPos.x + blockSize.width + margin < 0) {
         visible = false;
       } else if (canvasPos.y + blockPos.y + blockSize.height + margin < 0) {
