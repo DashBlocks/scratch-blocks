@@ -113,6 +113,7 @@ Blockly.ContextMenu.populate_ = function(options, rtl) {
       goog.events.listen(
           menuItem, goog.ui.Component.EventType.ACTION, option.callback);
       menuItem.handleContextMenu = function(/* e */) {
+        alert('ctx ' + acceptContextMenuEvents);
         if (!acceptContextMenuEvents) {
           return;
         }
