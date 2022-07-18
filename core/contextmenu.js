@@ -96,14 +96,6 @@ Blockly.ContextMenu.populate_ = function(options, rtl) {
   var menu = new goog.ui.Menu();
   menu.setRightToLeft(rtl);
 
-  // Sometimes the context menu can be created such that the mouse is hovering over an item in the menu
-  // When this happens, a contextmenu event is immediately sent to that item
-  // Obviously we don't want that to trigger an item to be selected.
-  var acceptContextMenuEvents = false;
-  setTimeout(function() {
-    acceptContextMenuEvents = true;
-  });
-
   for (var i = 0, option; option = options[i]; i++) {
     var menuItem = new goog.ui.MenuItem(option.text);
     menuItem.setRightToLeft(rtl);
@@ -112,13 +104,12 @@ Blockly.ContextMenu.populate_ = function(options, rtl) {
     if (option.enabled) {
       goog.events.listen(
           menuItem, goog.ui.Component.EventType.ACTION, option.callback);
-      menuItem.handleContextMenu = function(/* e */) {
-        alert('ctx ' + acceptContextMenuEvents);
-        if (!acceptContextMenuEvents) {
-          return;
-        }
-        // Right-clicking on menu option should count as a click.
-        goog.events.dispatchEvent(this, goog.ui.Component.EventType.ACTION);
+      menuItem.handleContextMenu = function(e) {
+        e.isMouseActionButton = function() {
+          return this.isButton(goog.events.BrowserEvent.MouseButton.LEFT) ||
+            this.isButton(goog.events.BrowserEvent.MouseButton.RIGHT);
+        };
+        this.handleMouseDown(e);
       };
     }
   }
