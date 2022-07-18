@@ -104,12 +104,13 @@ Blockly.ContextMenu.populate_ = function(options, rtl) {
     if (option.enabled) {
       goog.events.listen(
           menuItem, goog.ui.Component.EventType.ACTION, option.callback);
-      menuItem.handleContextMenu = function(e) {
+      var originalMouseDown = menuItem.handleMouseDown;
+      menuItem.handleMouseDown = function(e) {
         e.isMouseActionButton = function() {
           return this.isButton(goog.events.BrowserEvent.MouseButton.LEFT) ||
             this.isButton(goog.events.BrowserEvent.MouseButton.RIGHT);
         };
-        this.handleMouseDown(e);
+        originalMouseDown.call(this, e);
       };
     }
   }
@@ -148,9 +149,6 @@ Blockly.ContextMenu.position_ = function(menu, e, rtl) {
   // correctly.  Otherwise it will cause a page scroll to get the misplaced menu
   // in view.  See issue #1329.
   menu.getElement().focus();
-
-  // https://github.com/LLK/scratch-blocks/pull/2834
-  menu.setVisible(true, true, e);
 };
 
 /**
