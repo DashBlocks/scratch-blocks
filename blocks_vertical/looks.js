@@ -27,26 +27,6 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
-// Your block's opcode must start with the category ID and an underscore: `looks_restofyouropcode`.
-Blockly.Blocks['looks_tutorialmod_alert'] = {
-  /**
-   * @this Blockly.Block
-   */
-  init: function(){
-    this.jsonInit({
-      // We will add the message next, however the contents of the message will be "alert %1".
-      "message0": Blockly.Msg.LOOKS_TUTORIALMOD_ALERT, 
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "MESSAGE"
-        }
-      ],
-      "category": Blockly.Categories.looks,
-      "extensions": ["colours_looks", "shape_statement"]
-    });
-  }
-};
 
 Blockly.Blocks['looks_sayforsecs'] = {
   /**
