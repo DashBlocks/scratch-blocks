@@ -27,6 +27,72 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
+Blockly.Blocks['sensing_alert'] = {
+  /**
+   * Block that shows an alert with a message.
+   * Inspired from Modals extension.
+   * @this Blockly.Block
+   */
+  init: function(){
+    this.jsonInit({
+      "message0": Blockly.Msg.SENSING_ALERT, 
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "MESSAGE"
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['sensing_prompt'] = {
+  /**
+   * Block to show prompt modal and Report the user's input.
+   * Inspired from Modals extension.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.SENSING_PROMPT,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "MESSAGE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_string"]
+    });
+  }
+};
+
+Blockly.Blocks['sensing_confirm'] = {
+  /**
+   * Block to show confirm modal and Report if user confirmed.
+   * Inspired from Modals extension.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.SENSING_CONFIRM,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "MESSAGE"
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
 
 Blockly.Blocks['sensing_touchingobject'] = {
   /**
