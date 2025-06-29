@@ -1,4 +1,6 @@
-# TurboWarp/scratch-blocks
+# DashBlocks/scratch-blocks
+
+@TurboWarp/scratch-blocks modified for use in [Dash](https://dashblocks.github.io/) (@DashBlocks/scratch-blocks)
 
 ## Playgrounds
 
