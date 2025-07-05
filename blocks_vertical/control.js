@@ -177,7 +177,7 @@ Blockly.Blocks['control_if_then_else'] = {
   init: function() {
     this.jsonInit({
       "type": "control_if_then_else",
-      "message0": Blockly.Msg.CONTROL_IF + ' ' + Blockly.Msg.CONTROL_ELSE,
+      "message0": `${Blockly.Msg.CONTROL_IF} %2 ${Blockly.Msg.CONTROL_ELSE} %3`,
       "args0": [
         {
           "type": "input_value",
