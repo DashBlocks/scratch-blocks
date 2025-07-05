@@ -169,6 +169,36 @@ Blockly.Blocks['control_if_else'] = {
   }
 };
 
+Blockly.Blocks['control_if_then_else'] = {
+  /**
+   * Block for ... ? ... : ...
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_if_then_else",
+      "message0": Blockly.Msg.CONTROL_IF + ' ' + Blockly.Msg.CONTROL_ELSE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "CONDITION",
+          "check": "Boolean"
+        },
+        {
+          "type": "input_value",
+          "name": "THEN"
+        },
+        {
+          "type": "input_value",
+          "name": "ELSE"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_string"]
+    });
+  }
+};
+
 Blockly.Blocks['control_stop'] = {
   /**
    * Block for stop all scripts.
