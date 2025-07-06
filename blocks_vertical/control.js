@@ -171,7 +171,7 @@ Blockly.Blocks['control_if_else'] = {
 
 Blockly.Blocks['control_if_then_else'] = {
   /**
-   * Block for ... ? ... : ...
+   * Block for if <> then () else () like ... ? ... : ...
    * @this Blockly.Block
    */
   init: function() {
