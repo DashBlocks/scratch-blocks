@@ -199,6 +199,40 @@ Blockly.Blocks['control_if_then_else'] = {
   }
 };
 
+Blockly.Blocks['control_resume'] = {
+  /**
+   * Block for unpause (resume) all scripts.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_resume",
+      "message0": Blockly.Msg.CONTROL_RESUME,
+      "args0": [
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['control_pause'] = {
+  /**
+   * Block for pause all scripts.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_pause",
+      "message0": Blockly.Msg.CONTROL_PAUSE,
+      "args0": [
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_end"]
+    });
+  }
+};
+
 Blockly.Blocks['control_stop'] = {
   /**
    * Block for stop all scripts.
