@@ -233,6 +233,23 @@ Blockly.Blocks['control_pause'] = {
   }
 };
 
+Blockly.Blocks['control_is_paused'] = {
+  /**
+   * Block to report if project is paused
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_is_paused",
+      "message0": Blockly.Msg.CONTROL_ISPAUSED,
+      "args0": [
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['control_stop'] = {
   /**
    * Block for stop all scripts.
