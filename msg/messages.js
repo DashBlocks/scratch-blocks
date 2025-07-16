@@ -40,6 +40,7 @@ Blockly.Msg.CONTROL_IF = 'if %1 then';
 Blockly.Msg.CONTROL_ELSE = 'else';
 Blockly.Msg.CONTROL_RESUME = 'resume all';
 Blockly.Msg.CONTROL_PAUSE = 'pause all';
+Blockly.Msg.CONTROL_ISPAUSED = 'is paused?';
 Blockly.Msg.CONTROL_STOP = 'stop';
 Blockly.Msg.CONTROL_STOP_ALL = 'all';
 Blockly.Msg.CONTROL_STOP_THIS = 'this script';
