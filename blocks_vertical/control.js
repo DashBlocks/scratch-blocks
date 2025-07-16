@@ -243,8 +243,8 @@ Blockly.Blocks['control_is_paused'] = {
       "message0": Blockly.Msg.CONTROL_ISPAUSED,
       "args0": [
       ],
-      "category": Blockly.Categories.sensing,
-      "extensions": ["colours_sensing", "output_string"]
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_boolean"]
     });
   }
 };
