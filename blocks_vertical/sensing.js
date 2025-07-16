@@ -35,7 +35,7 @@ Blockly.Blocks['sensing_alert'] = {
    */
   init: function(){
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_ALERT, 
+      "message0": Blockly.Msg.SENSING_ALERT,
       "args0": [
         {
           "type": "input_value",
