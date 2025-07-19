@@ -169,7 +169,26 @@ Blockly.Blocks['event_whenbackdropswitchesto'] = {
   }
 };
 
-
+Blockly.Blocks['event_when'] = {
+  /**
+   * Block for when anything.
+   * @this Blockly.Block
+   */
+  init: function(){
+    this.jsonInit({
+      "message0": Blockly.Msg.EVENT_WHEN,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "CONDITION",
+          "check": "Boolean"
+        }
+      ],
+      "category": Blockly.Categories.event,
+      "extensions": ["colours_event", "shape_hat"]
+    });
+  }
+};
 
 Blockly.Blocks['event_whengreaterthan'] = {
   /**

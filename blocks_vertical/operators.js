@@ -317,6 +317,22 @@ Blockly.Blocks['operator_join'] = {
   }
 };
 
+Blockly.Blocks['operator_newline'] = {
+  /**
+   * Block for newline.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NEWLINE,
+      "args0": [
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_letter_of'] = {
   /**
    * Block for "letter _ of _" operator.
