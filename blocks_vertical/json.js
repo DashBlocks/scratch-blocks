@@ -27,17 +27,214 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
-/*Blockly.Blocks['json_...'] = {
-  **
-   * @this Blockly.Block
-   *
-  init: function(){
-    this.jsonInit({
-      "message0": Blockly.Msg.JSON_..., 
-      "args0": [
-      ],
-      "category": Blockly.Categories.json,
-      "extensions": ["colours_json", "..."]
-    });
-  }
-};*/
+Blockly.Blocks['json_array_item_of'] = {
+    /**
+     * Block for getting an item from an array.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "item %1 of %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "INDEX"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": "Array"
+                }
+            ],
+            "output": null,
+            "extensions": ["colours_json", "shape_round"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_item_no_of'] = {
+    /**
+     * Block for getting the index of an item in an array.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "item # of %1 in %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                }
+            ],
+            "extensions": ["colours_json", "output_number"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_contains'] = {
+    /**
+     * Block for checking if a list contains a value.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "%1 contains %2?",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+            ],
+            "extensions": ["colours_json", "output_boolean"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_length'] = {
+    /**
+     * Block for getting the length of a list.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "length of %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": "Array"
+                }
+            ],
+            "output": "Number",
+            "extensions": ["colours_json", "output_number"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_empty'] = {
+    /**
+     * Block for creating an empty list.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "empty array",
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_split'] = {
+    /**
+     * Block for creating a list from a text.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "array from %1 separated by %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "TEXT",
+                    "check": "String"
+                },
+                {
+                    "type": "input_value",
+                    "name": "DELIM"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_in_front_of'] = {
+    /**
+     * Block for reporting a list with an item added to the top.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "%1 in front of %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_behind'] = {
+    /**
+     * Block for reporting a list with an item added to the bottom.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "%1 behind %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_at'] = {
+    /**
+     * Block for reporting a list with an item at a specific position.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "insert %1 at %2 of %3",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                },
+                {
+                    "type": "input_value",
+                    "name": "INDEX"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
