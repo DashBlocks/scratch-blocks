@@ -61,32 +61,39 @@ Blockly.DataCategory = function(workspace) {
     Blockly.DataCategory.addHideVariable(xmlList, firstVariable);
   }
 
+  const variableList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
+  var showListVariables = (
+    variableList.length > 0 || workspace.listsEnabled
+  );
+
   // Now add list variables to the flyout
-  Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
-  variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
-  variableModelList.sort(Blockly.VariableModel.compareByName);
-  for (var i = 0; i < variableModelList.length; i++) {
-    Blockly.DataCategory.addDataList(xmlList, variableModelList[i]);
-  }
+  if (showListVariables) {
+    Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
+    variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
+    variableModelList.sort(Blockly.VariableModel.compareByName);
+    for (var i = 0; i < variableModelList.length; i++) {
+      Blockly.DataCategory.addDataList(xmlList, variableModelList[i]);
+    }
 
-  if (variableModelList.length > 0) {
-    xmlList[xmlList.length - 1].setAttribute('gap', 28);
-    var firstVariable = variableModelList[0];
+    if (variableModelList.length > 0) {
+      xmlList[xmlList.length - 1].setAttribute('gap', 28);
+      var firstVariable = variableModelList[0];
 
-    Blockly.DataCategory.addAddToList(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addDeleteOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addDeleteAllOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addInsertAtList(xmlList, firstVariable);
-    Blockly.DataCategory.addReplaceItemOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addItemOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addItemNumberOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addLengthOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addListContainsItem(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addShowList(xmlList, firstVariable);
-    Blockly.DataCategory.addHideList(xmlList, firstVariable);
+      Blockly.DataCategory.addAddToList(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addDeleteOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addDeleteAllOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addInsertAtList(xmlList, firstVariable);
+      Blockly.DataCategory.addReplaceItemOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addItemOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addItemNumberOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addLengthOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addListContainsItem(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addShowList(xmlList, firstVariable);
+      Blockly.DataCategory.addHideList(xmlList, firstVariable);
+    }
   }
 
   return xmlList;
