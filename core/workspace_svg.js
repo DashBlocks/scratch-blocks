@@ -784,6 +784,10 @@ Blockly.WorkspaceSvg.prototype.enableProcedureReturns = function() {
   this.procedureReturnsEnabled = true;
 };
 
+Blockly.WorkspaceSvg.prototype.enableLists = function() {
+  this.listsEnabled = true;
+};
+
 /**
  * Resize and reposition all of the workspace chrome (toolbox,
  * trash, scrollbars etc.)
