@@ -89,9 +89,9 @@ Blockly.Colours = {
   },
   "json": {
     "primary": "#748BEE",
-    "secondary": "#687DD6FF",
-    "tertiary": "#5C6FBEFF",
-    "quaternary": "#5C6FBEFF"
+    "secondary": "#687DD6",
+    "tertiary": "#5C6FBE",
+    "quaternary": "#5C6FBE"
   },
   "more": {
     "primary": "#FF6680",
