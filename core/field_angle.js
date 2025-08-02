@@ -183,9 +183,12 @@ Blockly.FieldAngle.prototype.showEditor_ = function() {
     'height': (Blockly.FieldAngle.HALF * 2) + 'px',
     'width': (Blockly.FieldAngle.HALF * 2) + 'px'
   }, div);
+  const srcBlock = this.sourceBlock_.parentBlock_;
   Blockly.utils.createSvgElement('circle', {
     'cx': Blockly.FieldAngle.HALF, 'cy': Blockly.FieldAngle.HALF,
     'r': Blockly.FieldAngle.RADIUS,
+    'fill': srcBlock.getColourSecondary(),
+    'stroke': srcBlock.getColourTertiary(),
     'class': 'blocklyAngleCircle'
   }, svg);
   this.gauge_ = Blockly.utils.createSvgElement('path',
@@ -245,10 +248,14 @@ Blockly.FieldAngle.prototype.showEditor_ = function() {
       'xlink:href',
       Blockly.mainWorkspace.options.pathToMedia + Blockly.FieldAngle.ARROW_SVG_PATH
   );
+  const blockHSL = goog.color.hexToHsl(srcBlock.getColour());
+  this.arrowSvg_.setAttribute("filter", `hue-rotate(${-214.86 + blockHSL[0]}deg) saturate(${blockHSL[1]}) brightness(${blockHSL[2] * 1.8})`);
 
-  Blockly.DropDownDiv.setColour(this.sourceBlock_.parentBlock_.getColour(),
-      this.sourceBlock_.getColourTertiary());
-  Blockly.DropDownDiv.setCategory(this.sourceBlock_.parentBlock_.getCategory());
+  Blockly.DropDownDiv.setColour(srcBlock.getColour(), this.sourceBlock_.getColourTertiary());
+  Blockly.DropDownDiv.setCategory(srcBlock.getCategory());
+
+  Blockly.DropDownDiv.setColour(srcBlock.getColour(), this.sourceBlock_.getColourTertiary());
+  Blockly.DropDownDiv.setCategory(srcBlock.getCategory());
   Blockly.DropDownDiv.showPositionedByBlock(this, this.sourceBlock_);
 
   this.mouseDownWrapper_ =
