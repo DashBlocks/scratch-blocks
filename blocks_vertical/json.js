@@ -238,3 +238,57 @@ Blockly.Blocks['json_array_at'] = {
         });
     }
 };
+
+Blockly.Blocks['json_array_delete'] = {
+    /**
+     * Block for reporting a list with an item deleted.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "delete %1 of %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "INDEX"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
+
+Blockly.Blocks['json_array_replace'] = {
+    /**
+     * Block for reporting a list with an item replaced.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": "replace item %1 of %2 with %3",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "INDEX"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ARRAY",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                }
+            ],
+            "output": "Array",
+            "extensions": ["colours_json", "shape_square"]
+        });
+    }
+};
