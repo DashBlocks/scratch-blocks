@@ -47,6 +47,7 @@ Blockly.Blocks['json_array_item_of'] = {
                 }
             ],
             "output": null,
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_round"]
         });
     }
@@ -71,6 +72,7 @@ Blockly.Blocks['json_array_item_no_of'] = {
                     "check": "Array"
                 }
             ],
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "output_number"]
         });
     }
@@ -95,6 +97,7 @@ Blockly.Blocks['json_array_contains'] = {
                     "name": "VALUE"
                 }
             ],
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "output_boolean"]
         });
     }
@@ -116,6 +119,7 @@ Blockly.Blocks['json_array_length'] = {
                 }
             ],
             "output": "Number",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "output_number"]
         });
     }
@@ -130,6 +134,7 @@ Blockly.Blocks['json_array_empty'] = {
         this.jsonInit({
             "message0": "empty array",
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -155,6 +160,7 @@ Blockly.Blocks['json_array_split'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -180,6 +186,7 @@ Blockly.Blocks['json_array_in_front_of'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -205,6 +212,7 @@ Blockly.Blocks['json_array_behind'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -234,6 +242,7 @@ Blockly.Blocks['json_array_at'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -259,6 +268,7 @@ Blockly.Blocks['json_array_delete'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
@@ -288,6 +298,7 @@ Blockly.Blocks['json_array_replace'] = {
                 }
             ],
             "output": "Array",
+            "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
         });
     }
