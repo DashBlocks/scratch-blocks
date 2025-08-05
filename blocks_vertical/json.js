@@ -34,7 +34,7 @@ Blockly.Blocks['json_array_item_of'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "item %1 of %2",
+            "message0": Blockly.Msg.JSON_ARRAY_ITEMOF,
             "args0": [
                 {
                     "type": "input_value",
@@ -60,7 +60,7 @@ Blockly.Blocks['json_array_item_no_of'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "item # of %1 in %2",
+            "message0": Blockly.Msg.JSON_ARRAY_ITEMNOOF,
             "args0": [
                 {
                     "type": "input_value",
@@ -85,7 +85,7 @@ Blockly.Blocks['json_array_contains'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "%1 contains %2?",
+            "message0": Blockly.Msg.JSON_ARRAY_CONTAINS,
             "args0": [
                 {
                     "type": "input_value",
@@ -110,7 +110,7 @@ Blockly.Blocks['json_array_length'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "length of %1",
+            "message0": Blockly.Msg.JSON_ARRAY_LENGTH,
             "args0": [
                 {
                     "type": "input_value",
@@ -132,7 +132,7 @@ Blockly.Blocks['json_array_empty'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "empty array",
+            "message0": Blockly.Msg.JSON_ARRAY_EMPTY,
             "output": "Array",
             "category": Blockly.Categories.json,
             "extensions": ["colours_json", "shape_square"]
@@ -147,7 +147,7 @@ Blockly.Blocks['json_array_split'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "array from %1 separated by %2",
+            "message0": Blockly.Msg.JSON_ARRAY_SPLIT,
             "args0": [
                 {
                     "type": "input_value",
@@ -173,7 +173,7 @@ Blockly.Blocks['json_array_in_front_of'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "%1 in front of %2",
+            "message0": Blockly.Msg.JSON_ARRAY_INFRONTOF,
             "args0": [
                 {
                     "type": "input_value",
@@ -199,7 +199,7 @@ Blockly.Blocks['json_array_behind'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "%1 behind %2",
+            "message0": Blockly.Msg.JSON_ARRAY_BEHIND,
             "args0": [
                 {
                     "type": "input_value",
@@ -225,7 +225,7 @@ Blockly.Blocks['json_array_at'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "insert %1 at %2 of %3",
+            "message0": Blockly.Msg.JSON_ARRAY_AT,
             "args0": [
                 {
                     "type": "input_value",
@@ -255,7 +255,7 @@ Blockly.Blocks['json_array_delete'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "delete %1 of %2",
+            "message0": Blockly.Msg.JSON_ARRAY_DELETE,
             "args0": [
                 {
                     "type": "input_value",
@@ -281,7 +281,7 @@ Blockly.Blocks['json_array_replace'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "replace item %1 of %2 with %3",
+            "message0": Blockly.Msg.JSON_ARRAY_REPLACE,
             "args0": [
                 {
                     "type": "input_value",

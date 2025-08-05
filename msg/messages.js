@@ -100,6 +100,19 @@ Blockly.Msg.EVENT_WHENKEYPRESSED_DOWN = 'down arrow';
 Blockly.Msg.EVENT_WHENKEYPRESSED_UP = 'up arrow';
 Blockly.Msg.EVENT_WHENKEYPRESSED_ANY = 'any';
 
+// JSON blocks
+Blockly.Msg.JSON_ARRAY_ITEMOF = 'item %1 of %2';
+Blockly.Msg.JSON_ARRAY_ITEMNOOF = 'item # of %1 in %2';
+Blockly.Msg.JSON_ARRAY_CONTAINS = '%1 contains %2?';
+Blockly.Msg.JSON_ARRAY_LENGTH = 'length of %1';
+Blockly.Msg.JSON_ARRAY_EMPTY = 'empty array';
+Blockly.Msg.JSON_ARRAY_SPLIT = 'array from %1 separated by %2';
+Blockly.Msg.JSON_ARRAY_INFRONTOF = '%1 in front of %2';
+Blockly.Msg.JSON_ARRAY_BEHIND = '%1 behind %2';
+Blockly.Msg.JSON_ARRAY_AT = 'insert %1 at %2 of %3';
+Blockly.Msg.JSON_ARRAY_DELETE = 'delete %1 of %2';
+Blockly.Msg.JSON_ARRAY_REPLACE = 'replace item %1 of %2 with %3';
+
 // Looks blocks
 Blockly.Msg.LOOKS_SAYFORSECS = 'say %1 for %2 seconds';
 Blockly.Msg.LOOKS_SAY = 'say %1';
