@@ -401,6 +401,34 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_in_range'] = {
+  /**
+   * Block for is input in range from to.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_INRANGE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM"
+        },
+        {
+          "type": "input_value",
+          "name": "FROM"
+        },
+        {
+          "type": "input_value",
+          "name": "TO"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_mod'] = {
   /**
    * Block for mod two numbers.
