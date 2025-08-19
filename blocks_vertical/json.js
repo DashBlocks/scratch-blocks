@@ -386,7 +386,7 @@ Blockly.Blocks['json_object_contains_key'] = {
             "args0": [
                 {
                     "type": "input_value",
-                    "name": "ARRAY",
+                    "name": "OBJECT",
                     "check": "JSON"
                 },
                 {
@@ -419,7 +419,7 @@ Blockly.Blocks['json_object_set'] = {
                 },
                 {
                     "type": "input_value",
-                    "name": "ARRAY",
+                    "name": "OBJECT",
                     "check": "JSON"
                 }
             ],
@@ -445,7 +445,7 @@ Blockly.Blocks['json_object_delete'] = {
                 },
                 {
                     "type": "input_value",
-                    "name": "ARRAY",
+                    "name": "OBJECT",
                     "check": "JSON"
                 }
             ],
