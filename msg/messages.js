@@ -103,8 +103,8 @@ Blockly.Msg.EVENT_WHENKEYPRESSED_ANY = 'any';
 // JSON blocks
 Blockly.Msg.JSON_ARRAY_ITEMOF = 'item %1 of %2';
 Blockly.Msg.JSON_ARRAY_ITEMNOOF = 'item # of %1 in %2';
-Blockly.Msg.JSON_ARRAY_CONTAINS = '%1 contains %2?';
-Blockly.Msg.JSON_ARRAY_LENGTH = 'length of %1';
+Blockly.Msg.JSON_CONTAINS = '%1 contains %2?';
+Blockly.Msg.JSON_LENGTH = 'length of %1';
 Blockly.Msg.JSON_ARRAY_EMPTY = 'empty array';
 Blockly.Msg.JSON_ARRAY_SPLIT = 'array from %1 separated by %2';
 Blockly.Msg.JSON_ARRAY_INFRONTOF = '%1 in front of %2';
@@ -112,6 +112,12 @@ Blockly.Msg.JSON_ARRAY_BEHIND = '%1 behind %2';
 Blockly.Msg.JSON_ARRAY_AT = 'insert %1 at %2 of %3';
 Blockly.Msg.JSON_ARRAY_DELETE = 'delete %1 of %2';
 Blockly.Msg.JSON_ARRAY_REPLACE = 'replace item %1 of %2 with %3';
+Blockly.Msg.JSON_OBJECT_EMPTY = 'empty object';
+Blockly.Msg.JSON_OBJECT_SPLIT = 'object from %1 with key %2 and pair %3 separators';
+Blockly.Msg.JSON_OBJECT_ITEMOF = 'item of key %1 in %2';
+Blockly.Msg.JSON_OBJECT_CONTAINS_KEY = '%1 contains key %2?';
+Blockly.Msg.JSON_OBJECT_SET = 'set key %1 to %2 in %3';
+Blockly.Msg.JSON_OBJECT_DELETE = 'delete key %1 in %2';
 
 // Looks blocks
 Blockly.Msg.LOOKS_SAYFORSECS = 'say %1 for %2 seconds';
