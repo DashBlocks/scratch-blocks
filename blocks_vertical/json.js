@@ -89,7 +89,7 @@ Blockly.Blocks['json_contains'] = {
             "args0": [
                 {
                     "type": "input_value",
-                    "name": "ARRAY",
+                    "name": "JSON",
                     "check": "JSON"
                 },
                 {
