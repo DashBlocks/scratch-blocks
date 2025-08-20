@@ -59,7 +59,26 @@ Blockly.ScratchBlocks.VerticalExtensions.colourHelper = function(category) {
 };
 
 /**
+ * Extension to set the custom colours of a procedures_prototype block.
+ */
+Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
+  var defineBlock = this;
+  while (defineBlock?.getParent()) { defineBlock = defineBlock?.getParent() }
+  if (
+    defineBlock?.type === 'procedures_definition' &&
+    defineBlock.getChildren()[0]?.type === 'procedures_prototype' &&
+    defineBlock.getChildren()[0].customColor_
+  ) {
+    this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColor_));
+  } else {
+    Blockly.ScratchBlocks.VerticalExtensions.colourHelper('more')();
+  }
+};
+
+/**
  * Extension to set the colours of a text field, which are all the same.
+ * @this {Blockly.Block}
+ * @readonly
  */
 Blockly.ScratchBlocks.VerticalExtensions.COLOUR_TEXTFIELD = function() {
   this.setColourFromRawValues_(Blockly.Colours.textField,
@@ -269,6 +288,9 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
     Blockly.Extensions.register('colours_' + name,
         Blockly.ScratchBlocks.VerticalExtensions.colourHelper(name));
   }
+
+  Blockly.Extensions.register('procedure_definerecolor',
+      Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR);
 
   // Text fields transcend categories.
   Blockly.Extensions.register('colours_textfield',
