@@ -29,6 +29,7 @@ goog.require('Blockly.Blocks');
 goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
+goog.require('goog.color');
 
 // Serialization and deserialization.
 
@@ -57,6 +58,7 @@ Blockly.ScratchBlocks.ProcedureUtils.callerMutationToDom = function() {
   container.setAttribute('proccode', this.procCode_);
   container.setAttribute('argumentids', JSON.stringify(this.argumentIds_));
   container.setAttribute('warp', JSON.stringify(this.warp_));
+  if (this.customColour_) container.setAttribute('colour', this.customColour_);
   if (this.return_ !== Blockly.PROCEDURES_CALL_TYPE_STATEMENT) {
     container.setAttribute('return', this.return_);
   }
@@ -75,6 +77,7 @@ Blockly.ScratchBlocks.ProcedureUtils.callerDomToMutation = function(xmlElement) 
       JSON.parse(xmlElement.getAttribute('generateshadows'));
   this.argumentIds_ = JSON.parse(xmlElement.getAttribute('argumentids'));
   this.warp_ = JSON.parse(xmlElement.getAttribute('warp'));
+  if (xmlElement.getAttribute('colour')) this.customColour_ = xmlElement.getAttribute('colour');
   this.return_ = Blockly.ScratchBlocks.ProcedureUtils.parseReturnMutation(xmlElement);
   if (this.return_ !== Blockly.PROCEDURES_CALL_TYPE_STATEMENT) {
     this.workspace.enableProcedureReturns();
@@ -103,6 +106,7 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionMutationToDom = function(
   container.setAttribute('argumentdefaults',
       JSON.stringify(this.argumentDefaults_));
   container.setAttribute('warp', JSON.stringify(this.warp_));
+  if (this.customColour_) container.setAttribute('colour', this.customColour_);
   return container;
 };
 
@@ -123,6 +127,7 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionDomToMutation = function(xmlEleme
   this.displayNames_ = JSON.parse(xmlElement.getAttribute('argumentnames'));
   this.argumentDefaults_ = JSON.parse(
       xmlElement.getAttribute('argumentdefaults'));
+  if (xmlElement.getAttribute('colour')) this.customColour_ = xmlElement.getAttribute('colour');
   this.updateDisplay_();
   if (this.updateArgumentReporterNames_) {
     this.updateArgumentReporterNames_(prevArgIds, prevDisplayNames);
@@ -143,6 +148,60 @@ Blockly.ScratchBlocks.ProcedureUtils.getProcCode = function() {
   return this.procCode_;
 };
 
+const threeThemeCategoriesColors = {
+  motion: '#4C97FF',
+  looks: '#9966FF',
+  sounds: '#CF63CF',
+  control: '#FFAB19',
+  event: '#FFBF00',
+  sensing: '#5CB1D6',
+  pen: '#0fBD8C',
+  operators: '#59C059',
+  data: '#FF8C1A',
+  data_lists: '#FF661A',
+  json: "#748BEE",
+  more: '#FF6680',
+  addons: '#29beb8'
+};
+
+/**
+ * Generate colours.
+ * @param {string} colour The primary colour.
+ * @param {number} darken Darken percent as a value from 0 - 1.
+ * @returns {string[]} Colours.
+ * @this Blockly.Block
+ */
+Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) {
+  var categories = Object.values(Blockly.Categories);
+  var maybeColours = Object.entries(Blockly.Colours).find(v => (
+    categories.includes(v[0]) && (threeThemeCategoriesColors[v[0]].toLowerCase() === colour.toLowerCase())
+  ));
+  if (maybeColours && maybeColours[1]) {
+    return [
+      maybeColours[1].primary,
+      maybeColours[1].secondary,
+      maybeColours[1].tertiary,
+      maybeColours[1].quaternary || maybeColours[1].tertiary
+    ].map((v) => goog.color.rgbArrayToHex(
+      goog.color.darken(goog.color.hexToRgb(v), darken)
+    ));
+  } else if (window.ReduxStore) {
+    const themeObj = window.ReduxStore.getState().scratchGui.theme.theme.getCustomExtensionColors();
+    return [
+      themeObj.primary(colour),
+      themeObj.secondary(colour),
+      themeObj.tertiary(colour),
+      themeObj.quaternary(colour),
+    ].map((v) => goog.color.rgbArrayToHex(
+      goog.color.darken(goog.color.hexToRgb(v), darken)
+    ));
+  } else {
+    return [goog.color.rgbArrayToHex(
+      goog.color.darken(goog.color.hexToRgb(colour), darken)
+    )];
+  }
+};
+
 /**
  * Update the block's structure and appearance to match the internally stored
  * mutation.
@@ -155,6 +214,8 @@ Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_ = function() {
 
   var connectionMap = this.disconnectOldBlocks_();
   this.removeAllInputs_();
+
+  if (this.customColour_) this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(this.customColor, 0.1));
 
   this.createAllInputs_(connectionMap);
   this.deleteShadows_(connectionMap);
@@ -838,7 +899,7 @@ Blockly.Blocks['procedures_definition'] = {
           "name": "custom_block"
         }
       ],
-      "extensions": ["colours_more", "shape_hat", "procedure_def_contextmenu"]
+      "extensions": ["procedure_definerecolor", "shape_hat", "procedure_def_contextmenu"]
     });
   }
 };
@@ -968,7 +1029,7 @@ Blockly.Blocks['argument_reporter_boolean'] = {
           "text": ""
         }
       ],
-      "extensions": ["colours_more", "output_boolean"]
+      "extensions": ["procedure_definerecolor", "output_boolean"]
     });
   }
 };
@@ -983,7 +1044,7 @@ Blockly.Blocks['argument_reporter_string_number'] = {
           "text": ""
         }
       ],
-      "extensions": ["colours_more", "output_number", "output_string"]
+      "extensions": ["procedure_definerecolor", "output_number", "output_string"]
     });
   }
 };
@@ -1044,7 +1105,7 @@ Blockly.Blocks['procedures_return'] = {
           "name": "VALUE"
         }
       ],
-      "extensions": ["colours_more", "shape_end"]
+      "extensions": ["procedure_definerecolor", "shape_end"]
     });
     this.workspace.enableProcedureReturns();
   }
