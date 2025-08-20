@@ -69,7 +69,7 @@ Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
     defineBlock.getChildren()[0]?.type === 'procedures_prototype' &&
     defineBlock.getChildren()[0].customColor_
   ) {
-    this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColor_));
+    this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColor_, 0));
   } else {
     Blockly.ScratchBlocks.VerticalExtensions.colourHelper('more')();
   }
