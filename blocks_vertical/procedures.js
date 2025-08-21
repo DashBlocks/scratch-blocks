@@ -186,14 +186,18 @@ Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) 
     ));
   } else if (window.ReduxStore) {
     const themeObj = window.ReduxStore.getState().scratchGui.theme.theme.getCustomExtensionColors();
-    return [
-      themeObj.primary(colour),
-      themeObj.secondary(colour),
-      themeObj.tertiary(colour),
-      themeObj.quaternary(colour),
-    ].map((v) => goog.color.rgbArrayToHex(
-      goog.color.darken(goog.color.hexToRgb(v), darken)
-    ));
+    return Object.keys(themeObj).length === 0
+      ? [goog.color.rgbArrayToHex(
+          goog.color.darken(goog.color.hexToRgb(colour), darken)
+        )]
+      : [
+          themeObj.primary(colour),
+          themeObj.secondary(colour),
+          themeObj.tertiary(colour),
+          themeObj.quaternary(colour),
+        ].map((v) => goog.color.rgbArrayToHex(
+          goog.color.darken(goog.color.hexToRgb(v), darken)
+        ));
   } else {
     return [goog.color.rgbArrayToHex(
       goog.color.darken(goog.color.hexToRgb(colour), darken)
