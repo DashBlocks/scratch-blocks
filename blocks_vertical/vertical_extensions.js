@@ -60,10 +60,14 @@ Blockly.ScratchBlocks.VerticalExtensions.colourHelper = function(category) {
 
 /**
  * Extension to set the custom colours of a procedures_prototype block.
+ * @this {Blockly.Block}
+ * @readonly
  */
 Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
   var defineBlock = this;
-  while (defineBlock?.getParent()) { defineBlock = defineBlock?.getParent() }
+  while (defineBlock?.getParent()) {
+    defineBlock = defineBlock.getParent()
+  }
   if (
     defineBlock?.type === 'procedures_definition' &&
     defineBlock.getChildren()[0]?.type === 'procedures_prototype' &&
