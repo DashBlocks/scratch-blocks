@@ -76,7 +76,9 @@ Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
   ) {
     this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColor_, 0));
   } else {
-    Blockly.ScratchBlocks.VerticalExtensions.colourHelper('more')();
+    var colours = Blockly.Colours.more;
+    this.setColourFromRawValues_(colours.primary, colours.secondary,
+        colours.tertiary, colours.quaternary);
   }
 };
 
