@@ -72,9 +72,9 @@ Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
     defineBlock.type === 'procedures_definition' &&
     defineBlock.getChildren()[0] &&
     defineBlock.getChildren()[0].type === 'procedures_prototype' &&
-    defineBlock.getChildren()[0].customColor_
+    defineBlock.getChildren()[0].customColour_
   ) {
-    this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColor_, 0));
+    this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColour_, 0));
   } else {
     var colours = Blockly.Colours.more;
     this.setColourFromRawValues_(colours.primary, colours.secondary,
