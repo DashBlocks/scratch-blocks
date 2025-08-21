@@ -65,7 +65,7 @@ Blockly.ScratchBlocks.VerticalExtensions.colourHelper = function(category) {
  */
 Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
   var defineBlock = this;
-  while (defineBlock?.getParent()) {
+  while (defineBlock.getParent()) {
     defineBlock = defineBlock.getParent()
   }
   if (
