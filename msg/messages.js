@@ -223,6 +223,7 @@ Blockly.Msg.OPERATORS_LETTEROF = 'letter %1 of %2';
 Blockly.Msg.OPERATORS_LETTEROF_APPLE = 'a';
 Blockly.Msg.OPERATORS_LENGTH = 'length of %1';
 Blockly.Msg.OPERATORS_CONTAINS = '%1 contains %2?';
+Blockly.Msg.OPERATORS_NUMSINRANGE = 'numbers in range from %1 to %2';
 Blockly.Msg.OPERATORS_INRANGE = '%1 in range from %2 to %3?';
 Blockly.Msg.OPERATORS_MOD = '%1 mod %2';
 Blockly.Msg.OPERATORS_ROUND = 'round %1';

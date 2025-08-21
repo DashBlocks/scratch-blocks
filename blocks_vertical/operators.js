@@ -401,6 +401,31 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_nums_in_range'] = {
+  /**
+   * Block for reporting all numbers in range from to.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NUMSINRANGE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "FROM"
+        },
+        {
+          "type": "input_value",
+          "name": "TO"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "output": "JSON",
+      "extensions": ["colours_operators", "output_square"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_in_range'] = {
   /**
    * Block for is input in range from to.
