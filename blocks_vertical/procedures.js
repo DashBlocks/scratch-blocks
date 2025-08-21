@@ -171,16 +171,13 @@ const threeThemeCategoriesColors = {
  * @this Blockly.Block
  */
 Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) {
-  var categories = Object.values(Blockly.Categories);
-  var maybeColours = Object.entries(Blockly.Colours).find(v => (
-    categories.includes(v[0]) && (threeThemeCategoriesColors[v[0]].toLowerCase() === colour.toLowerCase())
-  ));
-  if (maybeColours && maybeColours[1]) {
+  var category = Object.entries(threeThemeCategoriesColors).find(category => category[1].toLowerCase() === colour.toLowerCase());
+  if (category) {
     return [
-      maybeColours[1].primary,
-      maybeColours[1].secondary,
-      maybeColours[1].tertiary,
-      maybeColours[1].quaternary || maybeColours[1].tertiary
+      Blockly.Colours[category[0]].primary,
+      Blockly.Colours[category[0]].secondary,
+      Blockly.Colours[category[0]].tertiary,
+      Blockly.Colours[category[0]].quaternary || Blockly.Colours[category[0]].tertiary
     ].map((v) => goog.color.rgbArrayToHex(
       goog.color.darken(goog.color.hexToRgb(v), darken)
     ));
