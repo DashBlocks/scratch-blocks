@@ -476,8 +476,7 @@ Blockly.Blocks['motion_position'] = {
       "message0": Blockly.Msg.MOTION_POSITION,
       "category": Blockly.Categories.motion,
       "checkboxInFlyout": true,
-      "output": "JSON",
-      "extensions": ["colours_motion", "shape_square"]
+      "extensions": ["colours_motion", "output_array"]
     });
   }
 };
