@@ -466,6 +466,22 @@ Blockly.Blocks['motion_yposition'] = {
   }
 };
 
+Blockly.Blocks['motion_position'] = {
+  /**
+   * Block to report X, Y.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.MOTION_POSITION,
+      "category": Blockly.Categories.motion,
+      "checkboxInFlyout": true,
+      "output": "JSON",
+      "extensions": ["colours_motion", "shape_square"]
+    });
+  }
+};
+
 Blockly.Blocks['motion_direction'] = {
   /**
    * Block to report direction.
