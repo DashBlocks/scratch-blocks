@@ -152,7 +152,6 @@ Blockly.Blocks['json_array_split'] = {
                 {
                     "type": "input_value",
                     "name": "TEXT",
-                    "check": "String"
                 },
                 {
                     "type": "input_value",
@@ -331,7 +330,6 @@ Blockly.Blocks['json_object_split'] = {
                 {
                     "type": "input_value",
                     "name": "TEXT",
-                    "check": "String"
                 },
                 {
                     "type": "input_value",
