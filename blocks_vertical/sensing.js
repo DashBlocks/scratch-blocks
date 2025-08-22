@@ -386,6 +386,22 @@ Blockly.Blocks['sensing_mousey'] = {
   }
 };
 
+Blockly.Blocks['sensing_mousexy'] = {
+  /**
+   * Block to report mouse's position
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.SENSING_MOUSEXY,
+      "category": Blockly.Categories.sensing,
+      "checkboxInFlyout": true,
+      "output": "JSON",
+      "extensions": ["colours_sensing", "shape_square"]
+    });
+  }
+};
+
 Blockly.Blocks['sensing_setdragmode'] = {
   /**
    * Block to set drag mode.
