@@ -396,8 +396,7 @@ Blockly.Blocks['sensing_mousexy'] = {
       "message0": Blockly.Msg.SENSING_MOUSEXY,
       "category": Blockly.Categories.sensing,
       "checkboxInFlyout": true,
-      "output": "JSON",
-      "extensions": ["colours_sensing", "shape_square"]
+      "extensions": ["colours_sensing", "output_array"]
     });
   }
 };
