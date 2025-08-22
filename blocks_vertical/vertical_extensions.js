@@ -180,6 +180,32 @@ Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_STRING = function() {
 };
 
 /**
+ * Extension to make represent a array reporter in Scratch-Blocks.
+ * That means the block has inline inputs, a square output shape, and a 'Array'
+ * output type.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_ARRAY = function() {
+  this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_SQUARE);
+  this.setOutput(true, 'Array');
+};
+
+/**
+ * Extension to make represent a object reporter in Scratch-Blocks.
+ * That means the block has inline inputs, a square (currently) output shape, and a 'Object'
+ * output type.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_OBJECT = function() {
+  this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_SQUARE); // TODO: Replace square output shape with object output shape
+  this.setOutput(true, 'Object');
+};
+
+/**
  * Extension to make represent a boolean reporter in Scratch-Blocks.
  * That means the block has inline inputs, a round output shape, and a 'Boolean'
  * output type.
@@ -322,6 +348,10 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
       Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_STRING);
   Blockly.Extensions.register('output_boolean',
       Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_BOOLEAN);
+  Blockly.Extensions.register('output_array',
+      Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_ARRAY);
+  Blockly.Extensions.register('output_object',
+      Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_OBJECT);
 
   // Custom procedures have interesting context menus.
   Blockly.Extensions.registerMixin('procedure_def_contextmenu',
