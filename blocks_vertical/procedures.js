@@ -171,16 +171,20 @@ const threeThemeCategoriesColors = {
  * @this Blockly.Block
  */
 Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) {
-  var category = Object.entries(threeThemeCategoriesColors).find(category => category[1].toLowerCase() === colour.toLowerCase());
+  var category = Object.entries(threeThemeCategoriesColors).find(function(category) {
+    return category[1].toLowerCase() === colour.toLowerCase();
+  });
   if (category) {
     return [
       Blockly.Colours[category[0]].primary,
       Blockly.Colours[category[0]].secondary,
       Blockly.Colours[category[0]].tertiary,
       Blockly.Colours[category[0]].quaternary || Blockly.Colours[category[0]].tertiary
-    ].map((v) => goog.color.rgbArrayToHex(
-      goog.color.darken(goog.color.hexToRgb(v), darken)
-    ));
+    ].map(function(v) {
+      return goog.color.rgbArrayToHex(
+        goog.color.darken(goog.color.hexToRgb(v), darken)
+      );
+    });
   } else if (window.ReduxStore) {
     const themeObj = window.ReduxStore.getState().scratchGui.theme.theme.getCustomExtensionColors();
     return Object.keys(themeObj).length === 0
@@ -192,9 +196,11 @@ Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) 
           themeObj.secondary(colour),
           themeObj.tertiary(colour),
           themeObj.quaternary(colour),
-        ].map((v) => goog.color.rgbArrayToHex(
-          goog.color.darken(goog.color.hexToRgb(v), darken)
-        ));
+        ].map(function(v) {
+          return goog.color.rgbArrayToHex(
+            goog.color.darken(goog.color.hexToRgb(v), darken)
+          );
+        });
   } else {
     return [goog.color.rgbArrayToHex(
       goog.color.darken(goog.color.hexToRgb(colour), darken)
