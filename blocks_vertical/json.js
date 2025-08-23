@@ -442,3 +442,33 @@ Blockly.Blocks['json_object_delete'] = {
         });
     }
 };
+
+Blockly.Blocks['json_object_entries'] = {
+    /**
+     * Block for reporting entries, keys or values of object.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_OBJECT_ENTRIES,
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "PROPERTY",
+                    "options": [
+                        [Blockly.Msg.JSON_OBJECT_ENTRIES_ENTRIES, 'entries'],
+                        [Blockly.Msg.JSON_OBJECT_ENTRIES_KEYS, 'keys'],
+                        [Blockly.Msg.JSON_OBJECT_ENTRIES_VALUES, 'values']
+                    ]
+                },
+                {
+                    "type": "input_value",
+                    "name": "OBJECT",
+                    "check": "Object"
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "extensions": ["colours_json", "output_array"]
+        });
+    }
+};
