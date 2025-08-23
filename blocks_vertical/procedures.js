@@ -907,7 +907,8 @@ Blockly.Blocks['procedures_definition'] = {
       ],
       "extensions": ["procedure_definerecolor", "shape_hat", "procedure_def_contextmenu"]
     });
-  }
+  },
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours
 };
 
 Blockly.Blocks['procedures_call'] = {
@@ -1037,7 +1038,8 @@ Blockly.Blocks['argument_reporter_boolean'] = {
       ],
       "extensions": ["procedure_definerecolor", "output_boolean"]
     });
-  }
+  },
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours
 };
 
 Blockly.Blocks['argument_reporter_string_number'] = {
@@ -1052,7 +1054,8 @@ Blockly.Blocks['argument_reporter_string_number'] = {
       ],
       "extensions": ["procedure_definerecolor", "output_number", "output_string"]
     });
-  }
+  },
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours
 };
 
 Blockly.Blocks['argument_editor_boolean'] = {
@@ -1114,5 +1117,6 @@ Blockly.Blocks['procedures_return'] = {
       "extensions": ["procedure_definerecolor", "shape_end"]
     });
     this.workspace.enableProcedureReturns();
-  }
+  },
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours
 };
