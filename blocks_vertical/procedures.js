@@ -221,7 +221,7 @@ Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_ = function() {
   var connectionMap = this.disconnectOldBlocks_();
   this.removeAllInputs_();
 
-  if (this.customColour_) this.setColour(Blockly.ScratchBlocks.ProcedureUtils.generateColours(this.customColour_, 0.1));
+  if (this.customColour_) this.setColour.apply(this, Blockly.ScratchBlocks.ProcedureUtils.generateColours(this.customColour_, 0.1));
 
   this.createAllInputs_(connectionMap);
   this.deleteShadows_(connectionMap);
