@@ -421,7 +421,7 @@ Blockly.Blocks['operator_nums_in_range'] = {
       ],
       "category": Blockly.Categories.operators,
       "output": "JSON",
-      "extensions": ["colours_operators", "shape_square"]
+      "extensions": ["colours_operators", "output_array"]
     });
   }
 };
