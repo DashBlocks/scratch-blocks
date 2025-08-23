@@ -221,7 +221,7 @@ Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_ = function() {
   var connectionMap = this.disconnectOldBlocks_();
   this.removeAllInputs_();
 
-  if (this.customColour_) this.setColour.apply(this, Blockly.ScratchBlocks.ProcedureUtils.generateColours(this.customColour_, 0.1));
+  if (this.customColour_) this.setColour.apply(this, this.generateColours(this.customColour_, this.type === 'procedures_prototype' ? 0.1 : 0));
 
   this.createAllInputs_(connectionMap);
   this.deleteShadows_(connectionMap);
@@ -933,6 +933,7 @@ Blockly.Blocks['procedures_call'] = {
   createAllInputs_: Blockly.ScratchBlocks.ProcedureUtils.createAllInputs_,
   updateDisplay_: Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_,
   getReturn: Blockly.ScratchBlocks.ProcedureUtils.getReturn,
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours,
 
   // Exist on all three blocks, but have different implementations.
   mutationToDom: Blockly.ScratchBlocks.ProcedureUtils.callerMutationToDom,
@@ -970,6 +971,7 @@ Blockly.Blocks['procedures_prototype'] = {
   deleteShadows_: Blockly.ScratchBlocks.ProcedureUtils.deleteShadows_,
   createAllInputs_: Blockly.ScratchBlocks.ProcedureUtils.createAllInputs_,
   updateDisplay_: Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_,
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours,
 
   // Exist on all three blocks, but have different implementations.
   mutationToDom: Blockly.ScratchBlocks.ProcedureUtils.definitionMutationToDom,
@@ -1005,6 +1007,7 @@ Blockly.Blocks['procedures_declaration'] = {
   deleteShadows_: Blockly.ScratchBlocks.ProcedureUtils.deleteShadows_,
   createAllInputs_: Blockly.ScratchBlocks.ProcedureUtils.createAllInputs_,
   updateDisplay_: Blockly.ScratchBlocks.ProcedureUtils.updateDisplay_,
+  generateColours: Blockly.ScratchBlocks.ProcedureUtils.generateColours,
 
   // Exist on all three blocks, but have different implementations.
   mutationToDom: Blockly.ScratchBlocks.ProcedureUtils.definitionMutationToDom,
