@@ -147,7 +147,7 @@ Blockly.ScratchBlocks.ProcedureUtils.getProcCode = function() {
   return this.procCode_;
 };
 
-const threeThemeCategoriesColors = {
+var threeThemeCategoriesColors = {
   motion: '#4C97FF',
   looks: '#9966FF',
   sounds: '#CF63CF',
@@ -158,7 +158,7 @@ const threeThemeCategoriesColors = {
   operators: '#59C059',
   data: '#FF8C1A',
   data_lists: '#FF661A',
-  json: "#748BEE",
+  json: '#748BEE',
   more: '#FF6680',
   addons: '#29beb8'
 };
