@@ -29,7 +29,6 @@
 
 goog.provide('Blockly.ScratchBlocks.VerticalExtensions');
 
-goog.require('Blockly.ScratchBlocks.ProcedureUtils');
 goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 
@@ -75,7 +74,7 @@ Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
     defineBlock.getChildren()[0].type === 'procedures_prototype' &&
     defineBlock.getChildren()[0].customColour_
   ) {
-    this.setColour.apply(this, Blockly.ScratchBlocks.ProcedureUtils.generateColours(defineBlock.getChildren()[0].customColour_, 0));
+    this.setColour.apply(this, this.generateColours(defineBlock.getChildren()[0].customColour_, 0));
   } else {
     var colours = Blockly.Colours.more;
     this.setColourFromRawValues_(colours.primary, colours.secondary,
