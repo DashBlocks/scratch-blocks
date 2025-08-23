@@ -29,6 +29,7 @@
 
 goog.provide('Blockly.ScratchBlocks.VerticalExtensions');
 
+goog.require('Blockly.ScratchBlocks.ProcedureUtils');
 goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 
