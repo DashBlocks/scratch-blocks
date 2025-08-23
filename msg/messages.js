@@ -118,6 +118,10 @@ Blockly.Msg.JSON_OBJECT_ITEMOF = 'item of key %1 in %2';
 Blockly.Msg.JSON_OBJECT_CONTAINS_KEY = '%1 contains key %2?';
 Blockly.Msg.JSON_OBJECT_SET = 'set key %1 to %2 in %3';
 Blockly.Msg.JSON_OBJECT_DELETE = 'delete key %1 in %2';
+Blockly.Msg.JSON_OBJECT_ENTRIES = '%1 of %2';
+Blockly.Msg.JSON_OBJECT_ENTRIES_ENTRIES = 'entries';
+Blockly.Msg.JSON_OBJECT_ENTRIES_KEYS = 'keys';
+Blockly.Msg.JSON_OBJECT_ENTRIES_VALUES = 'values';
 
 // Looks blocks
 Blockly.Msg.LOOKS_SAYFORSECS = 'say %1 for %2 seconds';
