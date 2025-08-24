@@ -182,7 +182,7 @@ Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) 
       Blockly.Colours[category[0]].quaternary || Blockly.Colours[category[0]].tertiary
     ].map(function(v) {
       return goog.color.rgbArrayToHex(
-        goog.color.darken(goog.color.hexToRgb(v), darken)
+        goog.color.darken(goog.color.hexToRgb(v.slice(0, 7)), darken)
       );
     });
   } else if (window.ReduxStore) {
@@ -198,7 +198,7 @@ Blockly.ScratchBlocks.ProcedureUtils.generateColours = function(colour, darken) 
           themeObj.quaternary(colour),
         ].map(function(v) {
           return goog.color.rgbArrayToHex(
-            goog.color.darken(goog.color.hexToRgb(v), darken)
+            goog.color.darken(goog.color.hexToRgb(v.slice(0, 7)), darken)
           );
         });
   } else {
