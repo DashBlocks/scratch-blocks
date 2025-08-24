@@ -401,6 +401,46 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_is_string'] = {
+  /**
+   * Block for _ string? operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISSTRING,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "STRING"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_is_number'] = {
+  /**
+   * Block for _ number? operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISNUMBER,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_nums_in_range'] = {
   /**
    * Block for reporting all numbers in range from to.
