@@ -441,6 +441,37 @@ Blockly.Blocks['operator_is_number'] = {
   }
 };
 
+Blockly.Blocks['operator_cast'] = {
+  /**
+   * Block for cast value to specific type
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_CAST,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [Blockly.Msg.OPERATORS_CAST_STRING, 'string'],
+            [Blockly.Msg.OPERATORS_CAST_NUMBER, 'number'],
+            [Blockly.Msg.OPERATORS_CAST_BOOLEAN, 'boolean'],
+            [Blockly.Msg.OPERATORS_CAST_ARRAY, 'array'],
+            [Blockly.Msg.OPERATORS_CAST_OBJECT, 'object']
+          ]
+        },
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_nums_in_range'] = {
   /**
    * Block for reporting all numbers in range from to.
