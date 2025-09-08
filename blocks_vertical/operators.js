@@ -546,8 +546,9 @@ Blockly.Blocks['operator_cast'] = {
           ]
         },
       ],
+      "output": null,
       "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_boolean"]
+      "extensions": ["colours_operators", "shape_round"]
     });
   }
 };
