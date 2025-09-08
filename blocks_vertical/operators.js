@@ -421,9 +421,42 @@ Blockly.Blocks['operator_typeof'] = {
   }
 };
 
+Blockly.Blocks['operator_is_type'] = {
+  /**
+   * Block for _ is (string v)?
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISTYPE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [Blockly.Msg.OPERATORS_CAST_STRING, 'string'],
+            [Blockly.Msg.OPERATORS_CAST_NUMBER, 'number'],
+            [Blockly.Msg.OPERATORS_CAST_BOOLEAN, 'boolean'],
+            [Blockly.Msg.OPERATORS_CAST_ARRAY, 'array'],
+            [Blockly.Msg.OPERATORS_CAST_OBJECT, 'object']
+          ]
+        },
+      ],
+      "output": null,
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "shape_round"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_is_string'] = {
   /**
    * Block for _ string? operator
+   * Legacy block
    * @this Blockly.Block
    */
   init: function() {
@@ -444,6 +477,7 @@ Blockly.Blocks['operator_is_string'] = {
 Blockly.Blocks['operator_is_number'] = {
   /**
    * Block for _ number? operator
+   * Legacy block
    * @this Blockly.Block
    */
   init: function() {
@@ -453,66 +487,6 @@ Blockly.Blocks['operator_is_number'] = {
         {
           "type": "input_value",
           "name": "NUM"
-        }
-      ],
-      "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_boolean"]
-    });
-  }
-};
-
-Blockly.Blocks['operator_is_boolean'] = {
-  /**
-   * Block for _ boolean? operator
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_ISBOOLEAN,
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "BOOL"
-        }
-      ],
-      "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_boolean"]
-    });
-  }
-};
-
-Blockly.Blocks['operator_is_array'] = {
-  /**
-   * Block for _ array? operator
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_ISARRAY,
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "ARRAY"
-        }
-      ],
-      "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_boolean"]
-    });
-  }
-};
-
-Blockly.Blocks['operator_is_object'] = {
-  /**
-   * Block for _ object? operator
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_ISOBJECT,
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "OBJECT"
         }
       ],
       "category": Blockly.Categories.operators,
@@ -546,8 +520,9 @@ Blockly.Blocks['operator_cast'] = {
           ]
         },
       ],
+      "output": null,
       "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_boolean"]
+      "extensions": ["colours_operators", "shape_round"]
     });
   }
 };
