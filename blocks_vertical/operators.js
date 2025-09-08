@@ -401,6 +401,26 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_typeof'] = {
+  /**
+   * Block for type of _ operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_TYPEOF,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_string"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_is_string'] = {
   /**
    * Block for _ string? operator
@@ -433,6 +453,66 @@ Blockly.Blocks['operator_is_number'] = {
         {
           "type": "input_value",
           "name": "NUM"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_is_boolean'] = {
+  /**
+   * Block for _ boolean? operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISBOOLEAN,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "BOOL"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_is_array'] = {
+  /**
+   * Block for _ array? operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISARRAY,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "ARRAY"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_is_object'] = {
+  /**
+   * Block for _ object? operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_ISOBJECT,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "OBJECT"
         }
       ],
       "category": Blockly.Categories.operators,
