@@ -1099,7 +1099,15 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   var contentDiv = Blockly.DropDownDiv.getContentDiv();
   var valueReportBox = goog.dom.createElement('div');
   valueReportBox.setAttribute('class', 'valueReportBox');
-  valueReportBox.textContent = value;
+  if (
+    typeof value === 'object' && value !== null && !Array.isArray(value) &&
+    !(typeof value.constructor === 'object' && value.constructor !== null && value.constructor.prototype === Object.prototype) &&
+    typeof value.customId === 'string' && typeof value.toReporterContent === 'function'
+  ) {
+      valueReportBox.appendChild(value.toReporterContent());
+  } else {
+      valueReportBox.textContent = String(value);
+  }
   contentDiv.appendChild(valueReportBox);
   Blockly.DropDownDiv.setColour(
       Blockly.Colours.valueReportBackground,
