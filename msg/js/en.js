@@ -188,6 +188,7 @@ Blockly.Msg["OPERATORS_LETTEROF_APPLE"] = "a";
 Blockly.Msg["OPERATORS_LENGTH"] = "length of %1";
 Blockly.Msg["OPERATORS_TYPEOF"] = "type of %1";
 Blockly.Msg["OPERATORS_ISTYPE"] = "%1 is %2?";
+Blockly.Msg["OPERATORS_ISTYPE_CUSTOMTYPE"] = "custom type";
 Blockly.Msg["OPERATORS_ISSTRING"] = "%1 string?";
 Blockly.Msg["OPERATORS_ISNUMBER"] = "%1 number?";
 Blockly.Msg["OPERATORS_CAST"] = "%1 as %2";

@@ -415,8 +415,9 @@ Blockly.Blocks['operator_typeof'] = {
           "name": "VALUE"
         }
       ],
+      "output": null,
       "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "output_string"]
+      "extensions": ["colours_operators", "shape_round"]
     });
   }
 };
@@ -442,13 +443,13 @@ Blockly.Blocks['operator_is_type'] = {
             [Blockly.Msg.OPERATORS_CAST_NUMBER, 'number'],
             [Blockly.Msg.OPERATORS_CAST_BOOLEAN, 'boolean'],
             [Blockly.Msg.OPERATORS_CAST_ARRAY, 'array'],
-            [Blockly.Msg.OPERATORS_CAST_OBJECT, 'object']
+            [Blockly.Msg.OPERATORS_CAST_OBJECT, 'object'],
+            [Blockly.Msg.OPERATORS_ISTYPE_CUSTOMTYPE, 'custom type']
           ]
         },
       ],
-      "output": null,
       "category": Blockly.Categories.operators,
-      "extensions": ["colours_operators", "shape_round"]
+      "extensions": ["colours_operators", "output_boolean"]
     });
   }
 };
