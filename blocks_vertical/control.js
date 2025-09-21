@@ -199,6 +199,47 @@ Blockly.Blocks['control_if_then_else'] = {
   }
 };
 
+/* Новый кусок  если что то пойдт не так то тут нужно удалить */
+Blockly.Blocks['control_if_elseif_else'] = {
+  /**
+   * if(){
+   *    code
+   * } else if () {
+   * 
+   * } else(){
+   * 
+   * }
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_if_elseif_else",
+      "message0": `${Blockly.Msg.CONTROL_IF} %2 ${Blockly.Msg.CONTROL_ELSEIF} %3 ${Blockly.Msg.CONTROL_ELSE} %4`,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "CONDITION",
+          "check": "Boolean"
+        },
+        {
+          "type": "input_value",
+          "name": "THEN"
+        },
+        {
+          "type": "input_value",
+          "name": "ELSEIF"
+        },
+        {
+          "type": "input_value",
+          "name": "ELSE"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_string"]
+    });
+  }
+};
+
 Blockly.Blocks['control_resume'] = {
   /**
    * Block for unpause (resume) all scripts.
