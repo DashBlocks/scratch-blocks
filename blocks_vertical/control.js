@@ -204,7 +204,7 @@ Blockly.Blocks['control_if_elseif_else'] = {
   /**
    * if(){
    *    code
-   * } else if () {
+   * } else ifh () {
    * 
    * } else(){
    * 
