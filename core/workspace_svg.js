@@ -1094,9 +1094,12 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   if (!block) {
     throw 'Tried to report value on block that does not exist.';
   }
+
   Blockly.DropDownDiv.hideWithoutAnimation();
   Blockly.DropDownDiv.clearContent();
+
   var contentDiv = Blockly.DropDownDiv.getContentDiv();
+
   var valueReportBox = goog.dom.createElement('div');
   valueReportBox.setAttribute('class', 'valueReportBox');
   var maxShownItems = 50;
@@ -1137,7 +1140,9 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   } else {
     valueReportBox.textContent = String(value);
   }
+
   contentDiv.appendChild(valueReportBox);
+
   Blockly.DropDownDiv.setColour(
     Blockly.Colours.valueReportBackground,
     Blockly.Colours.valueReportBorder
