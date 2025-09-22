@@ -1099,19 +1099,48 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   var contentDiv = Blockly.DropDownDiv.getContentDiv();
   var valueReportBox = goog.dom.createElement('div');
   valueReportBox.setAttribute('class', 'valueReportBox');
-  if (
-    typeof value === 'object' && value !== null && !Array.isArray(value) &&
-    !(typeof value.constructor === 'object' && value.constructor !== null && value.constructor.prototype === Object.prototype) &&
-    typeof value.customId === 'string' && typeof value.toReporterContent === 'function'
-  ) {
+  var maxShownItems = 50;
+  if (Array.isArray(value)) {
+    var more = value.length - maxShownItems;
+    var result = value.length === 0 ? '[]' : value.slice(0, maxShownItems).reduce(function(acc, value, i) {
+      acc += i === 0 ? '[' : '';
+      acc += Array.isArray(value)
+        ? 'nested array'
+        : typeof value === 'object' && value !== null
+          ? 'nested object'
+          : JSON.stringify(value);
+      acc += i === maxShownItems - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + ']' : ', ';
+      return acc;
+    }, '');
+    valueReportBox.textContent = result;
+  } else if (typeof value === 'object' && value !== null) {
+    if (
+      !(typeof value.constructor === 'object' && value.constructor !== null && value.constructor.prototype === Object.prototype) &&
+      typeof value.customId === 'string' && typeof value.toReporterContent === 'function'
+    ) {
       valueReportBox.appendChild(value.toReporterContent());
+    } else {
+      var more = Object.keys(value).length - maxShownItems;
+      var result = Object.keys(value).length === 0 ? '{}' : Object.entries(value).slice(0, 50).reduce(function(acc, value, i) {
+        acc += i === 0 ? '{' : '';
+        acc += JSON.stringify(value[0]) + ': ';
+        acc += Array.isArray(value[1])
+          ? 'nested array'
+          : typeof value[1] === 'object' && value[1] !== null
+            ? 'nested object'
+            : JSON.stringify(value[1]);
+        acc += i === maxShownItems - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + '}' : ', ';
+        return acc;
+      }, '');
+      valueReportBox.textContent = result;
+    }
   } else {
-      valueReportBox.textContent = String(value);
+    valueReportBox.textContent = String(value);
   }
   contentDiv.appendChild(valueReportBox);
   Blockly.DropDownDiv.setColour(
-      Blockly.Colours.valueReportBackground,
-      Blockly.Colours.valueReportBorder
+    Blockly.Colours.valueReportBackground,
+    Blockly.Colours.valueReportBorder
   );
   Blockly.DropDownDiv.showPositionedByBlock(this, block);
 };
