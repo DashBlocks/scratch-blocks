@@ -1094,22 +1094,25 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   if (!block) {
     throw 'Tried to report value on block that does not exist.';
   }
+
   Blockly.DropDownDiv.hideWithoutAnimation();
   Blockly.DropDownDiv.clearContent();
+
   var contentDiv = Blockly.DropDownDiv.getContentDiv();
+
   var valueReportBox = goog.dom.createElement('div');
   valueReportBox.setAttribute('class', 'valueReportBox');
   var maxShownItems = 50;
   if (Array.isArray(value)) {
     var more = value.length - maxShownItems;
-    var result = value.length === 0 ? '[]' : value.slice(0, maxShownItems).reduce(function(acc, value, i) {
+    var result = value.length === 0 ? '[]' : value.slice(0, maxShownItems).reduce(function(acc, value, i, array) {
       acc += i === 0 ? '[' : '';
       acc += Array.isArray(value)
         ? 'nested array'
         : typeof value === 'object' && value !== null
           ? 'nested object'
           : JSON.stringify(value);
-      acc += i === maxShownItems - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + ']' : ', ';
+      acc += i === array.length - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + ']' : ', ';
       return acc;
     }, '');
     valueReportBox.textContent = result;
@@ -1121,7 +1124,7 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
       valueReportBox.appendChild(value.toReporterContent());
     } else {
       var more = Object.keys(value).length - maxShownItems;
-      var result = Object.keys(value).length === 0 ? '{}' : Object.entries(value).slice(0, 50).reduce(function(acc, value, i) {
+      var result = Object.keys(value).length === 0 ? '{}' : Object.entries(value).slice(0, 50).reduce(function(acc, value, i, array) {
         acc += i === 0 ? '{' : '';
         acc += JSON.stringify(value[0]) + ': ';
         acc += Array.isArray(value[1])
@@ -1129,7 +1132,7 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
           : typeof value[1] === 'object' && value[1] !== null
             ? 'nested object'
             : JSON.stringify(value[1]);
-        acc += i === maxShownItems - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + '}' : ', ';
+        acc += i === array.length - 1 ? (more > 0 ? ', *' + more + ' more items*' : '') + '}' : ', ';
         return acc;
       }, '');
       valueReportBox.textContent = result;
@@ -1137,7 +1140,9 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
   } else {
     valueReportBox.textContent = String(value);
   }
+
   contentDiv.appendChild(valueReportBox);
+
   Blockly.DropDownDiv.setColour(
     Blockly.Colours.valueReportBackground,
     Blockly.Colours.valueReportBorder
