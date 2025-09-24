@@ -144,6 +144,21 @@ Blockly.Blocks['looks_hide'] = {
   }
 };
 
+Blockly.Blocks['looks_isvisible'] = {
+  /**
+   * Block to report visibility.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.LOOKS_ISVISIBLE,
+      "category": Blockly.Categories.looks,
+      "checkboxInFlyout": true,
+      "extensions": ["colours_looks", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['looks_hideallsprites'] = {
   /**
    * Hide-all-sprites block. Does not actually do anything. This is an
@@ -236,6 +251,35 @@ Blockly.Blocks['looks_cleargraphiceffects'] = {
       "message0": Blockly.Msg.LOOKS_CLEARGRAPHICEFFECTS,
       "category": Blockly.Categories.looks,
       "extensions": ["colours_looks", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['looks_geteffect'] = {
+  /**
+   * Block to get graphic effect.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.LOOKS_GETEFFECT,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "EFFECT",
+          "options": [
+            [Blockly.Msg.LOOKS_EFFECT_COLOR, 'COLOR'],
+            [Blockly.Msg.LOOKS_EFFECT_FISHEYE, 'FISHEYE'],
+            [Blockly.Msg.LOOKS_EFFECT_WHIRL, 'WHIRL'],
+            [Blockly.Msg.LOOKS_EFFECT_PIXELATE, 'PIXELATE'],
+            [Blockly.Msg.LOOKS_EFFECT_MOSAIC, 'MOSAIC'],
+            [Blockly.Msg.LOOKS_EFFECT_BRIGHTNESS, 'BRIGHTNESS'],
+            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST']
+          ]
+        }
+      ],
+      "category": Blockly.Categories.looks,
+      "extensions": ["colours_looks", "output_number"]
     });
   }
 };
