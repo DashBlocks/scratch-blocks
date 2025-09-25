@@ -525,7 +525,9 @@ Blockly.Blocks['sensing_of'] = {
           "options": [
             [Blockly.Msg.SENSING_OF_XPOSITION, 'x position'],
             [Blockly.Msg.SENSING_OF_YPOSITION, 'y position'],
+            [Blockly.Msg.SENSING_OF_POSITION, 'position'],
             [Blockly.Msg.SENSING_OF_DIRECTION, 'direction'],
+            [Blockly.Msg.SENSING_OF_ISVISIBLE, 'visibility'],
             [Blockly.Msg.SENSING_OF_COSTUMENUMBER, 'costume #'],
             [Blockly.Msg.SENSING_OF_COSTUMENAME, 'costume name'],
             [Blockly.Msg.SENSING_OF_SIZE, 'size'],
@@ -539,7 +541,7 @@ Blockly.Blocks['sensing_of'] = {
           "name": "OBJECT"
         }
       ],
-      "output": true,
+      "output": null,
       "category": Blockly.Categories.sensing,
       "outputShape": Blockly.OUTPUT_SHAPE_ROUND,
       "extensions": ["colours_sensing"]
