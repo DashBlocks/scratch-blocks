@@ -218,6 +218,35 @@ Blockly.Blocks['event_whengreaterthan'] = {
   }
 };
 
+Blockly.Blocks['event_open'] = {
+  /**
+   * Block to open link.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "event_open",
+      "message0": Blockly.Msg.EVENT_OPEN,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "OPEN_LINK"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "OPEN_OPTION",
+          "options": [
+            [Blockly.Msg.EVENT_OPEN_NEW_TAB, "new tab"]
+            [Blockly.Msg.EVENT_OPEN_THIS_TAB, "this tab"]
+          ]
+        }
+      ],
+      "category": Blockly.Categories.event,
+      "extensions": ["colours_event", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['event_broadcast_menu'] = {
   /**
    * Broadcast drop-down menu.
@@ -286,7 +315,7 @@ Blockly.Blocks['event_broadcastandwait'] = {
 
 Blockly.Blocks['event_whenkeypressed'] = {
   /**
-   * Block to send a broadcast.
+   * Block to handle when some key pressed.
    * @this Blockly.Block
    */
   init: function() {
