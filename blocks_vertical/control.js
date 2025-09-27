@@ -62,6 +62,26 @@ Blockly.Blocks['control_forever'] = {
   }
 };
 
+Blockly.Blocks['control_alert'] = {
+  /**
+   * block show alert
+   * @this Blockly.Block
+   */
+  init: function(){
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_ALERT,
+      "args0": [
+      {
+        "type": "input_value",
+        "name": "Hello"
+      }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['control_repeat'] = {
   /**
    * Block for repeat n times (external number).
