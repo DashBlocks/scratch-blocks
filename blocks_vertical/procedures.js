@@ -159,8 +159,7 @@ var threeThemeCategoriesColors = {
   data: '#FF8C1A',
   data_lists: '#FF661A',
   json: '#748BEE',
-  more: '#FF6680',
-  addons: '#29beb8'
+  more: '#FF6680'
 };
 
 /**
