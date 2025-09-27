@@ -62,7 +62,7 @@ Blockly.Blocks['control_forever'] = {
   }
 };
 
-Blockly.Blocks['control_alert'] = {
+Blockly.Blocks['control_alertt'] = {
   /**
    * block show alert
    * @this Blockly.Block
