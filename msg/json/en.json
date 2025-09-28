@@ -54,6 +54,7 @@
     "EVENT_OPEN": "open %1 in %2",
     "EVENT_OPEN_NEW_TAB": "new tab",
     "EVENT_OPEN_THIS_TAB": "this tab",
+    "EVENT_OPEN_NEW_WINDOW": "new window",
     "EVENT_BROADCAST": "broadcast %1",
     "EVENT_BROADCASTANDWAIT": "broadcast %1 and wait",
     "EVENT_WHENKEYPRESSED": "when %1 key pressed",
