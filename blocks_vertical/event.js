@@ -238,7 +238,7 @@ Blockly.Blocks['event_open'] = {
           "options": [
             [Blockly.Msg.EVENT_OPEN_NEW_TAB, "new tab"],
             [Blockly.Msg.EVENT_OPEN_THIS_TAB, "this tab"],
-            [Blockly.Msg.EVENT_OPEN_WINDOW, "new window"]
+            [Blockly.Msg.EVENT_OPEN_NEW_WINDOW, "new window"]
           ]
         }
       ],
