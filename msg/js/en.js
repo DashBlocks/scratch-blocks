@@ -60,6 +60,7 @@ Blockly.Msg["EVENT_WHENGREATERTHAN_LOUDNESS"] = "loudness";
 Blockly.Msg["EVENT_OPEN"] = "open %1 in %2";
 Blockly.Msg["EVENT_OPEN_NEW_TAB"] = "new tab";
 Blockly.Msg["EVENT_OPEN_THIS_TAB"] = "this tab";
+Blockly.Msg["EVENT_OPEN_NEW_WINDOW"] = "new window";
 Blockly.Msg["EVENT_BROADCAST"] = "broadcast %1";
 Blockly.Msg["EVENT_BROADCASTANDWAIT"] = "broadcast %1 and wait";
 Blockly.Msg["EVENT_WHENKEYPRESSED"] = "when %1 key pressed";
