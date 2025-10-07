@@ -401,6 +401,38 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_se_with'] = {
+  /**
+   * Block for _ [starts/ends v] with _ operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_SE_WITH,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE1"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [Blockly.Msg.OPERATORS_SE_WITH_STARTS, 'starts'],
+            [Blockly.Msg.OPERATORS_SE_WITH_ENDS, 'ends']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE2"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_typeof'] = {
   /**
    * Block for type of _ operator
@@ -524,6 +556,34 @@ Blockly.Blocks['operator_cast'] = {
       "output": null,
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "shape_round"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_to_case'] = {
+  /**
+   * Block to convert value into specific case
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_TOCASE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "CASE",
+          "options": [
+            [Blockly.Msg.OPERATORS_TOCASE_UPPER, 'upper'],
+            [Blockly.Msg.OPERATORS_TOCASE_LOWER, 'lower']
+          ]
+        },
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_string"]
     });
   }
 };
