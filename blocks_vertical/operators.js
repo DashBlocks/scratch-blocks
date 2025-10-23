@@ -317,6 +317,83 @@ Blockly.Blocks['operator_join'] = {
   }
 };
 
+Blockly.Blocks['operator_joinexpandable'] = {
+  /**
+   * Block for joining N strings together.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_JOIN,
+      "args0": [
+        {
+          "type": "field_expandable_remove",
+          "name": "REMOVE"
+        },
+        {
+          "type": "field_expandable_add",
+          "name": "ADD"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_string"]
+    });
+    this.messageList = ["apple", "banana", "pear", "orange", "mango", "strawberry", "pineapple", "grape", "kiwi"];
+    this.inputs_ = 0;
+  }
+
+  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
+
+  mutationToDom: function() {
+    const container = document.createElement("mutation");
+    container.setAttribute("inputcount", String(this.inputs_));
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    const inputCount = Number(xmlElement.getAttribute("inputcount"));
+    if (this.inputList.length > 1) {
+      // This was a control Z action
+      if (this.inputs_ > inputCount) {
+        const lastInput = this.inputList[this.inputList.length - 1];
+        const innerBlock = lastInput.connection.targetBlock();
+        if (innerBlock.isShadow()) innerBlock.dispose();
+        this.removeInput(lastInput.name);
+      }
+    }
+
+    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
+    for (let i = 0; i < this.inputs_; i++) {
+      // VM will automatically replace empty inputs with saved shadows
+      if (!this.getInput(`INPUT${i + 1}`)) this.appendValueInput(`INPUT${i + 1}`);
+    }
+  },
+
+  onExpandableButtonClicked_: function (isAdding) {
+    // Create an event group to keep field value and mutator in sync
+    // Return null at the end because setValue is called here already.
+    Blockly.Events.setGroup(true);
+    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
+    if (isAdding) {
+      this.inputs_++;
+      const number = this.inputs_;
+      const newInput = this.appendValueInput(`INPUT${number}`);
+      const text = this.messageList[number - 1];
+      this.fillInBlock(newInput.connection, "text",  text ? text : "...", "TEXT");
+    } else if (this.inputs_ > 1) {
+      this.removeInput(`INPUT${this.inputs_}`);
+      this.inputs_--;
+    }
+    this.initSvg();
+    if (this.rendered) this.render();
+
+    var newMutation = Blockly.Xml.domToText(this.mutationToDom());
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+      this, 'mutation', null, oldMutation, newMutation
+    ));
+    Blockly.Events.setGroup(false);
+  }
+};
+
 Blockly.Blocks['operator_newline'] = {
   /**
    * Block for newline.
