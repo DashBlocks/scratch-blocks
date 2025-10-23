@@ -340,7 +340,7 @@ Blockly.Blocks['operator_joinexpandable'] = {
     });
     this.messageList = ["apple", "banana", "pear", "orange", "mango", "strawberry", "pineapple", "grape", "kiwi"];
     this.inputs_ = 0;
-  }
+  },
 
   fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
 
