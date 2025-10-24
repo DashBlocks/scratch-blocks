@@ -338,7 +338,7 @@ Blockly.Blocks['operator_joinexpandable'] = {
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_string"]
     });
-    this.messageList = ["apple", "banana", "pear ", "orange ", "mango ", "strawberry ", "pineapple ", "grape ", "kiwi"];
+    this.messageList = ["apple ", "banana ", "pear ", "orange ", "mango ", "strawberry ", "pineapple ", "grape ", "kiwi "];
     this.inputs_ = 0;
   },
 
@@ -378,7 +378,7 @@ Blockly.Blocks['operator_joinexpandable'] = {
       const number = this.inputs_;
       const newInput = this.appendValueInput(`INPUT${number}`);
       const text = this.messageList[number - 1];
-      this.fillInBlock(newInput.connection, "text",  text ? text : "...", "TEXT");
+      this.fillInBlock(newInput.connection, "text",  text ? text : "... ", "TEXT");
     } else if (this.inputs_ > 1) {
       this.removeInput(`INPUT${this.inputs_}`);
       this.inputs_--;
