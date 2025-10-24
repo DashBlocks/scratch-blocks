@@ -502,26 +502,6 @@ Blockly.BlockSvg.DEFINE_BLOCK_PADDING_RIGHT = 2 * Blockly.BlockSvg.GRID_UNIT;
  * Change the colour of a block.
  */
 Blockly.BlockSvg.prototype.updateColour = function() {
-  // Recolor argument reporters, defenition and return blocks
-  if (this.isHasDefineRecoloring) {
-    var defineBlock = this;
-    while (defineBlock.getParent()) {
-      defineBlock = defineBlock.getParent();
-    }
-    if (
-      defineBlock.type === 'procedures_definition' &&
-      defineBlock.getChildren()[0] &&
-      defineBlock.getChildren()[0].type === 'procedures_prototype' &&
-      defineBlock.getChildren()[0].customColour_
-    ) {
-      this.setColour.apply(this, this.generateColours(defineBlock.getChildren()[0].customColour_, 0));
-    } else {
-      var colours = Blockly.Colours.more;
-      this.setColourFromRawValues_(colours.primary, colours.secondary,
-          colours.tertiary, colours.quaternary);
-    }
-  }
-
   var strokeColour = this.getColourTertiary();
   var renderShadowed = this.isShadow() &&
       !Blockly.scratchBlocksUtils.isShadowArgumentReporter(this);
