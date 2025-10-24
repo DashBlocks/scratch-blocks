@@ -64,34 +64,8 @@ Blockly.ScratchBlocks.VerticalExtensions.colourHelper = function(category) {
  * @readonly
  */
 Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
-  this.updateDisplay_ = function() {
-    var wasRendered = this.rendered;
-    this.rendered = false;
-
-    var defineBlock = this;
-    while (defineBlock.getParent()) {
-      defineBlock = defineBlock.getParent();
-    }
-    if (
-      defineBlock.type === 'procedures_definition' &&
-      defineBlock.getChildren()[0] &&
-      defineBlock.getChildren()[0].type === 'procedures_prototype' &&
-      defineBlock.getChildren()[0].customColour_
-    ) {
-      this.setColour.apply(this, this.generateColours(defineBlock.getChildren()[0].customColour_, 0));
-    } else {
-      var colours = Blockly.Colours.more;
-      this.setColourFromRawValues_(colours.primary, colours.secondary,
-          colours.tertiary, colours.quaternary);
-    }
-
-    this.rendered = wasRendered;
-    if (wasRendered && !this.isInsertionMarker()) {
-      this.initSvg();
-      this.render();
-    }
-  };
-  this.updateDisplay_();
+  this.isHasDefineRecoloring = true;
+  this.updateColour();
 };
 
 /**
