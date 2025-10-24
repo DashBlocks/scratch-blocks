@@ -338,7 +338,7 @@ Blockly.Blocks['operator_joinexpandable'] = {
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_string"]
     });
-    this.messageList = ["apple", "banana", "pear", "orange", "mango", "strawberry", "pineapple", "grape", "kiwi"];
+    this.messageList = ["apple", "banana", "pear ", "orange ", "mango ", "strawberry ", "pineapple ", "grape ", "kiwi"];
     this.inputs_ = 0;
   },
 
