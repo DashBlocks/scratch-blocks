@@ -74,6 +74,8 @@ goog.addDependency("../../../" + dir + "/core/field_colour.js", ['Blockly.FieldC
 goog.addDependency("../../../" + dir + "/core/field_colour_slider.js", ['Blockly.FieldColourSlider'], ['Blockly.Field', 'Blockly.DropDownDiv', 'goog.dom', 'goog.events', 'goog.style', 'goog.color', 'goog.ui.Slider']);
 goog.addDependency("../../../" + dir + "/core/field_date.js", ['Blockly.FieldDate'], ['Blockly.Field', 'Blockly.utils', 'goog.date', 'goog.date.DateTime', 'goog.dom', 'goog.events', 'goog.i18n.DateTimeSymbols', 'goog.i18n.DateTimeSymbols_he', 'goog.style', 'goog.ui.DatePicker']);
 goog.addDependency("../../../" + dir + "/core/field_dropdown.js", ['Blockly.FieldDropdown'], ['Blockly.Field', 'Blockly.DropDownDiv', 'goog.dom', 'goog.events', 'goog.style', 'goog.ui.Menu', 'goog.ui.MenuItem', 'goog.userAgent']);
+goog.addDependency("../../../" + dir + "/core/field_expandable_add.js", ['Blockly.FieldExpandableAdd'], ['Blockly.Field']);
+goog.addDependency("../../../" + dir + "/core/field_expandable_remove.js", ['Blockly.FieldExpandableRemove'], ['Blockly.Field']);
 goog.addDependency("../../../" + dir + "/core/field_iconmenu.js", ['Blockly.FieldIconMenu'], ['Blockly.DropDownDiv']);
 goog.addDependency("../../../" + dir + "/core/field_image.js", ['Blockly.FieldImage'], ['Blockly.Field', 'goog.dom', 'goog.math.Size', 'goog.userAgent']);
 goog.addDependency("../../../" + dir + "/core/field_label.js", ['Blockly.FieldLabel'], ['Blockly.Field', 'Blockly.Tooltip', 'goog.dom', 'goog.math.Size', 'goog.userAgent']);
@@ -1132,6 +1134,8 @@ goog.require('Blockly.FieldColour');
 goog.require('Blockly.FieldColourSlider');
 goog.require('Blockly.FieldDate');
 goog.require('Blockly.FieldDropdown');
+goog.require('Blockly.FieldExpandableAdd');
+goog.require('Blockly.FieldExpandableRemove');
 goog.require('Blockly.FieldIconMenu');
 goog.require('Blockly.FieldImage');
 goog.require('Blockly.FieldLabel');
