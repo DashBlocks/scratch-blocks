@@ -65,7 +65,25 @@ Blockly.ScratchBlocks.VerticalExtensions.colourHelper = function(category) {
  */
 Blockly.ScratchBlocks.VerticalExtensions.PROCEDURE_DEFINERECOLOR = function() {
   this.isHasDefineRecoloring = true;
-  this.updateColour();
+  this.defineRecoloringUpdate = function() {
+    var defineBlock = this;
+    while (defineBlock.getParent()) {
+      defineBlock = defineBlock.getParent();
+    }
+    if (
+      defineBlock.type === 'procedures_definition' &&
+      defineBlock.getChildren()[0] &&
+      defineBlock.getChildren()[0].type === 'procedures_prototype' &&
+      defineBlock.getChildren()[0].customColour_
+    ) {
+      this.setColour.apply(this, this.generateColours(defineBlock.getChildren()[0].customColour_, 0));
+    } else {
+      var colours = Blockly.Colours.more;
+      this.setColourFromRawValues_(colours.primary, colours.secondary,
+          colours.tertiary, colours.quaternary);
+    }
+  };
+  this.defineRecoloringUpdate();
 };
 
 /**
