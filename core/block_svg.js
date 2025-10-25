@@ -317,8 +317,9 @@ Blockly.BlockSvg.prototype.updateIntersectionObserver = function() {
 Blockly.BlockSvg.prototype.setParent = function(newParent) {
   // Recolor argument reporters, defenition and return blocks
   if (this.isHasDefineRecoloring && newParent) {
+    var thisBlock = this;
     queueMicrotask(function() {
-      this.defineRecoloringUpdate();
+      thisBlock.defineRecoloringUpdate();
     });
   }
 
@@ -774,8 +775,9 @@ Blockly.BlockSvg.prototype.moveConnections_ = function(dx, dy) {
 Blockly.BlockSvg.prototype.setDragging = function(adding) {
   // Recolor argument reporters, defenition and return blocks
   if (this.isHasDefineRecoloring && !adding && this.svgGroup_.classList.contains('blocklyDragging')) {
+    var thisBlock = this;
     queueMicrotask(function() {
-      this.defineRecoloringUpdate();
+      thisBlock.defineRecoloringUpdate();
     });
   }
 
