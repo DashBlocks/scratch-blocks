@@ -119,6 +119,7 @@ Blockly.Msg.JSON_ARRAY_BEHIND = '%1 behind %2';
 Blockly.Msg.JSON_ARRAY_AT = 'insert %1 at %2 of %3';
 Blockly.Msg.JSON_ARRAY_DELETE = 'delete %1 of %2';
 Blockly.Msg.JSON_ARRAY_REPLACE = 'replace item %1 of %2 with %3';
+Blockly.Msg.JSON_ARRAY_EXPANDABLE = 'array by values %1 %2';
 Blockly.Msg.JSON_OBJECT_EMPTY = 'empty object';
 Blockly.Msg.JSON_OBJECT_SPLIT = 'object from %1 with key %2 and pair %3 separators';
 Blockly.Msg.JSON_OBJECT_ITEMOF = 'item of key %1 in %2';
