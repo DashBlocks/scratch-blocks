@@ -183,6 +183,31 @@ Blockly.Blocks['json_set_by_path'] = {
     }
 };
 
+Blockly.Blocks['json_stringify_spacer'] = {
+    /**
+     * Block for reporting a stringified array or object with spacer.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_SET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                },
+                {
+                    "type": "input_value",
+                    "name": "SPACER"
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "extensions": ["colours_json", "output_string"]
+        });
+    }
+};
+
 Blockly.Blocks['json_array_empty'] = {
     /**
      * Block for creating an empty list.
