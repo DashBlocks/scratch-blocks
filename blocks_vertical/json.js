@@ -190,7 +190,7 @@ Blockly.Blocks['json_stringify_spacer'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": Blockly.Msg.JSON_SET_BY_PATH,
+            "message0": Blockly.Msg.JSON_STRINGIFY_SPACER,
             "args0": [
                 {
                     "type": "input_value",
