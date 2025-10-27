@@ -125,6 +125,64 @@ Blockly.Blocks['json_length'] = {
     }
 };
 
+Blockly.Blocks['json_get_by_path'] = {
+    /**
+     * Block for getting an item from an array or object by path.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_GET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PATH",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "output": ["Array", "Object"],
+            "extensions": ["colours_json", "shape_round"]
+        });
+    }
+};
+
+Blockly.Blocks['json_set_by_path'] = {
+    /**
+     * Block for reporting an array or object with setted item by path.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_SET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                },
+                {
+                    "type": "input_value",
+                    "name": "PATH",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "output": ["Array", "Object"],
+            "extensions": ["colours_json", "shape_round"]
+        });
+    }
+};
+
 Blockly.Blocks['json_array_empty'] = {
     /**
      * Block for creating an empty list.
