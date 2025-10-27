@@ -176,7 +176,6 @@ Blockly.Blocks['operator_mathexpandable'] = {
   },
 
   mutationToDom: function () {
-    // on save
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
     let orderedOperations = "";
@@ -188,15 +187,13 @@ Blockly.Blocks['operator_mathexpandable'] = {
     return container;
   },
   domToMutation: function (xmlElement) {
-    // on load
     const inputCount = Number(xmlElement.getAttribute("inputcount"));
     const menuValues = String(xmlElement.getAttribute("menuvalues"));
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
 
     let repeatPreventer = false;
     if (this.inputList.length > 1) {
-      // this was a control z action
-
+      // This was a control Z action
       if (this.inputList.length - 1 === menuValues.length) repeatPreventer = true;
       else {
         const lastInput = this.inputList[this.inputList.length - 1];
@@ -215,7 +212,6 @@ Blockly.Blocks['operator_mathexpandable'] = {
         const menu = input.appendField(this.menuGenerator());
         menu.fieldRow[0].setValue(menuValues[i - 1] ? menuValues[i - 1] : "+", true);
       }
-      // vm will automatically replace2 empty inputs with saved shadows
     }
   },
 
