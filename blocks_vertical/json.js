@@ -125,6 +125,89 @@ Blockly.Blocks['json_length'] = {
     }
 };
 
+Blockly.Blocks['json_get_by_path'] = {
+    /**
+     * Block for getting an item from an array or object by path.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_GET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PATH",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "output": ["Array", "Object"],
+            "extensions": ["colours_json", "shape_round"]
+        });
+    }
+};
+
+Blockly.Blocks['json_set_by_path'] = {
+    /**
+     * Block for reporting an array or object with setted item by path.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_SET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "ITEM"
+                },
+                {
+                    "type": "input_value",
+                    "name": "PATH",
+                    "check": "Array"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "output": ["Array", "Object"],
+            "extensions": ["colours_json", "shape_round"]
+        });
+    }
+};
+
+Blockly.Blocks['json_stringify_spacer'] = {
+    /**
+     * Block for reporting a stringified array or object with spacer.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            "message0": Blockly.Msg.JSON_SET_BY_PATH,
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": ["Array", "Object"]
+                },
+                {
+                    "type": "input_value",
+                    "name": "SPACER"
+                }
+            ],
+            "category": Blockly.Categories.json,
+            "extensions": ["colours_json", "output_string"]
+        });
+    }
+};
+
 Blockly.Blocks['json_array_empty'] = {
     /**
      * Block for creating an empty list.
@@ -294,6 +377,83 @@ Blockly.Blocks['json_array_replace'] = {
             "extensions": ["colours_json", "output_array"]
         });
     }
+};
+
+Blockly.Blocks['json_array_expandable'] = {
+  /**
+   * Block for creating a list with values.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.JSON_ARRAY_EXPANDABLE,
+      "args0": [
+        {
+          "type": "field_expandable_remove",
+          "name": "REMOVE"
+        },
+        {
+          "type": "field_expandable_add",
+          "name": "ADD"
+        }
+      ],
+      "category": Blockly.Categories.json,
+      "extensions": ["colours_json", "output_array"]
+    });
+    this.messageList = ["apple", "banana", "pear", "orange", "mango", "strawberry", "pineapple", "grape", "kiwi"];
+    this.inputs_ = 0;
+  },
+
+  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
+
+  mutationToDom: function() {
+    const container = document.createElement("mutation");
+    container.setAttribute("inputcount", String(this.inputs_));
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    const inputCount = Number(xmlElement.getAttribute("inputcount"));
+    if (this.inputList.length > 1) {
+      // This was a control Z action
+      if (this.inputs_ > inputCount) {
+        const lastInput = this.inputList[this.inputList.length - 1];
+        const innerBlock = lastInput.connection.targetBlock();
+        if (innerBlock.isShadow()) innerBlock.dispose();
+        this.removeInput(lastInput.name);
+      }
+    }
+
+    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
+    for (let i = 0; i < this.inputs_; i++) {
+      // VM will automatically replace empty inputs with saved shadows
+      if (!this.getInput(`INPUT${i + 1}`)) this.appendValueInput(`INPUT${i + 1}`);
+    }
+  },
+
+  onExpandableButtonClicked_: function (isAdding) {
+    // Create an event group to keep field value and mutator in sync
+    // Return null at the end because setValue is called here already.
+    Blockly.Events.setGroup(true);
+    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
+    if (isAdding) {
+      this.inputs_++;
+      const number = this.inputs_;
+      const newInput = this.appendValueInput(`INPUT${number}`);
+      const text = this.messageList[number - 1];
+      this.fillInBlock(newInput.connection, "text",  text ? text : "...", "TEXT");
+    } else if (this.inputs_ > 1) {
+      this.removeInput(`INPUT${this.inputs_}`);
+      this.inputs_--;
+    }
+    this.initSvg();
+    if (this.rendered) this.render();
+
+    var newMutation = Blockly.Xml.domToText(this.mutationToDom());
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+      this, 'mutation', null, oldMutation, newMutation
+    ));
+    Blockly.Events.setGroup(false);
+  }
 };
 
 Blockly.Blocks['json_object_empty'] = {
