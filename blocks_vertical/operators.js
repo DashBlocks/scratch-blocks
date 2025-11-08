@@ -421,7 +421,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
       return [
         ["=", "="], [">", ">"],
         ["<", "<"], ["and", "&"],
-        ["or", "|"], ["not", "!"]
+        ["or", "|"]
       ];
     });
     const ogSetValue = dropdown.setValue;
