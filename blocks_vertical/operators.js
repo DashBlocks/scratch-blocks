@@ -420,7 +420,8 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     const dropdown = new Blockly.FieldDropdown(function () {
       return [
         ["=", "="], [">", ">"],
-        ["<", "<"]
+        ["<", "<"], ["and", "and"],
+        ["or", "or"]
       ];
     });
     const ogSetValue = dropdown.setValue;
