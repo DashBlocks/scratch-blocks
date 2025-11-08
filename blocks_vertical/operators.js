@@ -472,8 +472,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
 
     for (let i = 0; i < this.inputs_; i++) {
       if (repeatPreventer && this.getInput(`BOOL${i + 1}`)) continue;
-
-      const input = this.appendValueInput(`BOOL${i + 1}`);
+      const input = this.appendValueInput(`BOOL${i + 1}`).setCheck('Boolean');
       if (i > 0) {
         const menu = input.appendField(this.menuGenerator());
         menu.fieldRow[0].setValue(menuValues[i - 1] ? menuValues[i - 1] : "=", true);
@@ -489,7 +488,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     if (isAdding) {
       this.inputs_++;
       const number = this.inputs_;
-      const newInput = this.appendValueInput(`BOOL${number}`);
+      const newInput = this.appendValueInput(`BOOL${number}`).setCheck('Boolean');
       newInput.appendField(this.menuGenerator());
       this.fillInBlock(newInput.connection, "boolean");
     } else if (this.inputs_ > 1) {
