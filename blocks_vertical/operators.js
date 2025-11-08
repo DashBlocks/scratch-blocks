@@ -489,9 +489,9 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     if (isAdding) {
       this.inputs_++;
       const number = this.inputs_;
-      const newInput = this.appendValueInput(`NUM${number}`);
+      const newInput = this.appendValueInput(`BOOL${number}`);
       newInput.appendField(this.menuGenerator());
-      this.fillInBlock(newInput.connection, "input_value");
+      this.fillInBlock(newInput.connection, "boolean");
     } else if (this.inputs_ > 1) {
       const number = this.inputs_;
       this.removeInput(`BOOL${number}`);
