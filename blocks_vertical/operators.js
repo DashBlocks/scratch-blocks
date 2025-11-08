@@ -390,7 +390,7 @@ Blockly.Blocks['operator_or'] = {
   }
 };
 
-Blockly.Blocks['operator_comparatorsexpandable'] = {
+Blockly.Blocks['operator_comparatorexpandable'] = {
   /**
    * Block to comparate conditions.
    * @this Blockly.Block
