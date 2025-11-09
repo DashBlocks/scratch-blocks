@@ -155,7 +155,7 @@ Blockly.Blocks['operator_mathexpandable'] = {
       return [
         ["+", "+"], ["-", "-"],
         ["*", "*"], ["/", "/"],
-        ["^", "^"],
+        ["^", "**"],
       ];
     });
     const ogSetValue = dropdown.setValue;
