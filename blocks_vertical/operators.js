@@ -421,8 +421,8 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     const dropdown = new Blockly.FieldDropdown(function () {
       return [
         ["=", "="], [">", ">"],
-        ["<", "<"], ["and", "&"],
-        ["or", "|"]
+        ["<", "<"], ["and", "and"],
+        ["or", "or"]
       ];
     });
     const ogSetValue = dropdown.setValue;
@@ -445,17 +445,18 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
   mutationToDom: function () {
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
-    let orderedOperations = "";
-    for (var i = 1; i < this.inputList.length; i++) {
-      const input = this.inputList[i];
-      if (input.fieldRow[0]) orderedOperations += input.fieldRow[0].getValue();
-    }
-    container.setAttribute("menuvalues", orderedOperations);
+    let menuValues = this.inputList.map((input) => input.fieldRow[0].getValue());
+    container.setAttribute("menuvalues", JSON.stringify(menuValues));
     return container;
   },
   domToMutation: function (xmlElement) {
     const inputCount = Number(xmlElement.getAttribute("inputcount"));
-    const menuValues = String(xmlElement.getAttribute("menuvalues"));
+    let menuValues;
+    try {
+      menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
+    } catch {
+      menuValues = [];
+    }
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
 
     let repeatPreventer = false;
