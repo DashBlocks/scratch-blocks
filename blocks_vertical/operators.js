@@ -178,7 +178,7 @@ Blockly.Blocks['operator_mathexpandable'] = {
   mutationToDom: function () {
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
-    let menuValues = this.inputList.map((input) => input.fieldRow[0].getValue());
+    let menuValues = this.inputList.reduce((acc, input) => input.fieldRow[0]?.getValue ? [...acc, input.fieldRow[0].getValue()] : acc, []);
     container.setAttribute("menuvalues", JSON.stringify(menuValues));
     return container;
   },
@@ -187,7 +187,7 @@ Blockly.Blocks['operator_mathexpandable'] = {
     let menuValues;
     try {
       menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch (_) {
+    } catch {
       menuValues = [];
     }
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
@@ -445,7 +445,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
   mutationToDom: function () {
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
-    let menuValues = this.inputList.map((input) => input.fieldRow[0].getValue());
+    let menuValues = this.inputList.reduce((acc, input) => input.fieldRow[0]?.getValue ? [...acc, input.fieldRow[0].getValue()] : acc, []);
     container.setAttribute("menuvalues", JSON.stringify(menuValues));
     return container;
   },
@@ -454,7 +454,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     let menuValues;
     try {
       menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch (_) {
+    } catch {
       menuValues = [];
     }
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
