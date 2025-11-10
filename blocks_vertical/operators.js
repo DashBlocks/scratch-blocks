@@ -189,7 +189,7 @@ Blockly.Blocks['operator_mathexpandable'] = {
     let menuValues;
     try {
       menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch {
+    } catch (_) {
       menuValues = [];
     }
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
@@ -458,7 +458,7 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     let menuValues;
     try {
       menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch {
+    } catch (_) {
       menuValues = [];
     }
     this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
