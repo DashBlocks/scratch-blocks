@@ -179,8 +179,8 @@ Blockly.Blocks['operator_mathexpandable'] = {
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
     let menuValues = this.inputList.reduce((acc, input) => {
-      return input.fieldRow[0] && input.fieldRow[0].getValue ? [...acc, input.fieldRow[0].getValue()] : acc, []
-    });
+      return input.fieldRow[0] && input.fieldRow[0].getValue ? [...acc, input.fieldRow[0].getValue()] : acc
+    }, []);
     container.setAttribute("menuvalues", JSON.stringify(menuValues));
     return container;
   },
@@ -448,8 +448,8 @@ Blockly.Blocks['operator_comparatorexpandable'] = {
     const container = document.createElement("mutation");
     container.setAttribute("inputcount", String(this.inputs_));
     let menuValues = this.inputList.reduce((acc, input) => {
-      return input.fieldRow[0] && input.fieldRow[0].getValue ? [...acc, input.fieldRow[0].getValue()] : acc, []
-    });
+      return input.fieldRow[0] && input.fieldRow[0].getValue ? [...acc, input.fieldRow[0].getValue()] : acc
+    }, []);
     container.setAttribute("menuvalues", JSON.stringify(menuValues));
     return container;
   },
