@@ -1195,7 +1195,11 @@ Blockly.BlockSvg.prototype.renderDraw_ = function(iconWidth, inputRows) {
   if (this.outputConnection) {
     // Width of the curve/pointy-curve
     var shape = this.getOutputShape();
-    if (shape === Blockly.OUTPUT_SHAPE_HEXAGONAL || shape === Blockly.OUTPUT_SHAPE_ROUND) {
+    if (
+      shape === Blockly.OUTPUT_SHAPE_HEXAGONAL ||
+      shape === Blockly.OUTPUT_SHAPE_ROUND ||
+      shape === Blockly.OUTPUT_SHAPE_PLUS
+    ) {
       this.edgeShapeWidth_ = inputRows.bottomEdge / 2;
       this.edgeShape_ = shape;
       this.squareTopLeftCorner_ = true;
