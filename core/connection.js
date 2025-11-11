@@ -708,7 +708,13 @@ Blockly.Connection.prototype.getOutputShape = function() {
     return Blockly.OUTPUT_SHAPE_ROUND;
   }
   if (this.check_.indexOf('String') !== -1) {
+    return Blockly.OUTPUT_SHAPE_ROUND;
+  }
+  if (this.check_.indexOf('Array') !== -1) {
     return Blockly.OUTPUT_SHAPE_SQUARE;
+  }
+  if (this.check_.indexOf('Object') !== -1) {
+    return Blockly.OUTPUT_SHAPE_PLUS;
   }
   return Blockly.OUTPUT_SHAPE_ROUND;
 };
