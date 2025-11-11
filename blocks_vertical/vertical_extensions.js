@@ -158,6 +158,17 @@ Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SQUARE = function() {
 };
 
 /**
+ * Extension to make a block be shaped as a plus. That means the block has
+ * a plus output shape.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.SHAPE_PLUS = function() {
+  this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_PLUS);
+};
+
+/**
  * Extension to make represent a number reporter in Scratch-Blocks.
  * That means the block has inline inputs, a round output shape, and a 'Number'
  * output type.
@@ -205,7 +216,7 @@ Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_ARRAY = function() {
  */
 Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_OBJECT = function() {
   this.setInputsInline(true);
-  this.setOutputShape(Blockly.OUTPUT_SHAPE_SQUARE); // TODO: Replace square output shape with object output shape
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_PLUS);
   this.setOutput(true, 'Object');
 };
 
@@ -344,6 +355,8 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
         Blockly.ScratchBlocks.VerticalExtensions.SHAPE_ROUND);
   Blockly.Extensions.register('shape_square',
         Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SQUARE);
+  Blockly.Extensions.register('shape_plus',
+        Blockly.ScratchBlocks.VerticalExtensions.SHAPE_PLUS);
 
   // Output shapes and types are related.
   Blockly.Extensions.register('output_number',
