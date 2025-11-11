@@ -243,16 +243,22 @@ Blockly.TOOLBOX_AT_RIGHT = 3;
 Blockly.OUTPUT_SHAPE_HEXAGONAL = 1;
 
 /**
- * ENUM for output shape: rounded (numbers).
+ * ENUM for output shape: rounded (any/all values; strings, numbers).
  * @const
  */
 Blockly.OUTPUT_SHAPE_ROUND = 2;
 
 /**
- * ENUM for output shape: squared (any/all values; strings).
+ * ENUM for output shape: squared (arrays).
  * @const
  */
 Blockly.OUTPUT_SHAPE_SQUARE = 3;
+
+/**
+ * ENUM for output shape: plus (objects).
+ * @const
+ */
+Blockly.OUTPUT_SHAPE_PLUS = 4;
 
 /**
  * ENUM for categories.
