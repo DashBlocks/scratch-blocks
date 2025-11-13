@@ -1596,6 +1596,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
       const remainingHeight = scale * 2 - 36 * paddingMultiplier;
       const remainingWidth = scale - 20 * paddingMultiplier;
       const hasBranch = this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT});
+      if (!hasBranch) steps.push(`l ${-remainingWidth} 0 `);
       steps.push(
         `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit} ` +
         `a ${unit} ${unit} 0 0 0 ${-unit} ${-unit} ` +
