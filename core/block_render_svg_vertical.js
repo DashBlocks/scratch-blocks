@@ -744,7 +744,7 @@ Blockly.BlockSvg.prototype.render = function(opt_bubble) {
  */
 Blockly.BlockSvg.prototype.renderFields_ = function(fieldList, cursorX,
     cursorY) {
-  if (this.edgeShape_ && this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+  if (this.edgeShape_ && this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
     cursorX += this.edgeShapeWidth_ + Blockly.BlockSvg.CORNER_RADIUS * 2
   }
   if (this.RTL) {
@@ -960,7 +960,7 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
       }
 
       if (measureables.length) {
-        const newWidth = measureables.reduce(function(w, input) {w + input.fieldWidth}, 0);
+        const newWidth = measureables.reduce(function(w, input) {return w + input.fieldWidth}, 0);
         input.fieldWidth = newWidth * (Blockly.BlockSvg.BOX_FIELD_PADDING / 4);
       }
     }
@@ -1407,12 +1407,12 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
       inputRows.rightEdge = Math.max(
         cursorX,
         inputRows.rightEdge,
-        this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT}) ? Blockly.BlockSvg.MIN_BLOCK_X_WITH_STATEMENT + this.edgeShapeWidth_ : 0
+        this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT}) ? Blockly.BlockSvg.MIN_BLOCK_X_WITH_STATEMENT + this.edgeShapeWidth_ : 0
       );
       // Move to the right edge
       cursorX = Math.max(cursorX, inputRows.rightEdge);
       this.width = Math.max(this.width, cursorX);
-      if (!this.edgeShape_ || this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+      if (!this.edgeShape_ || this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
         // Include corner radius in drawing the horizontal line.
         steps.push('H', cursorX - Blockly.BlockSvg.CORNER_RADIUS);
         steps.push(Blockly.BlockSvg.TOP_RIGHT_CORNER);
@@ -1422,7 +1422,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
       }
       // Subtract CORNER_RADIUS * 2 to account for the top right corner
       // and also the bottom right corner. Only move vertically the non-corner length.
-      if (!this.edgeShape_ || this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+      if (!this.edgeShape_ || this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
         steps.push('v', row.height - Blockly.BlockSvg.CORNER_RADIUS * 2);
       }
     } else if (row.type == Blockly.NEXT_STATEMENT) {
@@ -1450,7 +1450,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
       if (input.connection.isConnected()) {
         this.width = Math.max(this.width, inputRows.statementEdge +
           input.connection.targetBlock().getHeightWidth().width +
-          (this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT}) ? this.edgeShapeWidth_ : 0));
+          (this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT}) ? this.edgeShapeWidth_ : 0));
       }
       if (this.type != Blockly.PROCEDURES_DEFINITION_BLOCK_TYPE &&
         (y == inputRows.length - 1 ||
@@ -1469,7 +1469,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
     cursorY = Blockly.BlockSvg.MIN_BLOCK_Y;
     steps.push('V', cursorY);
   }
-  if (this.edgeShape_ && this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+  if (this.edgeShape_ && this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
     steps[1] = `m ${cursorY / 2} 0`;
   }
   return cursorY;
@@ -1518,7 +1518,7 @@ Blockly.BlockSvg.prototype.renderInputShape_ = function(input, x, y) {
  */
 Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, cursorY) {
   this.height = cursorY;
-  if (!this.edgeShape_ || this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+  if (!this.edgeShape_ || this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
     steps.push(Blockly.BlockSvg.BOTTOM_RIGHT_CORNER);
   }
   if (this.nextConnection) {
@@ -1555,7 +1555,7 @@ Blockly.BlockSvg.prototype.outputLeftPadding_ = function() {
 
   switch (shape) {
     case Blockly.OUTPUT_SHAPE_PLUS: {
-      if (this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+      if (this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
         const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
         const unit = 6 * paddingMultiplier;
         return -this.height / 2 + unit * 3;
@@ -1595,7 +1595,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
       const unit = 6 * paddingMultiplier;
       const remainingHeight = scale * 2 - 36 * paddingMultiplier;
       const remainingWidth = scale - 20 * paddingMultiplier;
-      const hasBranch = this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT});
+      const hasBranch = this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT});
       steps.push(
         `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit} ` +
         `a ${unit} ${unit} 0 0 0 ${-unit} ${-unit} ` +
@@ -1620,7 +1620,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
  * @private
  */
 Blockly.BlockSvg.prototype.drawEdgeShapeRight_ = function(steps) {
-  if (this.edgeShape_ && !this.inputList.find(function(v) {v.type === Blockly.NEXT_STATEMENT})) {
+  if (this.edgeShape_ && !this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT})) {
     // Draw the right-side edge shape.
     if (this.edgeShape_ === Blockly.OUTPUT_SHAPE_ROUND) {
       // Draw a rounded arc.
