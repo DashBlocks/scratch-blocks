@@ -223,7 +223,6 @@ Blockly.Blocks['control_if_else_expandable'] = {
         input.initOutlinePath(this.svgGroup_);
         input.outlinePath.setAttribute('fill', this.getColourTertiary());
       }
-      if (shouldPopulate) this.fillInBlock(input.connection, "checkbox");
       this.appendDummyInput(`TEXTEND${this.branches_}`).appendField("then");
 
       // swap out the connection with the old and new branch
@@ -300,9 +299,6 @@ Blockly.Blocks['control_if_else_expandable'] = {
           index++;
         }
       }
-      for (var i = index - 1; i < oldConnections.length; i++) {
-        if (oldConnections[i] && oldConnections[i].type === "checkbox") oldConnections[i].dispose();
-      }
     }
   },
 
@@ -320,8 +316,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
       const boolInput = this.getInput(`BOOL${this.branches_}`);
       if (boolInput) {
         const block = boolInput.connection.targetBlock();
-        if (block.type === "checkbox") block.dispose();
-        else block.outputConnection.disconnect();
+        block.outputConnection.disconnect();
       }
 
       this.removeInput(`BOOL${this.branches_}`);
