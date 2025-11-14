@@ -316,7 +316,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
       const boolInput = this.getInput(`BOOL${this.branches_}`);
       if (boolInput) {
         const block = boolInput.connection.targetBlock();
-        if (!block.block.outputConnection) block.dispose();
+        if (!block) block.dispose();
         else block.outputConnection.disconnect();
       }
 
