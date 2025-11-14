@@ -176,7 +176,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": "%1 %2",
+      "message0": 'hidden %1 %2',
       "args0": [
         {
           "type": "field_expandable_remove",
@@ -210,13 +210,13 @@ Blockly.Blocks['control_if_else_expandable'] = {
   },
   addCase: function(shouldPopulate) {
     if (this.nextIsElse) {
-      this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField(Blockly.Msg.CONTROL_ELSE);
+      this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField("else");
       this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
       this.endsInElse = true;
     } else {
       const prevText = this.getInput(`TEXTSTART${this.branches_}`);
-      if (prevText) prevText.appendField(Blockly.Msg.CONTROL_IF);
-      else this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField(Blockly.Msg.CONTROL_IF);
+      if (prevText) prevText.appendField("if");
+      else this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField("if");
       const input = this.appendValueInput(`BOOL${this.branches_}`).setCheck("Boolean");
       if (!this.isInsertionMarker_) {
         input.init();
@@ -224,7 +224,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
         input.outlinePath.setAttribute('fill', this.getColourTertiary());
       }
       if (shouldPopulate) this.fillInBlock(input.connection, "checkbox");
-      this.appendDummyInput(`TEXTEND${this.branches_}`).appendField(Blockly.Msg.CONTROL_THEN);
+      this.appendDummyInput(`TEXTEND${this.branches_}`).appendField("then");
 
       // swap out the connection with the old and new branch
       const prevBranch = this.getInput(`SUBSTACK${this.branches_}`);
