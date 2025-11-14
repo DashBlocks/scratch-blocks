@@ -169,6 +169,181 @@ Blockly.Blocks['control_if_else'] = {
   }
 };
 
+Blockly.Blocks['control_if_else_expandable'] = {
+  /**
+   * Block for expandable if-else
+   * @this Blockly.Block
+   */
+  init: function () {
+    this.jsonInit({
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_expandable_remove",
+          "name": "REMOVE"
+        },
+        {
+          "type": "field_expandable_add",
+          "name": "ADD"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+
+    this.branches_ = 0;
+    this.nextIsElse = true;
+    this.endsInElse = false;
+  },
+
+  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
+  fixupButtons: function() {
+    const expandableInput = this.getInput("");
+    this.inputList.splice(this.inputList.indexOf(expandableInput), 1);
+    this.inputList.push(expandableInput);
+
+    expandableInput.setAlign(1);
+    const hiddenBtn = expandableInput.fieldRow[0];
+    hiddenBtn.size_.width = 0.5;
+    hiddenBtn.size_.height = Blockly.BlockSvg.INPUT_SHAPE_HEIGHT + 16;
+    hiddenBtn.setVisible(false);
+  },
+  addCase: function(shouldPopulate) {
+    if (this.nextIsElse) {
+      this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField(Blockly.Msg.CONTROL_ELSE);
+      this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
+      this.endsInElse = true;
+    } else {
+      const prevText = this.getInput(`TEXTSTART${this.branches_}`);
+      if (prevText) prevText.appendField(Blockly.Msg.CONTROL_IF);
+      else this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField(Blockly.Msg.CONTROL_IF);
+      const input = this.appendValueInput(`BOOL${this.branches_}`).setCheck("Boolean");
+      if (!this.isInsertionMarker_) {
+        input.init();
+        input.initOutlinePath(this.svgGroup_);
+        input.outlinePath.setAttribute('fill', this.getColourTertiary());
+      }
+      if (shouldPopulate) this.fillInBlock(input.connection, "checkbox");
+      this.appendDummyInput(`TEXTEND${this.branches_}`).appendField(Blockly.Msg.CONTROL_THEN);
+
+      // swap out the connection with the old and new branch
+      const prevBranch = this.getInput(`SUBSTACK${this.branches_}`);
+      const newBranch = this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
+      if (this.branches_ > 1) {
+        const prevBranchBlock = prevBranch.connection.targetBlock();
+        if (prevBranchBlock) newBranch.connection.connect(prevBranchBlock.previousConnection);
+        this.removeInput(`SUBSTACK${this.branches_}`);
+      }
+      this.endsInElse = false;
+    }
+
+    this.fixupButtons();
+  },
+
+  mutationToDom: function() {
+    // on save
+    const container = document.createElement("mutation");
+    container.setAttribute("branches", String(this.branches_));
+    container.setAttribute("ends-in-else", String(this.endsInElse));
+    return container;
+  },
+
+  domToMutation: function(xmlElement) {
+    // on load
+    const inputCount = Number(xmlElement.getAttribute("branches"));
+    let branchCount = isNaN(inputCount) ? 0 : inputCount;
+    let needsActionConnect = false, oldConnections;
+
+    if (this.inputList.length - 1 > 0) {
+      // this was a control z action
+      needsActionConnect = true;
+      oldConnections = this.getConnections_().map(c => c.targetBlock());
+
+      // clear block
+      for (var i = this.inputList.length - 1; i--;) {
+        const input = this.inputList[i];
+        if (input.name.startsWith("SUBSTACK") || input.name.startsWith("BOOL")) {
+          if (input.connection.targetBlock()) input.connection.disconnect();
+        }
+        this.removeInput(input.name);
+      }
+    }
+
+    if (branchCount > 1) {
+      branchCount = (branchCount * 2) - 1;
+      if (xmlElement.getAttribute("ends-in-else") === "true") branchCount -= 1;
+    }
+
+    this.nextIsElse = false;
+    this.endsInElse = false;
+    this.branches_ = 1;
+    for (let i = 0; i < branchCount; i++) {
+      if (this.nextIsElse) this.branches_++;
+      // vm handles shadow values
+      this.addCase(false);
+      this.nextIsElse = !this.nextIsElse;
+    }
+
+    this.fixupButtons();
+    if (needsActionConnect) {
+      let index = 2;
+      for (var i = 0; i < this.inputList.length; i++) {
+        const input = this.inputList[i];
+        if (input.name.startsWith("SUBSTACK") || input.name.startsWith("BOOL")) {
+          const oldBlock = oldConnections[index];
+          if (oldBlock) {
+            try {
+              const connector = oldBlock.outputConnection ? oldBlock.outputConnection : oldBlock.previousConnection;
+              input.connection.connect(connector);
+            } catch(e) {}
+          }
+          index++;
+        }
+      }
+      for (var i = index - 1; i < oldConnections.length; i++) {
+        if (oldConnections[i] && oldConnections[i].type === "checkbox") oldConnections[i].dispose();
+      }
+    }
+  },
+
+  onExpandableButtonClicked_: function (isAdding) {
+    // Create an event group to keep field value and mutator in sync
+    // Return null at the end because setValue is called here already.
+    if (this.isInFlyout) return;
+    Blockly.Events.setGroup(true);
+    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
+    if (isAdding) {
+      if (this.nextIsElse) this.branches_++;
+      this.addCase(true);
+      this.nextIsElse = !this.nextIsElse;
+    } else if (this.branches_ > 1) {
+      const boolInput = this.getInput(`BOOL${this.branches_}`);
+      if (boolInput) {
+        const block = boolInput.connection.targetBlock();
+        if (block.type === "checkbox") block.dispose();
+        else block.outputConnection.disconnect();
+      }
+
+      this.removeInput(`BOOL${this.branches_}`);
+      this.removeInput(`SUBSTACK${this.branches_}`);
+      this.removeInput(`TEXTSTART${this.branches_}`);
+      this.removeInput(`TEXTEND${this.branches_}`);
+      this.branches_--;
+      this.nextIsElse = true;
+      this.endsInElse = false;
+    }
+
+    this.initSvg();
+    if (this.rendered) this.render();
+
+    var newMutation = Blockly.Xml.domToText(this.mutationToDom());
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+      this, 'mutation', null, oldMutation, newMutation
+    ));
+    Blockly.Events.setGroup(false);
+  }
+};
+
 Blockly.Blocks['control_if_then_else'] = {
   /**
    * Block for if <> then () else () like ... ? ... : ...
