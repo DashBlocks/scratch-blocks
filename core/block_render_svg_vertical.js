@@ -1172,7 +1172,7 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
     }
   }
 
-  const paddingStart = Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape]?.[otherShape];
+  const paddingStart = (Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape] || {})[otherShape];
   row.paddingStart += paddingStart === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingStart;
 
   // End row padding: based on last input or last field.
@@ -1203,7 +1203,7 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
     // No input in this row - mark as field.
     otherShape = 0;
   }
-  const paddingEnd = Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape]?.[otherShape];
+  const paddingEnd = (Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape] || {})[otherShape];
   row.paddingEnd += paddingEnd === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingEnd;
 };
 
