@@ -512,6 +512,12 @@ Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING = {
 };
 
 /**
+ * Default shape padding used by custom shapes if not set
+ * @const
+ */
+Blockly.BlockSvg.DEFAULT_SHAPE_PADDING = Blockly.BlockSvg.GRID_UNIT * 5;
+
+/**
  * Corner radius of the hat on the define block.
  * @const
  */
@@ -1165,7 +1171,10 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
       row.paddingStart += deltaHeight / 2;
     }
   }
-  row.paddingStart += Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape][otherShape];
+
+  const paddingStart = Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape]?.[otherShape];
+  row.paddingStart += paddingStart === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingStart;
+
   // End row padding: based on last input or last field.
   var lastInput = row[row.length - 1];
   // In checking the right/end side, any value input takes precedence over any field.
@@ -1194,7 +1203,8 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
     // No input in this row - mark as field.
     otherShape = 0;
   }
-  row.paddingEnd += Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape][otherShape];
+  const paddingEnd = Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape]?.[otherShape];
+  row.paddingEnd += paddingEnd === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingEnd;
 };
 
 /**
