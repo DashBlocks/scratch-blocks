@@ -1973,7 +1973,16 @@ shapeInfo entries ==>
   emptyInputWidth: (number) -- (optional) Default width for a empty input slot
   leftPath: (block) => { return Array } -– Returns an array of SVG path parts for the left side of the block
   rightPath: (block) => { return Array } –- Returns an array of SVG path parts for the right side of the block
-  SHAPE_IN_SHAPE_PADDING ???
+  blockPadding: (object) -- (optional) Object for block-in-block padding, example format: {
+    internal: {
+      // padding values for each block shape as your block
+      // formatted like each shape in Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING
+    },
+    external: {
+      // padding values for your block in each block shape
+      // include all keys from Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING and insert the padding as the value
+    },
+  }
 }
 */
 Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
@@ -1985,7 +1994,7 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
       "'emptyInputWidth' (number) -- (optional) Default width for a empty input slot",
       "'leftPath' (function) -– Returns an array of SVG path parts for the left side of the block",
       "'rightPath' (function) –- Returns an array of SVG path parts for the right side of the block",
-      "'...' () -- ...",
+      "'blockPadding' (object) -- (optional) Object for block-in-block padding, similar to 'Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING', 'internal' entry for custom block padding, 'external' entry for other shapes padding",
     ].join("\n"));
     return;
   }
@@ -2007,6 +2016,27 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
 
   // optional value, this default value is constant for all shapes
   if (!shapeInfo.emptyInputWidth) shapeInfo.emptyInputWidth = 12 * Blockly.BlockSvg.GRID_UNIT;
+
+  // optional value, padding defaults to DEFAULT_SHAPE_PADDING
+  if (shapeInfo.blockPadding) {
+    const internalPads = shapeInfo.blockPadding.internal;
+    if (typeof internalPads === "object" && !Array.isArray(internalPads)) {
+      Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[name] = internalPads;
+    } else {
+      console.warn(`No 'internal' padding object provided in custom shape ${name}, please refer to 'ScratchBlocks.BlockSvg.SHAPE_IN_SHAPE_PADDING', for formatting`);
+    }
+
+    const externalPads = shapeInfo.blockPadding.external;
+    if (typeof externalPads === "object" && !Array.isArray(externalPads)) {
+      const paddingEntries = Object.entries(Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING);
+      for (const shape of paddingEntries) {
+        if (!externalPads[shape[0]]) continue;
+        shape[1][name] = externalPads[shape[0]];
+      }
+    } else {
+      console.warn(`No 'external' padding object provided in custom shape ${name}, please refer to 'ScratchBlocks.BlockSvg.SHAPE_IN_SHAPE_PADDING', for formatting`);
+    }
+  }
 
   Blockly.BlockSvg.CUSTOM_SHAPES.set(name, shapeInfo);
 };
