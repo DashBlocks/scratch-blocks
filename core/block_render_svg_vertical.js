@@ -1966,7 +1966,7 @@ shapeInfo entries ==>
   SHAPE_IN_SHAPE_PADDING ???
 }
 */
-Blockly.BlockSvg.registerCustomShape(name, shapeInfo) {
+Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
   if (!name || typeof shapeInfo !== 'object' || Array.isArray(shapeInfo)) {
     console.error([
       `Registration for Shape '${name}' failed`,
