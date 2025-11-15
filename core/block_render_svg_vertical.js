@@ -2006,7 +2006,7 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
   shapeInfo.name = name;
 
   // optional value, this default value is constant for all shapes
-  if (shapeInfo.emptyInputWidth < 1) shapeInfo.emptyInputWidth = 12 * Blockly.BlockSvg.GRID_UNIT;
+  if (!shapeInfo.emptyInputWidth) shapeInfo.emptyInputWidth = 12 * Blockly.BlockSvg.GRID_UNIT;
 
   Blockly.BlockSvg.CUSTOM_SHAPES.set(name, shapeInfo);
 };
