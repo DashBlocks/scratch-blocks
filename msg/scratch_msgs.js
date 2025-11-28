@@ -19441,7 +19441,7 @@ Blockly.ScratchMsgs.locales["ru"] =
     "OPERATORS_TOCASE": "%1 в %2 регистр",
     "OPERATORS_TOCASE_UPPER": "верхний",
     "OPERATORS_TOCASE_LOWER": "нижний",
-    "OPERATORS_SE_WITH": "%1 %2 с %3?",
+    "OPERATORS_SE_WITH": "%1 %2 %3?",
     "OPERATORS_SE_WITH_STARTS": "начинается с",
     "OPERATORS_SE_WITH_ENDS": "заканчивается на",
     "OPERATORS_NUMSINRANGE": "массив из диапазона от %1 до %2",
