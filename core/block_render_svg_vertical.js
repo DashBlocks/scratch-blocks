@@ -1616,22 +1616,24 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
         break;
       case Blockly.OUTPUT_SHAPE_PLUS: {
         // Draw a half-plus.
-        const unit = 6;
-        const remainingHeight = this.edgeShapeWidth_ * 2 - 36;
-        const remainingWidth = this.edgeShapeWidth_  - 20;
+        const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
+        const unit = 6 * paddingMultiplier;
+        const remainingHeight = scale * 2 - 36 * paddingMultiplier;
+        const remainingWidth = scale - 20 * paddingMultiplier;
+        const hasBranch = this.inputList.find(function(v) {return v.type === Blockly.NEXT_STATEMENT});
+        if (!hasBranch) steps.push(`l ${-remainingWidth} 0 `);
         steps.push(
-          `l -${remainingWidth} 0 ` +
-          `a ${unit} ${unit} 0 0 1 -${unit} -${unit} ` +
-          `a ${unit} ${unit} 0 0 0 -${unit} -${unit} ` +
+          `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit} ` +
+          `a ${unit} ${unit} 0 0 0 ${-unit} ${-unit} ` +
           `l -2 0 ` +
-          `a ${unit} ${unit} 0 0 1 -${unit} -${unit} ` +
-          `l 0 -${remainingHeight} ` +
-          `a ${unit} ${unit} 0 0 1 ${unit} -${unit} ` +
+          `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit} ` +
+          `l 0 ${-remainingHeight} ` +
+          `a ${unit} ${unit} 0 0 1 ${unit} ${-unit} ` +
           `l 2 0 ` +
-          `a ${unit} ${unit} 0 0 0 ${unit} -${unit} ` +
-          `a ${unit} ${unit} 0 0 1 ${unit} -${unit} ` +
-          `l ${remainingWidth} 0`
+          `a ${unit} ${unit} 0 0 0 ${unit} ${-unit} ` +
+          `a ${unit} ${unit} 0 0 1 ${unit} ${-unit} `
         );
+        if (!hasBranch) steps.push(`l ${remainingWidth} 0 `);
         break;
       }
       default: {
@@ -1669,9 +1671,9 @@ Blockly.BlockSvg.prototype.drawEdgeShapeRight_ = function(steps) {
         break;
       case Blockly.OUTPUT_SHAPE_PLUS: {
         // Draw a half-plus.
-        const unit = 6;
-        const remainingHeight = this.edgeShapeWidth_ * 2 - 36;
-        const remainingWidth = this.edgeShapeWidth_ - 20;
+        const unit = 6 * paddingMultiplier;
+        const remainingHeight = this.edgeShapeWidth_ * 2 - 36 * paddingMultiplier;
+        const remainingWidth = this.edgeShapeWidth_ - 20 * paddingMultiplier;
         steps.push(
           `l ${remainingWidth} 0 ` +
           `a ${unit} ${unit} 0 0 1 ${unit} ${unit} ` +
