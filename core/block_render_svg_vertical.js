@@ -1671,6 +1671,7 @@ Blockly.BlockSvg.prototype.drawEdgeShapeRight_ = function(steps) {
         break;
       case Blockly.OUTPUT_SHAPE_PLUS: {
         // Draw a half-plus.
+        const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
         const unit = 6 * paddingMultiplier;
         const remainingHeight = this.edgeShapeWidth_ * 2 - 36 * paddingMultiplier;
         const remainingWidth = this.edgeShapeWidth_ - 20 * paddingMultiplier;
