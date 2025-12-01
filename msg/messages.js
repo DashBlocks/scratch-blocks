@@ -338,8 +338,8 @@ Blockly.Msg.SENSING_USERID = 'user id';
 // Sound blocks
 Blockly.Msg.SOUND_PLAY = 'start sound %1';
 Blockly.Msg.SOUND_PLAYUNTILDONE = 'play sound %1 until done';
-Blockly.Msg.SOUND_PLAYFROM = 'play sound from %1 seconds';
-Blockly.Msg.SOUND_PLAYFROMUNTILDONE = 'play sound from %1 seconds until done';
+Blockly.Msg.SOUND_PLAYFROM = 'play sound %1 from %2 seconds';
+Blockly.Msg.SOUND_PLAYFROMUNTILDONE = 'play sound %1 from %2 seconds until done';
 Blockly.Msg.SOUND_STOP = 'stop sound %1';
 Blockly.Msg.SOUND_STOPALLSOUNDS = 'stop all sounds';
 Blockly.Msg.SOUND_ISSOUNDPLAYING = 'sound %1 playing?';
