@@ -338,10 +338,15 @@ Blockly.Msg.SENSING_USERID = 'user id';
 // Sound blocks
 Blockly.Msg.SOUND_PLAY = 'start sound %1';
 Blockly.Msg.SOUND_PLAYUNTILDONE = 'play sound %1 until done';
+Blockly.Msg.SOUND_PLAYFROM = 'play sound from %1 seconds';
+Blockly.Msg.SOUND_PLAYFROMUNTILDONE = 'play sound from %1 seconds until done';
+Blockly.Msg.SOUND_STOP = 'stop sound %1';
 Blockly.Msg.SOUND_STOPALLSOUNDS = 'stop all sounds';
+Blockly.Msg.SOUND_ISSOUNDPLAYING = 'sound %1 playing?';
 Blockly.Msg.SOUND_SETEFFECTO = 'set %1 effect to %2';
 Blockly.Msg.SOUND_CHANGEEFFECTBY = 'change %1 effect by %2';
 Blockly.Msg.SOUND_CLEAREFFECTS = 'clear sound effects';
+Blockly.Msg.SOUND_GETEFFECT = 'get %1 effect';
 Blockly.Msg.SOUND_EFFECTS_PITCH = 'pitch';
 Blockly.Msg.SOUND_EFFECTS_PAN = 'pan left/right';
 Blockly.Msg.SOUND_CHANGEVOLUMEBY = 'change volume by %1';
