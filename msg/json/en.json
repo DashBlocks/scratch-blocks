@@ -295,6 +295,7 @@
     "SOUND_EFFECTS_PITCH": "pitch",
     "SOUND_EFFECTS_PAN": "pan left/right",
     "SOUND_EFFECTS_HIGHPASS": "highpass filter",
+    "SOUND_EFFECTS_LOWPASS": "lowpass filter",
     "SOUND_CHANGEVOLUMEBY": "change volume by %1",
     "SOUND_SETVOLUMETO": "set volume to %1%",
     "SOUND_VOLUME": "volume",
