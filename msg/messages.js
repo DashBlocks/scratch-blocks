@@ -350,6 +350,7 @@ Blockly.Msg.SOUND_GETEFFECT = '%1 effect';
 Blockly.Msg.SOUND_EFFECTS_PITCH = 'pitch';
 Blockly.Msg.SOUND_EFFECTS_PAN = 'pan left/right';
 Blockly.Msg.SOUND_EFFECTS_HIGHPASS = 'highpass filter';
+Blockly.Msg.SOUND_EFFECTS_LOWPASS = 'lowpass filter';
 Blockly.Msg.SOUND_CHANGEVOLUMEBY = 'change volume by %1';
 Blockly.Msg.SOUND_SETVOLUMETO = 'set volume to %1%';
 Blockly.Msg.SOUND_VOLUME = 'volume';

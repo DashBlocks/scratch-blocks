@@ -222,7 +222,8 @@ Blockly.Blocks['sound_seteffectto'] = {
           "options": [
             [Blockly.Msg.SOUND_EFFECTS_PITCH, 'PITCH'],
             [Blockly.Msg.SOUND_EFFECTS_PAN, 'PAN'],
-            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS']
+            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS'],
+            [Blockly.Msg.SOUND_EFFECTS_LOWPASS, 'LOWPASS']
           ]
         },
         {
@@ -251,7 +252,8 @@ Blockly.Blocks['sound_changeeffectby'] = {
           "options": [
             [Blockly.Msg.SOUND_EFFECTS_PITCH, 'PITCH'],
             [Blockly.Msg.SOUND_EFFECTS_PAN, 'PAN'],
-            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS']
+            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS'],
+            [Blockly.Msg.SOUND_EFFECTS_LOWPASS, 'LOWPASS']
           ]
         },
         {
@@ -294,7 +296,8 @@ Blockly.Blocks['sound_geteffect'] = {
           "options": [
             [Blockly.Msg.SOUND_EFFECTS_PITCH, 'PITCH'],
             [Blockly.Msg.SOUND_EFFECTS_PAN, 'PAN'],
-            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS']
+            [Blockly.Msg.SOUND_EFFECTS_HIGHPASS, 'HIGHPASS'],
+            [Blockly.Msg.SOUND_EFFECTS_LOWPASS, 'LOWPASS']
           ]
         }
       ],
