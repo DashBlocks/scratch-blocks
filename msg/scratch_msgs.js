@@ -5521,7 +5521,7 @@ Blockly.ScratchMsgs.locales["en"] =
     "SENSING_OF_ISVISIBLE": "visibility",
     "SENSING_OF_POSITION": "position",
     "SENSING_PROMPT": "prompt %1 with default value %2",
-    "SOUND_EFFECTS_HIGHPASS": "highpass filter",
+    "SOUND_EFFECTS_HIGHPASS": "high-pass filter",
     "SOUND_GETEFFECT": "%1 effect",
     "SOUND_ISSOUNDPLAYING": "sound %1 playing?",
     "SOUND_PLAYFROM": "play sound %1 from %2 seconds",
@@ -5531,7 +5531,7 @@ Blockly.ScratchMsgs.locales["en"] =
     "OPERATORS_CATEGORY_MATH": "Math",
     "OPERATORS_CATEGORY_STRINGS": "Strings",
     "OPERATORS_CATEGORY_TYPES": "Types",
-    "SOUND_EFFECTS_LOWPASS": "lowpass filter"
+    "SOUND_EFFECTS_LOWPASS": "low-pass filter"
 };
 
 Blockly.ScratchMsgs.locales["es"] =
