@@ -1,9 +1,7 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
 
 jobs:
   build-and-commit:
@@ -21,6 +19,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout develop-builds
+
       - name: Install dependencies
         run: npm ci
 
@@ -29,11 +33,6 @@ jobs:
 
       - name: Commit and Push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git checkout develop-builds
           git add .
           git commit -m "Blocks build"
-          git push origin develop-builds
-          fi
+          git push
