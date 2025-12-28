@@ -34,8 +34,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Build
-        run: npm run prepublish
+      - name: Translate and Build
+        run: |
+          npm run translate
+          npm run prepublish
 
       - name: Commit and Push changes
         run: |
