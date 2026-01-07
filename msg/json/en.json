@@ -71,7 +71,7 @@
     "JSON_GET_BY_PATH": "item by path %1 in %2",
     "JSON_SET_BY_PATH": "set to %1 by path %2 in %3",
     "JSON_STRINGIFY_SPACER": "stringify %1 with spacer %2",
-    "JSON_ASSIGN": "for %1 assign %2 %3",
+    "JSON_ASSIGN": "for %1 assign",
     "JSON_ARRAY_EMPTY": "empty array",
     "JSON_ARRAY_SPLIT": "array from %1 separated by %2",
     "JSON_ARRAY_INFRONTOF": "%1 in front of %2",
