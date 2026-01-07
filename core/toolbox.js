@@ -97,7 +97,7 @@ Blockly.Toolbox.menus_ = {};
  * Register a toolbox menu.
  * @param {string} name The name of the menu.
  * @param {Object} options The options for the menu.
- * @param {boolean} optMerge Whether to merge the options with existing ones.
+ * @param {boolean} optionsMerge Whether to merge the options with existing ones.
  */
 Blockly.Toolbox.registerMenu = function(name, options, optionsMerge) {
   if (Blockly.Toolbox.menus_[name] && optionsMerge) {
