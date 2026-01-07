@@ -19642,7 +19642,7 @@ Blockly.ScratchMsgs.locales["ru"] =
     "NEW_BROADCAST_MESSAGE": "Новое сообщение",
     "NEW_BROADCAST_MESSAGE_TITLE": "Новое имя сообщения:",
     "BROADCAST_MODAL_TITLE": "Новое сообщение",
-    "JSON_ASSIGN": "для %1 присвоить",
+    "JSON_ASSIGN": "для %1 присвоить %2 %3",
     "JSON_ARRAY_ITEMOF": "элемент %1 из %2",
     "JSON_ARRAY_ITEMNOOF": "№ элемента %1 в %2",
     "JSON_CONTAINS": "%1 содержит %2?",
