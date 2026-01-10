@@ -167,6 +167,30 @@ Blockly.Blocks['motion_pointtowards'] = {
   }
 };
 
+Blockly.Blocks['motion_pointtowardsxy'] = {
+  /**
+   * Block to point in direction X, Y.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.MOTION_POINTTOWARDSXY,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "X"
+        },
+        {
+          "type": "input_value",
+          "name": "Y"
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['motion_goto_menu'] = {
   /**
    * Go to drop-down menu.
