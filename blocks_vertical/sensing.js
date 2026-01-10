@@ -181,6 +181,28 @@ Blockly.Blocks['sensing_coloristouchingcolor'] = {
   }
 };
 
+Blockly.Blocks['sensing_distancetomenu'] = {
+  /**
+   * "Distance to [Object]" Block Menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "DISTANCETOMENU",
+          "options": [
+            [Blockly.Msg.SENSING_DISTANCETO_POINTER, '_mouse_']
+          ]
+        }
+      ],
+      "extensions": ["colours_sensing", "output_string"]
+    });
+  }
+};
+
 Blockly.Blocks['sensing_distanceto'] = {
   /**
    * Block to Report distance to another Object.
@@ -201,24 +223,26 @@ Blockly.Blocks['sensing_distanceto'] = {
   }
 };
 
-Blockly.Blocks['sensing_distancetomenu'] = {
+Blockly.Blocks['sensing_distancetoxy'] = {
   /**
-   * "Distance to [Object]" Block Menu.
+   * Block to Report distance to X, Y.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "message0": "%1",
+      "message0": Blockly.Msg.SENSING_DISTANCETOXY,
       "args0": [
         {
-          "type": "field_dropdown",
-          "name": "DISTANCETOMENU",
-          "options": [
-            [Blockly.Msg.SENSING_DISTANCETO_POINTER, '_mouse_']
-          ]
+          "type": "input_value",
+          "name": "X"
+        },
+        {
+          "type": "input_value",
+          "name": "Y"
         }
       ],
-      "extensions": ["colours_sensing", "output_string"]
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_number"]
     });
   }
 };
