@@ -312,6 +312,7 @@
     "CATEGORY_OPERATORS": "Operators",
     "CATEGORY_VARIABLES": "Variables",
     "CATEGORY_JSON": "JSON",
+    "CATEGORY_CONSOLE": "Console",
     "CATEGORY_MYBLOCKS": "My Blocks",
     "DUPLICATE": "Duplicate",
     "DELETE": "Delete",
