@@ -369,6 +369,7 @@ Blockly.Msg.CATEGORY_SENSING = 'Sensing';
 Blockly.Msg.CATEGORY_OPERATORS = 'Operators';
 Blockly.Msg.CATEGORY_VARIABLES = 'Variables';
 Blockly.Msg.CATEGORY_JSON = 'JSON';
+Blockly.Msg.CATEGORY_CONSOLE = 'Console';
 Blockly.Msg.CATEGORY_MYBLOCKS = 'My Blocks';
 
 // Context menus

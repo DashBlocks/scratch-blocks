@@ -161,6 +161,7 @@ var threeThemeCategoriesColors = {
   data: '#FF8C1A',
   data_lists: '#FF661A',
   json: '#748BEE',
+  console: '#6B8E5D',
   more: '#FF6680'
 };
 

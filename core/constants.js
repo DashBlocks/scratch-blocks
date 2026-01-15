@@ -272,6 +272,7 @@ Blockly.Categories = {
   "data": "data",
   "dataLists": "data-lists",
   "json": "json",
+  "console": "console",
   "event": "events",
   "control": "control",
   "sensing": "sensing",
