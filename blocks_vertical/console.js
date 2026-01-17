@@ -26,3 +26,63 @@ goog.require('Blockly.Blocks');
 goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
+
+Blockly.Blocks['console_clear'] = {
+  /**
+   * Block to clear console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_CLEAR,
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['console_add_line'] = {
+  /**
+   * Block to add line in console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_ADD_LINE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LINE"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['console_of'] = {
+  /**
+   * Block to report properties of console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_OF,
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "PROPERTY",
+          "options": [
+            [Blockly.Msg.CONSOLE_OF_CONTENT, 'content'],
+            [Blockly.Msg.CONSOLE_OF_LINESCOUNT, 'linescount'],
+            [Blockly.Msg.CONSOLE_OF_SYMBOLS, 'symbols'],
+          ]
+        },
+      ],
+      "output": null,
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_round"]
+    });
+  }
+};
