@@ -41,14 +41,14 @@ Blockly.Blocks['console_clear'] = {
   }
 };
 
-Blockly.Blocks['console_add_line'] = {
+Blockly.Blocks['console_addline'] = {
   /**
    * Block to add line in console.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.CONSOLE_ADD_LINE,
+      "message0": Blockly.Msg.CONSOLE_ADDLINE,
       "args0": [
         {
           "type": "input_value",
