@@ -61,6 +61,90 @@ Blockly.Blocks['console_addline'] = {
   }
 };
 
+Blockly.Blocks['console_addlineandmove'] = {
+  /**
+   * Block to add line in console and move cursor.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_ADDLINEANDMOVE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LINE"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['console_editline'] = {
+  /**
+   * Block to edit line in console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_EDITLINE,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LINE"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['console_editsymbol'] = {
+  /**
+   * Block to edit symbol in console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_EDITSYMBOL,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['console_movecursor'] = {
+  /**
+   * Block to move cursor.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_MOVECURSOR,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "ROW"
+        },
+        {
+          "type": "input_value",
+          "name": "SYMBOL"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['console_of'] = {
   /**
    * Block to report properties of console.

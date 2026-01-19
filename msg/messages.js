@@ -134,7 +134,11 @@ Blockly.Msg.JSON_OBJECT_ENTRIES_VALUES = 'values';
 
 // Console blocks
 Blockly.Msg.CONSOLE_CLEAR = 'clear console';
-Blockly.Msg.CONSOLE_ADDLINE = 'add line %1 to console';
+Blockly.Msg.CONSOLE_ADDLINE = 'print %1 to console';
+Blockly.Msg.CONSOLE_ADDLINEANDMOVE = 'print %1 to console and move cursor';
+Blockly.Msg.CONSOLE_EDITLINE = 'edit line in console to %1';
+Blockly.Msg.CONSOLE_EDITSYMBOL = 'edit symbol in console to %1';
+Blockly.Msg.CONSOLE_MOVECURSOR = 'move cursor to row: %1 symbol: %2';
 Blockly.Msg.CONSOLE_OF = '%1 of console';
 Blockly.Msg.CONSOLE_OF_CONTENT = 'content';
 Blockly.Msg.CONSOLE_OF_LINESCOUNT = 'max lines count';
