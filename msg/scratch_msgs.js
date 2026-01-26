@@ -19341,7 +19341,7 @@ Blockly.ScratchMsgs.locales["ru"] =
     "CONSOLE_ADDLINEANDMOVE": "вывести строку %1 в консоль и переместить курсор",
     "CONSOLE_EDITLINE": "изменить строку в консоли на %1",
     "CONSOLE_EDITSYMBOL": "изменить символ в консоли на %1",
-    "CONSOLE_MOVECURSOR": "переместить курсор на строку: %1 символ: %2",
+    "CONSOLE_MOVECURSOR": "переместить курсор в ряд: %1 символ: %2",
     "CONSOLE_OF": "%1 консоли",
     "CONSOLE_OF_CONTENT": "содержимое",
     "CONSOLE_OF_LINESCOUNT": "макс. количество строк",
