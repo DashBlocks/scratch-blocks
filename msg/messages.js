@@ -59,6 +59,18 @@ Blockly.Msg.CONTROL_INCRCOUNTER = 'increment counter';
 Blockly.Msg.CONTROL_CLEARCOUNTER = 'clear counter';
 Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
 
+// Console blocks
+Blockly.Msg.CONSOLE_CLEAR = 'clear console';
+Blockly.Msg.CONSOLE_ADDLINE = 'print line %1 to console';
+Blockly.Msg.CONSOLE_ADDLINEANDMOVE = 'print line %1 to console and move cursor';
+Blockly.Msg.CONSOLE_EDITLINE = 'edit line in console to %1';
+Blockly.Msg.CONSOLE_EDITSYMBOL = 'edit symbol in console to %1';
+Blockly.Msg.CONSOLE_MOVECURSOR = 'move cursor to row: %1 symbol: %2';
+Blockly.Msg.CONSOLE_OF = '%1 of console';
+Blockly.Msg.CONSOLE_OF_CONTENT = 'content';
+Blockly.Msg.CONSOLE_OF_LINESCOUNT = 'max lines count';
+Blockly.Msg.CONSOLE_OF_SYMBOLS = 'max symbols in line';
+
 // Data blocks
 Blockly.Msg.DATA_SETVARIABLETO = 'set %1 to %2';
 Blockly.Msg.DATA_CHANGEVARIABLEBY = 'change %1 by %2';
@@ -131,18 +143,6 @@ Blockly.Msg.JSON_OBJECT_ENTRIES = '%1 of %2';
 Blockly.Msg.JSON_OBJECT_ENTRIES_ENTRIES = 'entries';
 Blockly.Msg.JSON_OBJECT_ENTRIES_KEYS = 'keys';
 Blockly.Msg.JSON_OBJECT_ENTRIES_VALUES = 'values';
-
-// Console blocks
-Blockly.Msg.CONSOLE_CLEAR = 'clear console';
-Blockly.Msg.CONSOLE_ADDLINE = 'print %1 to console';
-Blockly.Msg.CONSOLE_ADDLINEANDMOVE = 'print %1 to console and move cursor';
-Blockly.Msg.CONSOLE_EDITLINE = 'edit line in console to %1';
-Blockly.Msg.CONSOLE_EDITSYMBOL = 'edit symbol in console to %1';
-Blockly.Msg.CONSOLE_MOVECURSOR = 'move cursor to row: %1 symbol: %2';
-Blockly.Msg.CONSOLE_OF = '%1 of console';
-Blockly.Msg.CONSOLE_OF_CONTENT = 'content';
-Blockly.Msg.CONSOLE_OF_LINESCOUNT = 'max lines count';
-Blockly.Msg.CONSOLE_OF_SYMBOLS = 'max symbols in line';
 
 // Looks blocks
 Blockly.Msg.LOOKS_SAYFORSECS = 'say %1 for %2 seconds';
