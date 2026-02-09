@@ -788,7 +788,7 @@ Blockly.ScratchBlocks.ProcedureUtils.addArrayExternal = function() {
   this.procCode_ = this.procCode_ + ' %a';
   this.displayNames_.push('array');
   this.argumentIds_.push(Blockly.utils.genUid());
-  this.argumentDefaults_.push([]);
+  this.argumentDefaults_.push('[]');
   this.updateDisplay_();
   this.focusLastEditor_();
 };
@@ -803,7 +803,7 @@ Blockly.ScratchBlocks.ProcedureUtils.addObjectExternal = function() {
   this.procCode_ = this.procCode_ + ' %o';
   this.displayNames_.push('object');
   this.argumentIds_.push(Blockly.utils.genUid());
-  this.argumentDefaults_.push({});
+  this.argumentDefaults_.push('{}');
   this.updateDisplay_();
   this.focusLastEditor_();
 };
