@@ -308,20 +308,20 @@ Blockly.BlockSvg.INPUT_SHAPE_PLUS =
   a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
   a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
   l 0 4
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 -${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 -${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${-Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 ${-Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
   l 0 2
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 -${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
-  h -${6 * Blockly.BlockSvg.GRID_UNIT}
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 -${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${-Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT}
+  h ${-6 * Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${-Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT}
   l 0 -2
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 -${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT}
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 -${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 ${-Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${-Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT}
   l 0 -4
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT}
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 ${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT}
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 0 ${Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT}
   l 0 -2
-  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${Blockly.BlockSvg.GRID_UNIT} -${Blockly.BlockSvg.GRID_UNIT} 
+  a ${Blockly.BlockSvg.GRID_UNIT} ${Blockly.BlockSvg.GRID_UNIT} 0 0 1 ${Blockly.BlockSvg.GRID_UNIT} ${-Blockly.BlockSvg.GRID_UNIT} 
   z
   `
 
@@ -1682,11 +1682,11 @@ Blockly.BlockSvg.prototype.drawEdgeShapeRight_ = function(steps) {
           `l 2 0 ` +
           `a ${unit} ${unit} 0 0 1 ${unit} ${unit} ` +
           `l 0 ${remainingHeight} ` +
-          `a ${unit} ${unit} 0 0 1 -${unit} ${unit} ` +
+          `a ${unit} ${unit} 0 0 1 ${-unit} ${unit} ` +
           `l -2 0 ` +
-          `a ${unit} ${unit} 0 0 0 -${unit} ${unit} ` +
-          `a ${unit} ${unit} 0 0 1 -${unit} ${unit} ` +
-          `l -${remainingWidth} 0`
+          `a ${unit} ${unit} 0 0 0 ${-unit} ${unit} ` +
+          `a ${unit} ${unit} 0 0 1 ${-unit} ${unit} ` +
+          `l ${-remainingWidth} 0`
         );
         break;
       }
@@ -1956,7 +1956,7 @@ Blockly.BlockSvg.prototype.renderMoveConnections_ = function() {
   }
 };
 
-/* -= Custom Block Shape API =- */
+/* Custom Block Shape API */
 
 // Stores all user-defined custom shapes
 Blockly.BlockSvg.CUSTOM_SHAPES = new Map([
