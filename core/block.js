@@ -1350,7 +1350,7 @@ Blockly.Block.prototype.jsonInit = function(json) {
   }
 
   if (typeof json['afterJsonInit'] == 'function') {
-    json['afterJsonInit'].call(this);
+    json['afterJsonInit'].call(this, Blockly);
   }
 };
 
