@@ -1348,6 +1348,9 @@ Blockly.Block.prototype.jsonInit = function(json) {
   if (json['category'] !== undefined) {
     this.setCategory(json['category']);
   }
+  if (typeof json['thisProps'] === 'object' && json['thisProps'] !== null) {
+    Object.assign(this, json['thisProps']);
+  }
 };
 
 /**
