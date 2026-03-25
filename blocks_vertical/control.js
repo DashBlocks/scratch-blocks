@@ -429,6 +429,7 @@ Blockly.Blocks['control_stop'] = {
     var ALL_SCRIPTS = 'all';
     var THIS_SCRIPT = 'this script';
     var OTHER_SCRIPTS = 'other scripts in sprite';
+    var THIS_TARGET = 'scripts in this target';
     var stopDropdown = new Blockly.FieldDropdown(function() {
       if (this.sourceBlock_ &&
           this.sourceBlock_.nextConnection &&
@@ -439,7 +440,8 @@ Blockly.Blocks['control_stop'] = {
       }
       return [[Blockly.Msg.CONTROL_STOP_ALL, ALL_SCRIPTS],
         [Blockly.Msg.CONTROL_STOP_THIS, THIS_SCRIPT],
-        [Blockly.Msg.CONTROL_STOP_OTHER, OTHER_SCRIPTS]
+        [Blockly.Msg.CONTROL_STOP_OTHER, OTHER_SCRIPTS],
+        [Blockly.Msg.CONTROL_STOP_THIS_TARGET, THIS_TARGET]
       ];
     }, function(option) {
       // Create an event group to keep field value and mutator in sync
@@ -703,6 +705,22 @@ Blockly.Blocks['control_delete_this_clone'] = {
       ],
       "category": Blockly.Categories.control,
       "extensions": ["colours_control", "shape_end"]
+    });
+  }
+};
+
+Blockly.Blocks['control_is_clone'] = {
+  /**
+   * Block that reports if target is a clone.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_ISCLONE,
+      "args0": [
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_boolean"]
     });
   }
 };
