@@ -81,6 +81,26 @@ Blockly.Blocks['console_addlineandmove'] = {
   }
 };
 
+Blockly.Blocks['console_print'] = {
+  /**
+   * Block to print in console.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONSOLE_PRINT,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LINE"
+        }
+      ],
+      "category": Blockly.Categories.console,
+      "extensions": ["colours_console", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['console_editline'] = {
   /**
    * Block to edit line in console.
@@ -160,7 +180,6 @@ Blockly.Blocks['console_of'] = {
           "options": [
             [Blockly.Msg.CONSOLE_OF_CONTENT, 'content'],
             [Blockly.Msg.CONSOLE_OF_LINESCOUNT, 'linescount'],
-            [Blockly.Msg.CONSOLE_OF_SYMBOLS, 'symbols'],
           ]
         },
       ],
