@@ -18,6 +18,11 @@
  * limitations under the License.
  */
 
+/**
+ * Some of blocks clearly inspired to AmpMod's blocks from Arrays category
+ * codeberg.org/ampmod/ampmod/src/branch/develop/packages/blocks/blocks_vertical/arrays.js
+ */
+
 'use strict';
 
 goog.provide('Blockly.Blocks.json');
