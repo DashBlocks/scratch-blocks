@@ -51,6 +51,8 @@ Blockly.Msg.CONTROL_WAITUNTIL = 'wait until %1';
 Blockly.Msg.CONTROL_REPEATUNTIL = 'repeat until %1';
 Blockly.Msg.CONTROL_WHILE = 'while %1';
 Blockly.Msg.CONTROL_FOREACH = 'for each %1 in %2';
+Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
+Blockly.Msg.CONTROL_RUNAS = 'as within %1 do';
 Blockly.Msg.CONTROL_STARTASCLONE = 'when I start as a clone';
 Blockly.Msg.CONTROL_CREATECLONEOF = 'create clone of %1';
 Blockly.Msg.CONTROL_CREATECLONEOF_MYSELF = 'myself';
@@ -59,7 +61,6 @@ Blockly.Msg.CONTROL_ISCLONE = 'clone?';
 Blockly.Msg.CONTROL_COUNTER = 'counter';
 Blockly.Msg.CONTROL_INCRCOUNTER = 'increment counter';
 Blockly.Msg.CONTROL_CLEARCOUNTER = 'clear counter';
-Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
 
 // Console blocks
 Blockly.Msg.CONSOLE_CLEAR = 'clear console';

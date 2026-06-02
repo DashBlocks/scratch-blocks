@@ -225,7 +225,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
       }
       this.appendDummyInput(`TEXTEND${this.branches_}`).appendField("then");
 
-      // swap out the connection with the old and new branch
+      // Swap out the connection with the old and new branch
       const prevBranch = this.getInput(`SUBSTACK${this.branches_}`);
       const newBranch = this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
       if (this.branches_ > 1) {
@@ -240,7 +240,6 @@ Blockly.Blocks['control_if_else_expandable'] = {
   },
 
   mutationToDom: function() {
-    // on save
     const container = document.createElement("mutation");
     container.setAttribute("branches", String(this.branches_));
     container.setAttribute("ends-in-else", String(this.endsInElse));
@@ -248,17 +247,16 @@ Blockly.Blocks['control_if_else_expandable'] = {
   },
 
   domToMutation: function(xmlElement) {
-    // on load
     const inputCount = Number(xmlElement.getAttribute("branches"));
     let branchCount = isNaN(inputCount) ? 0 : inputCount;
     let needsActionConnect = false, oldConnections;
 
     if (this.inputList.length - 1 > 0) {
-      // this was a control z action
+      // This was a control Z action
       needsActionConnect = true;
       oldConnections = this.getConnections_().map(c => c.targetBlock());
 
-      // clear block
+      // Clear block
       for (var i = this.inputList.length - 1; i--;) {
         const input = this.inputList[i];
         if (input.name.startsWith("SUBSTACK") || input.name.startsWith("BOOL")) {
@@ -278,7 +276,6 @@ Blockly.Blocks['control_if_else_expandable'] = {
     this.branches_ = 1;
     for (let i = 0; i < branchCount; i++) {
       if (this.nextIsElse) this.branches_++;
-      // vm handles shadow values
       this.addCase(false);
       this.nextIsElse = !this.nextIsElse;
     }
@@ -633,6 +630,79 @@ Blockly.Blocks['control_for_each'] = {
   }
 };
 
+Blockly.Blocks['control_all_at_once'] = {
+  /**
+   * Block to run the contained script within a single frame.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_ALLATONCE,
+      "message1": "%1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['control_run_as_menu'] = {
+  /**
+   * "As within [Object], do" Block Menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "OBJECT",
+          "options": [
+            [Blockly.Msg.CONTROL_CREATECLONEOF_MYSELF, '_myself_'],
+            ['Stage', '_stage_'],
+            ['Sprite1', 'Sprite1']
+          ]
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_string"]
+    });
+  }
+};
+
+Blockly.Blocks['control_run_as'] = {
+  /**
+   * Block to run the contained script as within an object.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_RUNAS,
+      "message1": "%1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "OBJECT"
+        }
+      ],
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['control_start_as_clone'] = {
   /**
    * Block for "when I start as a clone" hat.
@@ -764,36 +834,6 @@ Blockly.Blocks['control_clear_counter'] = {
   init: function() {
     this.jsonInit({
       "message0": Blockly.Msg.CONTROL_CLEARCOUNTER,
-      "category": Blockly.Categories.control,
-      "extensions": ["colours_control", "shape_statement"]
-    });
-  }
-};
-
-Blockly.Blocks['control_all_at_once'] = {
-  /**
-   * Block to run the contained script. This is an obsolete block that is
-   * implemented for compatibility with Scratch 2.0 projects. Note that
-   * this was originally designed to run all of the contained blocks
-   * (sequentially, like normal) within a single frame, but this feature
-   * was removed in place of custom blocks marked "run without screen
-   * refresh". The "all at once" block was changed to run the contained
-   * blocks ordinarily, functioning the same way as an "if" block with a
-   * reporter that is always true (e.g. "if 1 = 1"). Also note that the
-   * Scratch 2.0 spec for this block is "warpSpeed", but the label shows
-   * "all at once".
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.jsonInit({
-      "message0": Blockly.Msg.CONTROL_ALLATONCE,
-      "message1": "%1", // Statement
-      "args1": [
-        {
-          "type": "input_statement",
-          "name": "SUBSTACK"
-        }
-      ],
       "category": Blockly.Categories.control,
       "extensions": ["colours_control", "shape_statement"]
     });
