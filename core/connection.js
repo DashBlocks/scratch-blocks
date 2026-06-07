@@ -679,7 +679,7 @@ Blockly.Connection.prototype.onCheckChanged_ = function() {
  * @return {!Blockly.Connection} The connection being modified
  *     (to allow chaining).
  */
-Blockly.Connection.prototype.setCheck = function(shape) {
+Blockly.Connection.prototype.setShape = function(shape) {
   if (shape) {
     this.shape_ = shape
   } else {
