@@ -205,6 +205,19 @@ Blockly.Input.prototype.setVisible = function(visible) {
 };
 
 /**
+ * Change a connection's shape.
+ * @param {number|string} shape Shape for connection.
+ * @return {!Blockly.Input} The input being modified (to allow chaining).
+ */
+Blockly.Input.prototype.setShape = function(shape) {
+  if (!this.connection) {
+    throw 'This input does not have a connection.';
+  }
+  this.connection.setShape(shape);
+  return this;
+};
+
+/**
  * Change a connection's compatibility.
  * @param {string|Array.<string>|null} check Compatible value type or
  *     list of value types.  Null if all types are compatible.

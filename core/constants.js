@@ -261,6 +261,18 @@ Blockly.OUTPUT_SHAPE_SQUARE = 3;
 Blockly.OUTPUT_SHAPE_PLUS = 4;
 
 /**
+ * ENUM for output shape: octagonal (Scratch targets).
+ * @const
+ */
+Blockly.OUTPUT_SHAPE_OCTAGONAL = 5;
+
+/**
+ * ENUM for output shape: scrapped (Maps).
+ * @const
+ */
+Blockly.OUTPUT_SHAPE_SCRAPPED = 6;
+
+/**
  * ENUM for categories.
  * @const
  */

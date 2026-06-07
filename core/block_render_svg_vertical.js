@@ -486,29 +486,55 @@ Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING = {
     1: 2 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in hexagon.
     2: 5 * Blockly.BlockSvg.GRID_UNIT, // Round in hexagon.
     3: 5 * Blockly.BlockSvg.GRID_UNIT, // Square in hexagon.
-    4: 3 * Blockly.BlockSvg.GRID_UNIT // Plus in hexagon.
+    4: 3 * Blockly.BlockSvg.GRID_UNIT, // Plus in hexagon.
+    5: 5 * Blockly.BlockSvg.GRID_UNIT, // Octagon in hexagon.
+    6: 2 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in hexagon.
   },
   2: { // Outer shape: round.
     0: 3 * Blockly.BlockSvg.GRID_UNIT, // Field in round.
     1: 3 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in round.
     2: 1 * Blockly.BlockSvg.GRID_UNIT, // Round in round.
-    3: 2 * Blockly.BlockSvg.GRID_UNIT, // Square in round.
-    4: 2 * Blockly.BlockSvg.GRID_UNIT // Plus in round.
+    3: 3 * Blockly.BlockSvg.GRID_UNIT, // Square in round.
+    4: 2 * Blockly.BlockSvg.GRID_UNIT, // Plus in round.
+    5: 1 * Blockly.BlockSvg.GRID_UNIT, // Octagon in round.
+    6: 3 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in round.
   },
   3: { // Outer shape: square.
     0: 2 * Blockly.BlockSvg.GRID_UNIT, // Field in square.
     1: 2 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in square.
     2: 2 * Blockly.BlockSvg.GRID_UNIT, // Round in square.
     3: 2 * Blockly.BlockSvg.GRID_UNIT, // Square in square.
-    4: 2 * Blockly.BlockSvg.GRID_UNIT // Plus in square.
+    4: 2 * Blockly.BlockSvg.GRID_UNIT, // Plus in square.
+    5: 1 * Blockly.BlockSvg.GRID_UNIT, // Octagon in square.
+    6: 2 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in square.
   },
   4: { // Outer shape: plus.
     0: 5 * Blockly.BlockSvg.GRID_UNIT, // Field in plus.
     1: 4 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in plus.
     2: 4 * Blockly.BlockSvg.GRID_UNIT, // Round in plus.
     3: 5 * Blockly.BlockSvg.GRID_UNIT, // Square in plus.
-    4: 3 * Blockly.BlockSvg.GRID_UNIT // Plus in plus.
-  }
+    4: 3 * Blockly.BlockSvg.GRID_UNIT, // Plus in plus.
+    5: 4 * Blockly.BlockSvg.GRID_UNIT, // Octagon in plus.
+    6: 4 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in plus.
+  },
+  5: { // Outer shape: octagon.
+    0: 5 * Blockly.BlockSvg.GRID_UNIT, // Field in octagon.
+    1: 4 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in octagon.
+    2: 4 * Blockly.BlockSvg.GRID_UNIT, // Round in octagon.
+    3: 5 * Blockly.BlockSvg.GRID_UNIT, // Square in octagon.
+    4: 3 * Blockly.BlockSvg.GRID_UNIT, // Plus in octagon.
+    5: 1 * Blockly.BlockSvg.GRID_UNIT, // Octagon in octagon.
+    6: 2 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in octagon.
+  },
+  6: { // Outer shape: scrapped.
+    0: 5 * Blockly.BlockSvg.GRID_UNIT, // Field in scrapped.
+    1: 4 * Blockly.BlockSvg.GRID_UNIT, // Hexagon in scrapped.
+    2: 4 * Blockly.BlockSvg.GRID_UNIT, // Round in scrapped.
+    3: 5 * Blockly.BlockSvg.GRID_UNIT, // Square in scrapped.
+    4: 3 * Blockly.BlockSvg.GRID_UNIT, // Plus in scrapped.
+    5: 2 * Blockly.BlockSvg.GRID_UNIT, // Octagon in scrapped.
+    6: 2 * Blockly.BlockSvg.GRID_UNIT, // Scrapped in scrapped.
+  },
 };
 
 /**
@@ -1172,6 +1198,11 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
     }
   }
 
+  const customShape = Blockly.BlockSvg.CUSTOM_SHAPES.get(shape);
+  if (customShape && customShape.blockPaddingStart) {
+    row.paddingStart += customShape.blockPaddingStart(this, otherShape, firstInput, firstField, row);
+  }
+
   const paddingStart = (Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape] || {})[otherShape];
   row.paddingStart += paddingStart === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingStart;
 
@@ -1203,6 +1234,12 @@ Blockly.BlockSvg.prototype.computeOutputPadding_ = function(inputRows) {
     // No input in this row - mark as field.
     otherShape = 0;
   }
+
+  if (customShape && customShape.blockPaddingEnd) {
+    const lastField = lastInput.fieldRow[lastInput.fieldRow.length - 1];
+    row.paddingEnd += customShape.blockPaddingEnd(this, otherShape, lastInput, lastField, row);
+  }
+  
   const paddingEnd = (Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING[shape] || {})[otherShape];
   row.paddingEnd += paddingEnd === undefined ? Blockly.BlockSvg.DEFAULT_SHAPE_PADDING : paddingEnd;
 };
@@ -1584,6 +1621,10 @@ Blockly.BlockSvg.prototype.outputLeftPadding_ = function() {
       }
     }
     default: {
+      const customShape = Blockly.BlockSvg.CUSTOM_SHAPES.get(this.edgeShape_);
+      if (customShape && customShape.outputLeftPadding) {
+        return customShape.outputLeftPadding(this)
+      }
       return 0;
     }
   }
@@ -1878,7 +1919,7 @@ Blockly.BlockSvg.getInputShapeInfo_ = function(shape) {
       inputShapeArgType = 'square';
       break;
     default: {
-      // this could be a custom shape
+      // This could be a custom shape.
       const customShape = Blockly.BlockSvg.CUSTOM_SHAPES.get(shape);
       if (shape !== Blockly.OUTPUT_SHAPE_SQUARE && customShape) {
         inputShapePath = customShape.emptyInputPath;
@@ -1956,18 +1997,133 @@ Blockly.BlockSvg.prototype.renderMoveConnections_ = function() {
   }
 };
 
-/* Custom Block Shape API */
+/**
+ * Custom Block Shape API & Custom Notch Utilites.
+ * Taken from PenguinMod.
+ * https://github.com/PenguinMod/PenguinMod-Blocks/blob/de35ce5758aeda5aab0a9ad59736e1920205804b/core/block_render.js#L2187
+ * https://github.com/PenguinMod/PenguinMod-Blocks/blob/de35ce5758aeda5aab0a9ad59736e1920205804b/core/block_render.js#L2294
+ */
 
-// Stores all user-defined custom shapes
+Blockly.BlockSvg.CUSTOM_NOTCH_UTIL = {
+  supportedCommands: {m: 2, l: 2, h: 1, v: 1, c: 6, s: 4, q: 4, t: 2, a: 7},
+  commandXpos: {m: [0], l: [0], h: [0], c: [0, 2, 4], s: [0, 2], q: [0, 2], t: [0], a: [5]},
+  path2TokenList: function(pathStr) {
+    return pathStr.match(/[a-z]|-?\d*\.?\d+(?:[eE][-+]?\d+)?/g);
+  },
+  validateSVGPath: function(pathStr) {
+    const tokens = this.path2TokenList(pathStr);
+    let i = 0;
+    while (i < tokens.length) {
+      const cmd = tokens[i++];
+      const expected = this.supportedCommands[cmd];
+      if (expected === undefined) throw new Error(`Unsupported or invalid command '${cmd}'`);
+      while (i + expected <= tokens.length && !/^[a-z]$/.test(tokens[i])) {
+        for (let j = 0; j < expected; j++) {
+          if (!/^[-+]?\d*\.?\d+(e[-+]?\d+)?$/i.test(tokens[i + j])) {
+            throw new Error(`Invalid number '${tokens[i + j]}' in '${cmd}' command`);
+          }
+        }
+        i += expected;
+      }
+    }
+    return true;
+  },
+  flipPathX: function(pathStr) {
+    const tokens = this.path2TokenList(pathStr);
+    let i = 0, result = [];
+    while (i < tokens.length) {
+      const cmd = tokens[i++];
+      result.push(cmd);
+      const expected = this.supportedCommands[cmd];
+      while (i + expected <= tokens.length && !/^[a-z]$/.test(tokens[i])) {
+        const group = [];
+        if (cmd === 'a') {
+          // Arc: rx ry x-axis-rotation large-arc-flag sweep-flag dx dy
+          group.push(
+            parseFloat(tokens[i]), parseFloat(tokens[i + 1]),
+            parseFloat(tokens[i + 2]), parseInt(tokens[i + 3]),
+            1 - parseInt(tokens[i + 4]),
+            -parseFloat(tokens[i + 5]), parseFloat(tokens[i + 6])
+          );
+        } else {
+          const xIndexes = this.commandXpos[cmd] || [];
+          for (let j = 0; j < expected; j++) {
+            let val = parseFloat(tokens[i + j]);
+            if (xIndexes.includes(j)) val = -val;
+            group.push(val);
+          }
+        }
+        result.push(...group);
+        i += expected;
+      }
+    }
+    return result.join(' ');
+  }
+};
+
+/**
+ * Map of all user-defined custom block shapes.
+ * @type {Map}
+ */
 Blockly.BlockSvg.CUSTOM_SHAPES = new Map([
-  /* pre-made shapes */
-  // TODO these must start with native- instead of custom
+  // Pre-made native shapes.
+  [Blockly.OUTPUT_SHAPE_OCTAGONAL, {
+    emptyInputPath: "M 8 0 h 32 l 8 8 l 0 16 l -8 8 h -32 l -8 -8 l 0 -16 l 8 -8 z",
+    emptyInputWidth: 12 * Blockly.BlockSvg.GRID_UNIT,
+    leftPath: function(block) {
+      const scale = block.height / 2;
+      return [`l ${-scale / 2} 0 l ${-scale / 2} ${-scale / 2} l 0 ${-scale} l ${scale / 2} ${-scale / 2} l ${scale / 2} 0`];
+    },
+    rightPath: function(block) {
+      const scale = block.edgeShapeWidth_;
+      return [`l ${scale / 2} 0 l ${scale / 2} ${scale / 2} l 0 ${scale} l ${-scale / 2} ${scale / 2} l ${-scale / 2} 0`];
+    },
+  }],
+  [Blockly.OUTPUT_SHAPE_SCRAPPED, {
+    emptyInputPath: "M 16 0 h 16 h 16 l -6 10 l -4 1 l 4 2 v 6 l -4 2 l 4 1 l 6 10 h -16 h -16 h -16 l 6 -10 l 4 -1 l -4 -2 v -6 l 4 -2 l -4 -1 l -6 -10 z",
+    emptyInputWidth: 12 * Blockly.BlockSvg.GRID_UNIT,
+    leftPath: function(block) {
+      const scale = block.height / 2;
+      const s = scale / 16;
+      return [
+        `h ${-16 * s}`,
+        `l ${6 * s} ${-10 * s}`,
+        `l ${4 * s} ${-1 * s}`,
+        `l ${-4 * s} ${-2 * s}`,
+        `v ${-6 * s}`,
+        `l ${4 * s} ${-2 * s}`,
+        `l ${-4 * s} ${-1 * s}`,
+        `l ${-6 * s} ${-10 * s}`,
+      ];
+    },
+    rightPath: function(block) {
+      const scale = block.edgeShapeWidth_;
+      const s = scale / 16;
+      return [
+        `h ${16 * s}`,
+        `l ${-6 * s} ${10 * s}`,
+        `l ${-4 * s} ${1 * s}`,
+        `l ${4 * s} ${2 * s}`,
+        `v ${6 * s}`,
+        `l ${-4 * s} ${2 * s}`,
+        `l ${4 * s} ${1 * s}`,
+        `l ${6 * s} ${10 * s}`,
+        `h ${-16 * s}`,
+      ];
+    },
+    blockPaddingStart: function(_, __, firstInput) {
+      return Math.max(((firstInput.renderHeight - Blockly.BlockSvg.MIN_BLOCK_Y_REPORTER)) / 3, 0);
+    },
+    blockPaddingEnd: function(_, __, lastInput) {
+      return Math.max(((lastInput.renderHeight - Blockly.BlockSvg.MIN_BLOCK_Y_REPORTER)) / 3, 0);
+    },
+  }]
 ]);
 
 /**
- * Register a custom block shape
- * @param {string} name The name used to identify custom shapes
- * @param {object} shapeInfo All relative information for generating the shape (see below)
+ * Register a custom block shape.
+ * @param {string} name The name used to identify custom shapes.
+ * @param {object} shapeInfo All relative information for generating the shape. (see below)
  */
 /*
 shapeInfo entries ==> 
@@ -1986,6 +2142,8 @@ shapeInfo entries ==>
       // include all keys from Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING and insert the padding as the value
     },
   }
+  blockPaddingStart: (block, otherShape, firstInput, firstField, row) => { return Number } -– Returns a number adding extra padding to the start of the block in 'computeOutputPadding_', used for boolean-like shapes.
+  blockPaddingEnd: (block, otherShape, lastInput, lastField, row) => { return Number } –- Returns a number adding extra padding to the end of the block in 'computeOutputPadding_', used for boolean-like shapes.
 }
 */
 Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
@@ -1998,6 +2156,8 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
       "'leftPath' (function) -– Returns an array of SVG path parts for the left side of the block",
       "'rightPath' (function) –- Returns an array of SVG path parts for the right side of the block",
       "'blockPadding' (object) -- (optional) Object for block-in-block padding, similar to 'Blockly.BlockSvg.SHAPE_IN_SHAPE_PADDING', 'internal' entry for custom block padding, 'external' entry for other shapes padding",
+      "'blockPaddingStart' (function) -- (optional) Returns a number adding extra padding to the start of the block in 'computeOutputPadding_', used for boolean-like shapes.",
+      "'blockPaddingEnd' (function) -- (optional) Returns a number adding extra padding to the end of the block in 'computeOutputPadding_', used for boolean-like shapes.",
     ].join("\n"));
     return;
   }
@@ -2017,10 +2177,10 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
   name = "custom-" + String(name);
   shapeInfo.name = name;
 
-  // optional value, this default value is constant for all shapes
+  // Optional value, this default value is constant for all shapes.
   if (!shapeInfo.emptyInputWidth) shapeInfo.emptyInputWidth = 12 * Blockly.BlockSvg.GRID_UNIT;
 
-  // optional value, padding defaults to DEFAULT_SHAPE_PADDING
+  // Optional value, padding defaults to DEFAULT_SHAPE_PADDING.
   if (shapeInfo.blockPadding) {
     const internalPads = shapeInfo.blockPadding.internal;
     if (typeof internalPads === "object" && !Array.isArray(internalPads)) {
@@ -2039,6 +2199,16 @@ Blockly.BlockSvg.registerCustomShape = function(name, shapeInfo) {
     } else {
       console.warn(`No 'external' padding object provided in custom shape ${name}, please refer to 'ScratchBlocks.BlockSvg.SHAPE_IN_SHAPE_PADDING', for formatting`);
     }
+  }
+
+  // Optional value, just validating it if it exists.
+  if (shapeInfo.blockPaddingStart && typeof shapeInfo.blockPaddingStart !== "function") {
+    console.error(`Registration for Shape '${name}' failed\n'blockPaddingStart' entry found in Param 2/entry is not a function`);
+    return;
+  }
+  if (shapeInfo.blockPaddingEnd && typeof shapeInfo.blockPaddingEnd !== "function") {
+    console.error(`Registration for Shape '${name}' failed\n'blockPaddingEnd' entry found in Param 2/entry is not a function`);
+    return;
   }
 
   Blockly.BlockSvg.CUSTOM_SHAPES.set(name, shapeInfo);

@@ -674,6 +674,21 @@ Blockly.Connection.prototype.onCheckChanged_ = function() {
 };
 
 /**
+ * Change a connection's shape.
+ * @param {number|string} shape Shape for connection.
+ * @return {!Blockly.Connection} The connection being modified
+ *     (to allow chaining).
+ */
+Blockly.Connection.prototype.setCheck = function(shape) {
+  if (shape) {
+    this.shape_ = shape
+  } else {
+    this.shape_ = null;
+  }
+  return this;
+};
+
+/**
  * Change a connection's compatibility.
  * @param {*} check Compatible value type or list of value types.
  *     Null if all types are compatible.
@@ -700,6 +715,7 @@ Blockly.Connection.prototype.setCheck = function(check) {
  * @return {number} Enum representing shape.
  */
 Blockly.Connection.prototype.getOutputShape = function() {
+  if (this.shape_) return this.shape_;
   if (!this.check_) return Blockly.OUTPUT_SHAPE_ROUND;
   if (this.check_.indexOf('Boolean') !== -1) {
     return Blockly.OUTPUT_SHAPE_HEXAGONAL;
