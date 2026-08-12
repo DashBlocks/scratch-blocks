@@ -1084,80 +1084,6 @@ Blockly.WorkspaceSvg.prototype.glowStack = function(id, isGlowingStack) {
 };
 
 /**
- * Generate Element content of JSON for reporter pop-up.
- * @param {object} json Array/Object to generate Element content.
- */
-Blockly.WorkspaceSvg.prototype.generateReporterJSONContent = function(json) {
-  var content = goog.dom.createElement('span');
-
-  var length = Array.isArray(json) ? json.length : Object.keys(json).length;
-  if (length === 0) {
-    content.textContent = Array.isArray(json) ? '[]' : '{}';
-    return content;
-  }
-
-  var maxShownItems = 50;
-  var more = length - maxShownItems;
-  var currentSpan = goog.dom.createElement('span');
-  content.appendChild(currentSpan);
-
-  var array = Array.isArray(json) ? json : Object.entries(json);
-  array.slice(0, maxShownItems).forEach(function(item, i, array) {
-    if (i === 0) {
-      currentSpan.textContent += Array.isArray(json) ? '[' : '{';
-    }
-    if (!Array.isArray(json)) {
-      currentSpan.textContent += JSON.stringify(item[0]) + ': ';
-    }
-
-    var value = Array.isArray(json) ? item : item[1];
-    if (Array.isArray(value)) {
-      var add = goog.dom.createElement('i');
-      add.textContent = 'nested array';
-      content.appendChild(add);
-      currentSpan = goog.dom.createElement('span');
-      content.appendChild(currentSpan);
-    } else if (typeof value === 'object' && value !== null) {
-      if (
-        !(typeof value.constructor === 'object' && value.constructor !== null && value.constructor.prototype === Object.prototype) &&
-        typeof value.customId === 'string'
-      ) {
-        if (typeof value.toReporterJSONItem === 'function') {
-          content.appendChild(value.toReporterJSONItem());
-        } else {
-          var add = goog.dom.createElement('i');
-          add.textContent = 'nested custom type';
-          content.appendChild(add);
-        }
-      } else {
-        var add = goog.dom.createElement('i');
-        add.textContent = 'nested object';
-        content.appendChild(add);
-      }
-      currentSpan = goog.dom.createElement('span');
-      content.appendChild(currentSpan);
-    } else {
-      currentSpan.textContent += JSON.stringify(value);
-    }
-
-    if (i === array.length - 1) {
-      if (more > 0) {
-        currentSpan.textContent += ', ';
-        var add = goog.dom.createElement('i');
-        add.textContent = '*' + more + ' more items*';
-        content.appendChild(add);
-        currentSpan = goog.dom.createElement('span');
-        content.appendChild(currentSpan);
-      }
-      currentSpan.textContent += Array.isArray(json) ? ']' : '}';
-    } else {
-      currentSpan.textContent += ', ';
-    }
-  });
-  return content;
-}
-
-/**
  * Visually report a value associated with a block.
  * In Scratch, appears as a pop-up next to the block when a reporter block is clicked.
  * @param {?string} id ID of block to report associated value.
@@ -1176,16 +1102,13 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value) {
 
   var valueReportBox = goog.dom.createElement('div');
   valueReportBox.setAttribute('class', 'valueReportBox');
-  if (Array.isArray(value)) {
-    valueReportBox.appendChild(this.generateReporterJSONContent(value));
-  } else if (typeof value === 'object' && value !== null) {
-    if (
-      !(typeof value.constructor === 'object' && value.constructor !== null && value.constructor.prototype === Object.prototype) &&
-      typeof value.customId === 'string' && typeof value.toReporterContent === 'function'
-    ) {
+  if (typeof value === 'object' && value !== null) {
+    if (typeof value.toReporterContent === 'function') {
       valueReportBox.appendChild(value.toReporterContent());
     } else {
-      valueReportBox.appendChild(this.generateReporterJSONContent(value));
+      var placeholder = goog.dom.createElement('i');
+      placeholder.textContent = '*custom type*';
+      valueReportBox.appendChild(placeholder);
     }
   } else {
     valueReportBox.textContent = String(value);
