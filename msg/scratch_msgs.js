@@ -19333,6 +19333,7 @@ Blockly.ScratchMsgs.locales["ru"] =
     "CONTROL_INCRCOUNTER": "увеличить счётчик",
     "CONTROL_CLEARCOUNTER": "очистить счётчик",
     "CONTROL_ALLATONCE": "все сразу",
+    "CONTROL_RUNAS": "как внутри %1, выполнить",
     "CONTROL_RESUME": "возобновить все",
     "CONTROL_PAUSE": "приостановить все",
     "CONTROL_ISPAUSED": "приостановлено?",
