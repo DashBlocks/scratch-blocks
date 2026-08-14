@@ -194,7 +194,12 @@ Blockly.Blocks['looks_changeeffectby'] = {
             [Blockly.Msg.LOOKS_EFFECT_PIXELATE, 'PIXELATE'],
             [Blockly.Msg.LOOKS_EFFECT_MOSAIC, 'MOSAIC'],
             [Blockly.Msg.LOOKS_EFFECT_BRIGHTNESS, 'BRIGHTNESS'],
-            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST']
+            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST'],
+            [Blockly.Msg.LOOKS_EFFECT_RED, 'RED'],
+            [Blockly.Msg.LOOKS_EFFECT_GREEN, 'GREEN'],
+            [Blockly.Msg.LOOKS_EFFECT_BLUE, 'BLUE'],
+            [Blockly.Msg.LOOKS_EFFECT_HORIZONTAL_SHEAR, 'HORIZONTAL_SHEAR'],
+            [Blockly.Msg.LOOKS_EFFECT_VERTICAL_SHEAR, 'VERTICAL_SHEAR']
           ]
         },
         {
@@ -227,7 +232,12 @@ Blockly.Blocks['looks_seteffectto'] = {
             [Blockly.Msg.LOOKS_EFFECT_PIXELATE, 'PIXELATE'],
             [Blockly.Msg.LOOKS_EFFECT_MOSAIC, 'MOSAIC'],
             [Blockly.Msg.LOOKS_EFFECT_BRIGHTNESS, 'BRIGHTNESS'],
-            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST']
+            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST'],
+            [Blockly.Msg.LOOKS_EFFECT_RED, 'RED'],
+            [Blockly.Msg.LOOKS_EFFECT_GREEN, 'GREEN'],
+            [Blockly.Msg.LOOKS_EFFECT_BLUE, 'BLUE'],
+            [Blockly.Msg.LOOKS_EFFECT_HORIZONTAL_SHEAR, 'HORIZONTAL_SHEAR'],
+            [Blockly.Msg.LOOKS_EFFECT_VERTICAL_SHEAR, 'VERTICAL_SHEAR']
           ]
         },
         {
@@ -274,7 +284,12 @@ Blockly.Blocks['looks_geteffect'] = {
             [Blockly.Msg.LOOKS_EFFECT_PIXELATE, 'PIXELATE'],
             [Blockly.Msg.LOOKS_EFFECT_MOSAIC, 'MOSAIC'],
             [Blockly.Msg.LOOKS_EFFECT_BRIGHTNESS, 'BRIGHTNESS'],
-            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST']
+            [Blockly.Msg.LOOKS_EFFECT_GHOST, 'GHOST'],
+            [Blockly.Msg.LOOKS_EFFECT_RED, 'RED'],
+            [Blockly.Msg.LOOKS_EFFECT_GREEN, 'GREEN'],
+            [Blockly.Msg.LOOKS_EFFECT_BLUE, 'BLUE'],
+            [Blockly.Msg.LOOKS_EFFECT_HORIZONTAL_SHEAR, 'HORIZONTAL_SHEAR'],
+            [Blockly.Msg.LOOKS_EFFECT_VERTICAL_SHEAR, 'VERTICAL_SHEAR']
           ]
         }
       ],
