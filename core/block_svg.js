@@ -166,8 +166,8 @@ Blockly.BlockSvg.prototype.initSvg = function() {
   if (!this.workspace.options.readOnly && !this.eventsInit_) {
     Blockly.bindEventWithChecks_(
         this.getSvgRoot(), 'mousedown', this, this.onMouseDown_);
+    this.eventsInit_ = true;
   }
-  this.eventsInit_ = true;
 
   if (!this.getSvgRoot().parentNode) {
     this.workspace.getCanvas().appendChild(this.getSvgRoot());
