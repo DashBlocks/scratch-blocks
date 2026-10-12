@@ -517,7 +517,7 @@ Blockly.Xml.appendDomToWorkspace = function(xml, workspace) {
   var bbox;  // Bounding box of the current blocks.
   // First check if we have a workspaceSvg, otherwise the blocks have no shape
   // and the position does not matter.
-  if (workspace.hasOwnProperty('scale')) {
+  if (Object.prototype.hasOwnProperty.call(workspace, 'scale')) {
     var savetab = Blockly.BlockSvg.TAB_WIDTH;
     try {
       Blockly.BlockSvg.TAB_WIDTH = 0;
@@ -642,7 +642,7 @@ Blockly.Xml.domToVariables = function(xmlVariables, workspace) {
     var isCloud = xmlChild.getAttribute('iscloud') == 'true';
     var name = xmlChild.textContent;
 
-    if (typeof(type) === undefined || type === null) {
+    if (typeof(type) === 'undefined' || type === null) {
       throw Error('Variable with id, ' + id + ' is without a type');
     }
     workspace.createVariable(name, type, id, isLocal, isCloud);
@@ -917,3 +917,118 @@ goog.global['Blockly']['Xml']['textToDom'] = Blockly.Xml.textToDom;
 goog.global['Blockly']['Xml']['workspaceToDom'] = Blockly.Xml.workspaceToDom;
 goog.global['Blockly']['Xml']['clearWorkspaceAndLoadFromXml'] =
   Blockly.Xml.clearWorkspaceAndLoadFromXml;
+
+Blockly.Xml.patchWorkspace = function(xml, workspace, blockIds, commentIds, moves) {
+  var roots = Object.create(null);
+  var affected = Object.create(null);
+  var topNodes = [];
+  var children = xml.children;
+  var selected = Blockly.selected && Blockly.selected.id;
+  var readOnly = workspace.options.readOnly;
+  var wantedVariables = Object.create(null);
+  var comments = Object.create(null);
+  commentIds.forEach(function(id) { comments[id] = true; });
+  blockIds.forEach(function(id) {
+    affected[id] = true;
+    var block = workspace.getBlockById(id);
+    if (block) roots[block.getRootBlock().id] = true;
+  });
+  for (var i = 0; i < children.length; i++) {
+    var node = children[i];
+    if (node.nodeName.toLowerCase() == 'block') {
+      topNodes.push(node);
+      var nodes = [node].concat(Array.prototype.slice.call(node.querySelectorAll('block, shadow')));
+      if (nodes.some(function(child) { return affected[child.getAttribute('id')]; })) {
+        roots[node.getAttribute('id')] = true;
+      }
+    }
+  }
+  var expanded = true;
+  while (expanded) {
+    expanded = false;
+    topNodes.forEach(function(node) {
+      var nodes = [node].concat(Array.prototype.slice.call(node.querySelectorAll('block, shadow')));
+      var existingRoots = [];
+      nodes.forEach(function(child) {
+        var block = workspace.getBlockById(child.getAttribute('id'));
+        if (block) existingRoots.push(block.getRootBlock().id);
+      });
+      if (roots[node.getAttribute('id')] || existingRoots.some(function(id) { return roots[id]; })) {
+        existingRoots.concat([node.getAttribute('id')]).forEach(function(id) {
+          if (!roots[id]) { roots[id] = true; expanded = true; }
+        });
+      }
+    });
+  }
+  (moves || []).forEach(function(move) { affected[move.id] = true; });
+  Blockly.Events.disable();
+  workspace.options.readOnly = false;
+  try {
+    Object.keys(roots).forEach(function(id) {
+      var block = workspace.getBlockById(id);
+      if (!block) return;
+      block.getDescendants().forEach(function(child) { affected[child.id] = true; });
+      block.dispose(false, false);
+    });
+    for (var i = 0; i < children.length; i++) {
+      var node = children[i];
+      if (node.nodeName.toLowerCase() != 'variables') continue;
+      for (var j = 0; j < node.children.length; j++) {
+        var variable = node.children[j];
+        var id = variable.getAttribute('id');
+        wantedVariables[id] = true;
+        var existing = workspace.getVariableById(id);
+        if (existing && existing.name != variable.textContent) {
+          workspace.renameVariableById(id, variable.textContent);
+        }
+      }
+      Blockly.Xml.domToVariables(node, workspace);
+    }
+    workspace.getAllVariables().forEach(function(variable) {
+      if (!wantedVariables[variable.getId()]) workspace.getVariableMap().deleteVariable(variable);
+    });
+    workspace.getTopComments(false).slice().forEach(function(comment) {
+      if (comments[comment.id]) comment.dispose();
+    });
+    var fragment = goog.dom.createDom('xml');
+    topNodes.forEach(function(node) {
+      if (roots[node.getAttribute('id')]) fragment.appendChild(node.cloneNode(true));
+    });
+    for (var i = 0; i < children.length; i++) {
+      var node = children[i];
+      if (node.nodeName.toLowerCase() == 'comment' && comments[node.getAttribute('id')]) {
+        fragment.appendChild(node.cloneNode(true));
+      }
+    }
+    Blockly.Xml.domToWorkspace(fragment, workspace);
+    (moves || []).forEach(function(move) {
+      var block = workspace.getBlockById(move.id);
+      if (!block || block.getParent()) return;
+      var xy = block.getRelativeToSurfaceXY();
+      var x = workspace.RTL ? workspace.getWidth() - move.x : move.x;
+      block.moveBy(x - xy.x, move.y - xy.y);
+    });
+    var selection = selected && workspace.getBlockById(selected);
+    if (selection) selection.select();
+    var invalidGroups = Object.create(null);
+    var stacks = [workspace.undoStack_, workspace.redoStack_];
+    stacks.forEach(function(stack) {
+      stack.forEach(function(event) {
+        if ((affected[event.blockId] || comments[event.commentId] ||
+            (event.ids && event.ids.some(function(id) { return affected[id]; }))) && event.group) {
+          invalidGroups[event.group] = true;
+        }
+      });
+    });
+    var keepEvent = function(event) {
+      return !invalidGroups[event.group] && !affected[event.blockId] && !comments[event.commentId] &&
+          !(event.ids && event.ids.some(function(id) { return affected[id]; }));
+    };
+    workspace.undoStack_ = workspace.undoStack_.filter(keepEvent);
+    workspace.redoStack_ = workspace.redoStack_.filter(keepEvent);
+  } finally {
+    workspace.options.readOnly = readOnly;
+    Blockly.Events.enable();
+  }
+};
+goog.global['Blockly']['Xml']['patchWorkspace'] = Blockly.Xml.patchWorkspace;
