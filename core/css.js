@@ -360,6 +360,14 @@ Blockly.Css.CONTENT = [
     'font-size: .8em;',
   '}',
 
+  '.valueReportButton {',
+    'border: 1px solid $colour_valueReportBorder;',
+    'border-radius: 4px;',
+    'margin-top: 4px;',
+    'padding: 4px;',
+    'cursor: pointer;',
+  '}',
+  
   '.blocklyResizeSE {',
     'cursor: se-resize;',
     'fill: #aaa;',
