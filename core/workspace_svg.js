@@ -1108,6 +1108,17 @@ Blockly.WorkspaceSvg.prototype.reportValue = function(id, value, options) {
       valueReportBox.appendChild(value.toReporterContent());
     } else if (value instanceof Error) {
       valueReportBox.textContent = value.stack;
+
+      if (options && options.isUncaught) {
+        var logButton = goog.dom.createElement('div');
+        logButton.setAttribute('class', 'valueReportButton');
+        logButton.setAttribute('role', 'button');
+        logButton.textContent = 'Log to DevTools console';
+        logButton.addEventListener('click', function() {
+          console.error('Logged Unexpected Error:', value);
+        });
+        valueReportBox.appendChild(logButton);
+      }
     } else {
       var placeholder = goog.dom.createElement('i');
       placeholder.textContent = '*custom type*';
