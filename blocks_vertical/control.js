@@ -366,6 +366,35 @@ Blockly.Blocks['control_if_then_else'] = {
   }
 };
 
+Blockly.Blocks['control_try_catch'] = {
+  /**
+   * Block for try-catch.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_TRY,
+      "message1": "%1",
+      "message2": Blockly.Msg.CONTROL_CATCH,
+      "message3": "%1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK"
+        }
+      ],
+      "args3": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK2"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['control_resume'] = {
   /**
    * Block for unpause (resume) all scripts.
