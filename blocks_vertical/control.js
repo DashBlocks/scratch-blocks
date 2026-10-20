@@ -395,6 +395,26 @@ Blockly.Blocks['control_try_catch'] = {
   }
 };
 
+Blockly.Blocks['control_throw'] = {
+  /**
+   * Block for throw value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_THROW,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_end"]
+    });
+  }
+};
+
 Blockly.Blocks['control_resume'] = {
   /**
    * Block for unpause (resume) all scripts.
