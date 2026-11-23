@@ -195,7 +195,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
     this.getInput('EXPANDABLE').setAlign(Blockly.ALIGN_RIGHT);
   },
 
-  expandableCallback(field, oldValue, newValue, createShadows) {
+  expandableCallback: function (field, oldValue, newValue, createShadows) {
     if (oldValue < newValue) {
       for (let i = oldValue; i < newValue; i++) {
         let stackIndex = Math.floor((i + 1) / 2) + 1;
