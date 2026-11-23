@@ -216,7 +216,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
           var type = createShadows ? 'checkbox' : null;
           Blockly.scratchBlocksUtils.newBlockParam(
             this, inputName, type, undefined,
-            (input) => {
+            function(input) {
               input.setCheck('Boolean');
               input.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_IF);
               this.moveInputBefore(inputName, dummyName);
