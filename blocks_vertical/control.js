@@ -213,13 +213,13 @@ Blockly.Blocks['control_if_else_expandable'] = {
           } else this.moveInputBefore(dummyName, 'EXPANDABLE');
 
           var inputName = 'BOOL' + stackIndex;
-          var type = createShadows ? 'checkbox' : null;
+          var thisBlock = this;
           Blockly.scratchBlocksUtils.newBlockParam(
-            this, inputName, type, undefined,
+            this, inputName, null, undefined,
             function(input) {
               input.setCheck('Boolean');
               input.appendField(Blockly.Msg.CONTROL_IFELSEEXPANDABLE_IF);
-              this.moveInputBefore(inputName, dummyName);
+              thisBlock.moveInputBefore(inputName, dummyName);
             }
           );
 
