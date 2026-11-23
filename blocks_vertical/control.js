@@ -203,7 +203,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
           // if
           let dummyName = 'DUMMY' + (i + 1);
           let dummy = this.appendDummyInput(dummyName);
-          dummy.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_THEN);
+          dummy.appendField(Blockly.Msg.CONTROL_IFELSEEXPANDABLE_THEN);
 
           let substackExists = false
           if (this.getInput('SUBSTACK' + stackIndex)) {
@@ -218,7 +218,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
             this, inputName, type, undefined,
             function(input) {
               input.setCheck('Boolean');
-              input.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_IF);
+              input.appendField(Blockly.Msg.CONTROL_IFELSEEXPANDABLE_IF);
               this.moveInputBefore(inputName, dummyName);
             }
           );
@@ -232,7 +232,7 @@ Blockly.Blocks['control_if_else_expandable'] = {
           // else
           let dummyName = 'DUMMY' + (i + 1);
           let dummy = this.appendDummyInput(dummyName);
-          dummy.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_ELSE);
+          dummy.appendField(Blockly.Msg.CONTROL_IFELSEEXPANDABLE_ELSE);
           this.moveInputBefore(dummyName, 'EXPANDABLE');
 
           let substackName = 'SUBSTACK' + stackIndex;
