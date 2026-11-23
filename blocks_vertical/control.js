@@ -176,163 +176,81 @@ Blockly.Blocks['control_if_else_expandable'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": 'hidden %1 %2',
+      "message0": '%1 %2',
       "args0": [
         {
-          "type": "field_expandable_remove",
-          "name": "REMOVE"
+          "type": "field_expandable",
+          "name": "EXPANDABLE",
+          "value": 1
         },
         {
-          "type": "field_expandable_add",
-          "name": "ADD"
+          "type": "input_dummy",
+          "name": "EXPANDABLE"
         }
       ],
       "category": Blockly.Categories.control,
       "extensions": ["colours_control", "shape_statement"]
     });
 
-    this.branches_ = 0;
-    this.nextIsElse = true;
-    this.endsInElse = false;
+    this.getInput('EXPANDABLE').setAlign(Blockly.ALIGN_RIGHT);
   },
 
-  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
-  fixupButtons: function() {
-    const expandableInput = this.getInput("");
-    this.inputList.splice(this.inputList.indexOf(expandableInput), 1);
-    this.inputList.push(expandableInput);
+  expandableCallback(field, oldValue, newValue, createShadows) {
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        let stackIndex = Math.floor((i + 1) / 2) + 1;
+        if (i % 2 == 0) {
+          // if
+          let dummyName = 'DUMMY' + (i + 1);
+          let dummy = this.appendDummyInput(dummyName);
+          dummy.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_THEN);
 
-    expandableInput.setAlign(1);
-    const hiddenBtn = expandableInput.fieldRow[0];
-    hiddenBtn.size_.width = 0.5;
-    hiddenBtn.size_.height = Blockly.BlockSvg.INPUT_SHAPE_HEIGHT + 16;
-    hiddenBtn.setVisible(false);
-  },
-  addCase: function(shouldPopulate) {
-    if (this.nextIsElse) {
-      this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField("else");
-      this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
-      this.endsInElse = true;
-    } else {
-      const prevText = this.getInput(`TEXTSTART${this.branches_}`);
-      if (prevText) prevText.appendField("if");
-      else this.appendDummyInput(`TEXTSTART${this.branches_}`).appendField("if");
-      const input = this.appendValueInput(`BOOL${this.branches_}`).setCheck("Boolean");
-      if (!this.isInsertionMarker_) {
-        input.init();
-        input.initOutlinePath(this.svgGroup_);
-        input.outlinePath.setAttribute('fill', this.getColourTertiary());
-      }
-      this.appendDummyInput(`TEXTEND${this.branches_}`).appendField("then");
+          let substackExists = false
+          if (this.getInput('SUBSTACK' + stackIndex)) {
+            // previous else stack
+            substackExists = true
+            this.moveInputBefore(dummyName, 'SUBSTACK' + stackIndex);
+          } else this.moveInputBefore(dummyName, 'EXPANDABLE');
 
-      // Swap out the connection with the old and new branch
-      const prevBranch = this.getInput(`SUBSTACK${this.branches_}`);
-      const newBranch = this.appendStatementInput(`SUBSTACK${this.branches_}`).setCheck("normal");
-      if (this.branches_ > 1) {
-        const prevBranchBlock = prevBranch.connection.targetBlock();
-        if (prevBranchBlock) newBranch.connection.connect(prevBranchBlock.previousConnection);
-        this.removeInput(`SUBSTACK${this.branches_}`);
-      }
-      this.endsInElse = false;
-    }
+          var inputName = 'BOOL' + stackIndex;
+          var type = createShadows ? 'checkbox' : null;
+          Blockly.scratchBlocksUtils.newBlockParam(
+            this, inputName, type, undefined,
+            (input) => {
+              input.setCheck('Boolean');
+              input.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_IF);
+              this.moveInputBefore(inputName, dummyName);
+            }
+          );
 
-    this.fixupButtons();
-  },
-
-  mutationToDom: function() {
-    const container = document.createElement("mutation");
-    container.setAttribute("branches", String(this.branches_));
-    container.setAttribute("ends-in-else", String(this.endsInElse));
-    return container;
-  },
-
-  domToMutation: function(xmlElement) {
-    const inputCount = Number(xmlElement.getAttribute("branches"));
-    let branchCount = isNaN(inputCount) ? 0 : inputCount;
-    let needsActionConnect = false, oldConnections;
-
-    if (this.inputList.length - 1 > 0) {
-      // This was a control Z action
-      needsActionConnect = true;
-      oldConnections = this.getConnections_().map(c => c.targetBlock());
-
-      // Clear block
-      for (var i = this.inputList.length - 1; i--;) {
-        const input = this.inputList[i];
-        if (input.name.startsWith("SUBSTACK") || input.name.startsWith("BOOL")) {
-          if (input.connection.targetBlock()) input.connection.disconnect();
-        }
-        this.removeInput(input.name);
-      }
-    }
-
-    if (branchCount > 1) {
-      branchCount = (branchCount * 2) - 1;
-      if (xmlElement.getAttribute("ends-in-else") === "true") branchCount -= 1;
-    }
-
-    this.nextIsElse = false;
-    this.endsInElse = false;
-    this.branches_ = 1;
-    for (let i = 0; i < branchCount; i++) {
-      if (this.nextIsElse) this.branches_++;
-      this.addCase(false);
-      this.nextIsElse = !this.nextIsElse;
-    }
-
-    this.fixupButtons();
-    if (needsActionConnect) {
-      let index = 2;
-      for (var i = 0; i < this.inputList.length; i++) {
-        const input = this.inputList[i];
-        if (input.name.startsWith("SUBSTACK") || input.name.startsWith("BOOL")) {
-          const oldBlock = oldConnections[index];
-          if (oldBlock) {
-            try {
-              const connector = oldBlock.outputConnection ? oldBlock.outputConnection : oldBlock.previousConnection;
-              input.connection.connect(connector);
-            } catch(e) {}
+          if (!substackExists) {
+            let substackName = 'SUBSTACK' + stackIndex;
+            let substack = this.appendStatementInput(substackName);
+            this.moveInputBefore(substackName, 'EXPANDABLE');
           }
-          index++;
+        } else {
+          // else
+          let dummyName = 'DUMMY' + (i + 1);
+          let dummy = this.appendDummyInput(dummyName);
+          dummy.appendField(Blockly.Msg.CONTROL_IFEXPANDABLE_ELSE);
+          this.moveInputBefore(dummyName, 'EXPANDABLE');
+
+          let substackName = 'SUBSTACK' + stackIndex;
+          let substack = this.appendStatementInput(substackName);
+          this.moveInputBefore(substackName, 'EXPANDABLE');
         }
       }
-    }
-  },
+    } else {
+      for (let i = newValue; i < oldValue; i++) {
+        this.removeInput('DUMMY' + (i + 1));
 
-  onExpandableButtonClicked_: function (isAdding) {
-    // Create an event group to keep field value and mutator in sync
-    // Return null at the end because setValue is called here already.
-    if (this.isInFlyout) return;
-    Blockly.Events.setGroup(true);
-    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
-    if (isAdding) {
-      if (this.nextIsElse) this.branches_++;
-      this.addCase(true);
-      this.nextIsElse = !this.nextIsElse;
-    } else if (this.branches_ > 1) {
-      const boolInput = this.getInput(`BOOL${this.branches_}`);
-      if (boolInput) {
-        const block = boolInput.connection.targetBlock();
-        if (block) block.outputConnection.disconnect();
+        let inputName = i % 2 == 0 ? 'BOOL' + Math.ceil((i + 1) / 2) : 'SUBSTACK' + (Math.ceil(i / 2) + 1);
+        if (this.getInput(inputName)) this.removeInput(inputName);
       }
-
-      this.removeInput(`BOOL${this.branches_}`);
-      this.removeInput(`SUBSTACK${this.branches_}`);
-      this.removeInput(`TEXTSTART${this.branches_}`);
-      this.removeInput(`TEXTEND${this.branches_}`);
-      this.branches_--;
-      this.nextIsElse = true;
-      this.endsInElse = false;
     }
 
     this.initSvg();
     if (this.rendered) this.render();
-
-    var newMutation = Blockly.Xml.domToText(this.mutationToDom());
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-      this, 'mutation', null, oldMutation, newMutation
-    ));
-    Blockly.Events.setGroup(false);
   }
 };
 
