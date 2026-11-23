@@ -131,117 +131,44 @@ Blockly.Blocks['operator_math_expandable'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": '%1 %2',
+      "message0": '%1',
       "args0": [
         {
-          "type": "field_expandable_remove",
-          "name": "REMOVE"
-        },
-        {
-          "type": "field_expandable_add",
-          "name": "ADD"
+          "type": "field_expandable",
+          "name": "EXPANDABLE",
+          "value": 2
         }
       ],
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_number"]
     });
-
-    this.inputs_ = 0;
   },
 
-  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
-  menuGenerator: function () {
-    const dropdown = new Blockly.FieldDropdown(function () {
-      return [
-        ["+", "+"], ["-", "-"],
-        ["*", "*"], ["/", "/"],
-        ["^", "**"],
-      ];
-    });
-    const ogSetValue = dropdown.setValue;
-    dropdown.setValue = function (value, omitMutation) {
-      const srcBlock = this.sourceBlock_;
-      let oldMutation;
-      if (!omitMutation) oldMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
+  expandableCallback: function (field, oldValue, newValue, createShadows) {
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        var type = createShadows ? 'math_number' : null;
+        var { input, shadow } = Blockly.scratchBlocksUtils.newBlockParam(this, 'NUM' + (i + 1), type, ['NUM', i + 1]);
 
-      ogSetValue.call(this, value);
-      if (!omitMutation) {
-        const newMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
-        Blockly.Events.fire(new Blockly.Events.BlockChange(
-          srcBlock, 'mutation', null, oldMutation, newMutation
-        ));
+        if (i > 0) {
+          input.appendField(new Blockly.FieldDropdown([
+            ['+', '+'],
+            ['-', '-'],
+            ['*', '*'],
+            ['/', '/'],
+            ['^', '**']
+          ]), 'OP' + (i + 1));
+          Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'OP' + (i + 1), '-', '+')); // tell vm it updated
+        }
       }
-    }
-    return dropdown;
-  },
-
-  mutationToDom: function () {
-    const container = document.createElement("mutation");
-    container.setAttribute("inputcount", String(this.inputs_));
-    let menuValues = this.inputList.reduce((acc, input) => {
-      return input.fieldRow[0] && input.fieldRow[0].argType_[0] === 'dropdown' ? [...acc, input.fieldRow[0].getValue()] : acc
-    }, []);
-    container.setAttribute("menuvalues", JSON.stringify(menuValues));
-    return container;
-  },
-  domToMutation: function (xmlElement) {
-    const inputCount = Number(xmlElement.getAttribute("inputcount"));
-    let menuValues;
-    try {
-      menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch (_) {
-      menuValues = [];
-    }
-    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
-
-    let repeatPreventer = false;
-    if (this.inputList.length > 1) {
-      // This was a control Z action
-      if (this.inputList.length - 1 === menuValues.length) repeatPreventer = true;
-      else {
-        const lastInput = this.inputList[this.inputList.length - 1];
-        const innerBlock = lastInput.connection.targetBlock();
-        if (innerBlock.isShadow()) innerBlock.dispose();
-        this.removeInput(lastInput.name);
-        return;
+    } else {
+      for (let i = newValue; i < oldValue; i++) {
+        this.removeInput('NUM' + (i + 1));
       }
     }
 
-    for (let i = 0; i < this.inputs_; i++) {
-      if (repeatPreventer && this.getInput(`NUM${i + 1}`)) continue;
-
-      const input = this.appendValueInput(`NUM${i + 1}`);
-      if (i > 0) {
-        const menu = input.appendField(this.menuGenerator());
-        menu.fieldRow[0].setValue(menuValues[i - 1] ? menuValues[i - 1] : "+", true);
-      }
-    }
-  },
-
-  onExpandableButtonClicked_: function (isAdding) {
-    // Create an event group to keep field value and mutator in sync
-    // Return null at the end because setValue is called here already.
-    Blockly.Events.setGroup(true);
-    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
-    if (isAdding) {
-      this.inputs_++;
-      const number = this.inputs_;
-      const newInput = this.appendValueInput(`NUM${number}`);
-      newInput.appendField(this.menuGenerator());
-      this.fillInBlock(newInput.connection, "math_number");
-    } else if (this.inputs_ > 1) {
-      const number = this.inputs_;
-      this.removeInput(`NUM${number}`);
-      this.inputs_--;
-    }
     this.initSvg();
     if (this.rendered) this.render();
-
-    const newMutation = Blockly.Xml.domToText(this.mutationToDom());
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-      this, 'mutation', null, oldMutation, newMutation
-    ));
-    Blockly.Events.setGroup(false);
   }
 };
 
@@ -348,116 +275,42 @@ Blockly.Blocks['operator_numbers_comparator_expandable'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": '%1 %2',
+      "message0": '%1',
       "args0": [
         {
-          "type": "field_expandable_remove",
-          "name": "REMOVE"
-        },
-        {
-          "type": "field_expandable_add",
-          "name": "ADD"
+          "type": "field_expandable",
+          "name": "EXPANDABLE",
+          "value": 2
         }
       ],
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_boolean"]
     });
-
-    this.inputs_ = 0;
   },
 
-  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
-  menuGenerator: function () {
-    const dropdown = new Blockly.FieldDropdown(function () {
-      return [
-        ["=", "=="], [">", ">"],
-        ["<", "<"]
-      ];
-    });
-    const ogSetValue = dropdown.setValue;
-    dropdown.setValue = function (value, omitMutation) {
-      const srcBlock = this.sourceBlock_;
-      let oldMutation;
-      if (!omitMutation) oldMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
+  expandableCallback: function (field, oldValue, newValue, createShadows) {
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        var type = createShadows ? 'text' : null;
+        var { input, shadow } = Blockly.scratchBlocksUtils.newBlockParam(this, 'STRING' + (i + 1), type);
 
-      ogSetValue.call(this, value);
-      if (!omitMutation) {
-        const newMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
-        Blockly.Events.fire(new Blockly.Events.BlockChange(
-          srcBlock, 'mutation', null, oldMutation, newMutation
-        ));
+        if (i > 0) {
+          input.appendField(new Blockly.FieldDropdown([
+            ['=', '=='],
+            ['>', '>'],
+            ['<', '<']
+          ]), 'OP' + (i + 1));
+          Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'OP' + (i + 1), '>', '==')); // tell vm it updated
+        }
       }
-    }
-    return dropdown;
-  },
-
-  mutationToDom: function () {
-    const container = document.createElement("mutation");
-    container.setAttribute("inputcount", String(this.inputs_));
-    let menuValues = this.inputList.reduce((acc, input) => {
-      return input.fieldRow[0] && input.fieldRow[0].argType_[0] === 'dropdown' ? [...acc, input.fieldRow[0].getValue()] : acc
-    }, []);
-    container.setAttribute("menuvalues", JSON.stringify(menuValues));
-    return container;
-  },
-  domToMutation: function (xmlElement) {
-    const inputCount = Number(xmlElement.getAttribute("inputcount"));
-    let menuValues;
-    try {
-      menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch (_) {
-      menuValues = [];
-    }
-    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
-
-    let repeatPreventer = false;
-    if (this.inputList.length > 1) {
-      // This was a control Z action
-      if (this.inputList.length - 1 === menuValues.length) repeatPreventer = true;
-      else {
-        const lastInput = this.inputList[this.inputList.length - 1];
-        const innerBlock = lastInput.connection.targetBlock();
-        if (innerBlock.isShadow()) innerBlock.dispose();
-        this.removeInput(lastInput.name);
-        return;
+    } else {
+      for (let i = newValue; i < oldValue; i++) {
+        this.removeInput('STRING' + (i + 1));
       }
     }
 
-    for (let i = 0; i < this.inputs_; i++) {
-      if (repeatPreventer && this.getInput(`STRING${i + 1}`)) continue;
-
-      const input = this.appendValueInput(`STRING${i + 1}`);
-      if (i > 0) {
-        const menu = input.appendField(this.menuGenerator());
-        menu.fieldRow[0].setValue(menuValues[i - 1] ? menuValues[i - 1] : "=", true);
-      }
-    }
-  },
-
-  onExpandableButtonClicked_: function (isAdding) {
-    // Create an event group to keep field value and mutator in sync
-    // Return null at the end because setValue is called here already.
-    Blockly.Events.setGroup(true);
-    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
-    if (isAdding) {
-      this.inputs_++;
-      const number = this.inputs_;
-      const newInput = this.appendValueInput(`STRING${number}`);
-      newInput.appendField(this.menuGenerator());
-      this.fillInBlock(newInput.connection, "text");
-    } else if (this.inputs_ > 1) {
-      const number = this.inputs_;
-      this.removeInput(`STRING${number}`);
-      this.inputs_--;
-    }
     this.initSvg();
     if (this.rendered) this.render();
-
-    const newMutation = Blockly.Xml.domToText(this.mutationToDom());
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-      this, 'mutation', null, oldMutation, newMutation
-    ));
-    Blockly.Events.setGroup(false);
   }
 };
 
@@ -520,114 +373,45 @@ Blockly.Blocks['operator_conditions_comparator_expandable'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": '%1 %2',
+      "message0": '%1',
       "args0": [
         {
-          "type": "field_expandable_remove",
-          "name": "REMOVE"
-        },
-        {
-          "type": "field_expandable_add",
-          "name": "ADD"
+          "type": "field_expandable",
+          "name": "EXPANDABLE",
+          "value": 2
         }
       ],
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_boolean"]
     });
-
-    this.inputs_ = 0;
   },
 
-  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
-  menuGenerator: function () {
-    const dropdown = new Blockly.FieldDropdown(function () {
-      return [
-        ["=", "=="], ["and", "&&"],
-        ["or", "||"]
-      ];
-    });
-    const ogSetValue = dropdown.setValue;
-    dropdown.setValue = function (value, omitMutation) {
-      const srcBlock = this.sourceBlock_;
-      let oldMutation;
-      if (!omitMutation) oldMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
+  expandableCallback: function (field, oldValue, newValue, createShadows) {
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        var { input, shadow } = Blockly.scratchBlocksUtils.newBlockParam(
+          this, 'BOOL' + (i + 1), null,
+          undefined,
+          function(input) {return input.setCheck('Boolean');}
+        );
 
-      ogSetValue.call(this, value);
-      if (!omitMutation) {
-        const newMutation = Blockly.Xml.domToText(srcBlock.mutationToDom());
-        Blockly.Events.fire(new Blockly.Events.BlockChange(
-          srcBlock, 'mutation', null, oldMutation, newMutation
-        ));
+        if (i > 0) {
+          input.appendField(new Blockly.FieldDropdown([
+            ['=', '=='],
+            [Blockly.Msg.OPERATORS_CONDITIONSCOMPARATOREXPANDABLE_AND, '&&'],
+            [Blockly.Msg.OPERATORS_CONDITIONSCOMPARATOREXPANDABLE_OR, '||']
+          ]), 'OP' + (i + 1));
+          Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'OP' + (i + 1), '&&', '==')); // tell vm it updated
+        }
       }
-    }
-    return dropdown;
-  },
-
-  mutationToDom: function () {
-    const container = document.createElement("mutation");
-    container.setAttribute("inputcount", String(this.inputs_));
-    let menuValues = this.inputList.reduce((acc, input) => {
-      return input.fieldRow[0] && input.fieldRow[0].argType_[0] === 'dropdown' ? [...acc, input.fieldRow[0].getValue()] : acc
-    }, []);
-    container.setAttribute("menuvalues", JSON.stringify(menuValues));
-    return container;
-  },
-  domToMutation: function (xmlElement) {
-    const inputCount = Number(xmlElement.getAttribute("inputcount"));
-    let menuValues;
-    try {
-      menuValues = JSON.parse(xmlElement.getAttribute("menuvalues"));
-    } catch (_) {
-      menuValues = [];
-    }
-    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
-
-    let repeatPreventer = false;
-    if (this.inputList.length > 1) {
-      // This was a control Z action
-      if (this.inputList.length - 1 === menuValues.length) repeatPreventer = true;
-      else {
-        const lastInput = this.inputList[this.inputList.length - 1];
-        const innerBlock = lastInput.connection.targetBlock();
-        if (innerBlock.isShadow()) innerBlock.dispose();
-        this.removeInput(lastInput.name);
-        return;
+    } else {
+      for (let i = newValue; i < oldValue; i++) {
+        this.removeInput('BOOL' + (i + 1));
       }
     }
 
-    for (let i = 0; i < this.inputs_; i++) {
-      if (repeatPreventer && this.getInput(`BOOL${i + 1}`)) continue;
-      const input = this.appendValueInput(`BOOL${i + 1}`).setCheck('Boolean');
-      if (i > 0) {
-        const menu = input.appendField(this.menuGenerator());
-        menu.fieldRow[0].setValue(menuValues[i - 1] ? menuValues[i - 1] : "=", true);
-      }
-    }
-  },
-
-  onExpandableButtonClicked_: function (isAdding) {
-    // Create an event group to keep field value and mutator in sync
-    // Return null at the end because setValue is called here already.
-    Blockly.Events.setGroup(true);
-    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
-    if (isAdding) {
-      this.inputs_++;
-      const number = this.inputs_;
-      const newInput = this.appendValueInput(`BOOL${number}`).setCheck('Boolean');
-      newInput.appendField(this.menuGenerator());
-    } else if (this.inputs_ > 1) {
-      const number = this.inputs_;
-      this.removeInput(`BOOL${number}`);
-      this.inputs_--;
-    }
     this.initSvg();
     if (this.rendered) this.render();
-
-    const newMutation = Blockly.Xml.domToText(this.mutationToDom());
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-      this, 'mutation', null, oldMutation, newMutation
-    ));
-    Blockly.Events.setGroup(false);
   }
 };
 
@@ -683,73 +467,49 @@ Blockly.Blocks['operator_joinexpandable'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_JOIN,
+      "message0": Blockly.Msg.OPERATORS_JOINEXPANDABLE,
       "args0": [
         {
-          "type": "field_expandable_remove",
-          "name": "REMOVE"
-        },
-        {
-          "type": "field_expandable_add",
-          "name": "ADD"
+          "type": "field_expandable",
+          "name": "EXPANDABLE",
+          "value": 2
         }
       ],
       "category": Blockly.Categories.operators,
       "extensions": ["colours_operators", "output_string"]
     });
-    this.messageList = ["apple ", "banana ", "pear ", "orange ", "mango ", "strawberry ", "pineapple ", "grape ", "kiwi "];
-    this.inputs_ = 0;
+
+    this.possibleStrings = [
+      Blockly.Msg.OPERATORS_JOIN_APPLE,
+      Blockly.Msg.OPERATORS_JOIN_BANANA,
+      Blockly.Msg.OPERATORS_JOIN_PEAR,
+      Blockly.Msg.OPERATORS_JOIN_ORANGE,
+      Blockly.Msg.OPERATORS_JOIN_MANGO,
+      Blockly.Msg.OPERATORS_JOIN_STRAWBERRY,
+      Blockly.Msg.OPERATORS_JOIN_PINEAPPLE,
+      Blockly.Msg.OPERATORS_JOIN_GRAPE,
+      Blockly.Msg.OPERATORS_JOIN_KIWI
+    ];
   },
 
-  fillInBlock: Blockly.scratchBlocksUtils.generateMutatorShadow,
-
-  mutationToDom: function() {
-    const container = document.createElement("mutation");
-    container.setAttribute("inputcount", String(this.inputs_));
-    return container;
-  },
-  domToMutation: function(xmlElement) {
-    const inputCount = Number(xmlElement.getAttribute("inputcount"));
-    if (this.inputList.length > 1) {
-      // This was a control Z action
-      if (this.inputs_ > inputCount) {
-        const lastInput = this.inputList[this.inputList.length - 1];
-        const innerBlock = lastInput.connection.targetBlock();
-        if (innerBlock.isShadow()) innerBlock.dispose();
-        this.removeInput(lastInput.name);
+  expandableCallback: function (field, oldValue, newValue, createShadows) {
+    if (oldValue < newValue) {
+      for (let i = oldValue; i < newValue; i++) {
+        var type = createShadows ? 'text' : null;
+        Blockly.scratchBlocksUtils.newBlockParam(
+          this, 'INPUT' + (i + 1), type,
+          ['TEXT', this.possibleStrings[i] || '...'],
+          function(input) {return input.setAlign(Blockly.ALIGN_RIGHT);}
+        );
+      }
+    } else {
+      for (let i = newValue; i < oldValue; i++) {
+        this.removeInput('INPUT' + (i + 1));
       }
     }
 
-    this.inputs_ = isNaN(inputCount) ? 0 : inputCount;
-    for (let i = 0; i < this.inputs_; i++) {
-      // VM will automatically replace empty inputs with saved shadows
-      if (!this.getInput(`INPUT${i + 1}`)) this.appendValueInput(`INPUT${i + 1}`);
-    }
-  },
-
-  onExpandableButtonClicked_: function (isAdding) {
-    // Create an event group to keep field value and mutator in sync
-    // Return null at the end because setValue is called here already.
-    Blockly.Events.setGroup(true);
-    var oldMutation = Blockly.Xml.domToText(this.mutationToDom());
-    if (isAdding) {
-      this.inputs_++;
-      const number = this.inputs_;
-      const newInput = this.appendValueInput(`INPUT${number}`);
-      const text = this.messageList[number - 1];
-      this.fillInBlock(newInput.connection, "text",  text ? text : "... ", "TEXT");
-    } else if (this.inputs_ > 1) {
-      this.removeInput(`INPUT${this.inputs_}`);
-      this.inputs_--;
-    }
     this.initSvg();
     if (this.rendered) this.render();
-
-    var newMutation = Blockly.Xml.domToText(this.mutationToDom());
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-      this, 'mutation', null, oldMutation, newMutation
-    ));
-    Blockly.Events.setGroup(false);
   }
 };
 
