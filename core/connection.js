@@ -67,6 +67,7 @@ Blockly.Connection.REASON_DIFFERENT_WORKSPACES = 5;
 Blockly.Connection.REASON_SHADOW_PARENT = 6;
 // Fixes #1127, but may be the wrong solution.
 Blockly.Connection.REASON_CUSTOM_PROCEDURE = 7;
+Blockly.Connection.REASON_DUAL_CONNECTION = 8;
 
 /**
  * Connection this connection connects to.  Null if not connected.
@@ -302,10 +303,12 @@ Blockly.Connection.prototype.canConnectWithReason_ = function(target) {
     var blockA = this.sourceBlock_;
     var blockB = target.getSourceBlock();
     var superiorConn = this;
+    var inferiorConn = target;
   } else {
     var blockB = this.sourceBlock_;
     var blockA = target.getSourceBlock();
     var superiorConn = target;
+    var inferiorConn = this;
   }
   if (blockA && blockA == blockB) {
     return Blockly.Connection.REASON_SELF_CONNECTION;
@@ -327,6 +330,19 @@ Blockly.Connection.prototype.canConnectWithReason_ = function(target) {
     // And hack to fix #1534: Fail attempts to connect anything but a
     // defnoreturn block to a prototype block.
     return Blockly.Connection.REASON_CUSTOM_PROCEDURE;
+  } else if (
+    (superiorConn == blockA.outputConnection && (
+      (blockA.previousConnection && blockA.previousConnection.targetConnection) ||
+      (blockA.nextConnection && blockA.nextConnection.targetConnection)
+    )) ||
+    (inferiorConn == blockB.outputConnection && (
+      (blockB.previousConnection && blockB.previousConnection.targetConnection) ||
+      (blockB.nextConnection && blockB.nextConnection.targetConnection)
+    )) ||
+    (superiorConn == blockA.nextConnection && blockA.outputConnection && blockA.outputConnection.targetConnection) ||
+    (inferiorConn == blockB.previousConnection && blockB.outputConnection && blockB.outputConnection.targetConnection)
+  ) {
+    return Blockly.Connection.REASON_DUAL_CONNECTION;
   }
   return Blockly.Connection.CAN_CONNECT;
 };
@@ -354,7 +370,9 @@ Blockly.Connection.prototype.checkConnection_ = function(target) {
     case Blockly.Connection.REASON_CHECKS_FAILED:
       var msg = 'Connection checks failed. ';
       msg += this + ' expected '  + this.check_ + ', found ' + target.check_;
-      throw msg;
+      // dash: Send warning in console, instead of throw an exception.
+      console.warn(msg);
+      break;
     case Blockly.Connection.REASON_SHADOW_PARENT:
       throw 'Connecting non-shadow to shadow block.';
     case Blockly.Connection.REASON_CUSTOM_PROCEDURE:
