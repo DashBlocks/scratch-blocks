@@ -272,6 +272,17 @@ Blockly.InsertionMarkerManager.prototype.createMarkerBlock_ = function(sourceBlo
         result.domToMutation(oldMutationDom);
       }
     }
+
+    // Manually setup expandables
+    for (var i = 0, input; input = result.inputList[i]; i++) {
+      for (var j = 0, field; field = input.fieldRow[j]; j++) {
+        if (field instanceof Blockly.FieldExpandable) {
+          field.tempValue_ = sourceBlock.getFieldValue(field.name);
+          field.init();
+        }
+      }
+    }
+
     result.initSvg();
   } finally {
     Blockly.Events.enable();
