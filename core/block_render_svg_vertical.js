@@ -1665,7 +1665,7 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, cursorY) {
     // Bottom left corner
     steps.push(Blockly.BlockSvg.BOTTOM_LEFT_CORNER);
   } else {
-    steps.push('H', this.height / 2);
+    steps.push('H', this.edgeShapeWidth_);
   }
 };
 
@@ -1676,8 +1676,6 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, cursorY) {
  * @private
  */
 Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
-  let scale = this.height / 2
-  
   if (this.outputConnection) {
     // Scratch-style reporters have output connection y at half block height.
     this.outputConnection.setOffsetInBlock(0, this.height / 2);
@@ -1791,8 +1789,7 @@ Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX, block) {
 Blockly.BlockSvg.drawStatementInputBottom_ = function(steps, rightEdge, row) {
   steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
   if (row.statementNotchAtBottom) {
-    steps.push('h ', Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE + Blockly.BlockSvg.NOTCH_SPACING + Blockly.BlockSvg.GRID_UNIT -
-      Blockly.BlockSvg.CORNER_RADIUS);
+    steps.push('h ', Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE + Blockly.BlockSvg.GRID_UNIT - Blockly.BlockSvg.CORNER_RADIUS);
     steps.push(Blockly.pathUtils.scale(Blockly.BlockSvg.NOTCH_PATH_LEFT, 1, Blockly.BlockSvg.NOTCH_HEIGHT / (2 * Blockly.BlockSvg.GRID_UNIT)));
   }
   steps.push('H', rightEdge - Blockly.BlockSvg.CORNER_RADIUS);
