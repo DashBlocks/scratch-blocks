@@ -1680,7 +1680,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps) {
   
   if (this.outputConnection) {
     // Scratch-style reporters have output connection y at half block height.
-    this.outputConnection.setOffsetInBlock(-this.outputLeftPadding_(), this.height / 2);
+    this.outputConnection.setOffsetInBlock(0, this.height / 2);
   }
   if (this.edgeShape_ && (!this.previousConnection || !this.previousConnection.targetConnection || !this.getSurroundParent())) {
     if (this.nextConnection) this.height -= Blockly.BlockSvg.NOTCH_HEIGHT;
