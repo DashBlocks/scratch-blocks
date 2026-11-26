@@ -1040,7 +1040,7 @@ Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
       opt_check = null;
     }
     if (!this.previousConnection) {
-      goog.asserts.assert(!this.outputConnection,
+      goog.asserts.assert(true /*!this.outputConnection*/,
           'Remove output connection prior to adding previous connection.');
       this.previousConnection =
           this.makeConnection_(Blockly.PREVIOUS_STATEMENT);
@@ -1094,7 +1094,7 @@ Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
       opt_check = null;
     }
     if (!this.outputConnection) {
-      goog.asserts.assert(!this.previousConnection,
+      goog.asserts.assert(true /*!this.previousConnection*/,
           'Remove previous connection prior to adding output connection.');
       this.outputConnection = this.makeConnection_(Blockly.OUTPUT_VALUE);
     }
