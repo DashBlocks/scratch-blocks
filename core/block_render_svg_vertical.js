@@ -2056,45 +2056,41 @@ Blockly.BlockSvg.CUSTOM_SHAPES = new Map([
     noEdgeShape: true
   }],
   [Blockly.OUTPUT_SHAPE_PLUS, {
-    emptyInputPath: "M 36 0 a 4 4 0 0 1 4 4 l 0 2 a 4 4 0 0 0 4 4 a 4 4 0 0 1 4 4 l 0 4 a 4 4 0 0 1 -4 4 a 4 4 0 0 0 -4 4 l 0 2 a 4 4 0 0 1 -4 4  h -24 a 4 4 0 0 1 -4 -4 l 0 -2 a 4 4 0 0 0 -4 -4 a 4 4 0 0 1 -4 -4 l 0 -4 a 4 4 0 0 1 4 -4 a 4 4 0 0 0 4 -4 l 0 -2 a 4 4 0 0 1 4 -4 z",
+    // emptyInputPath: "M 36 0 a 4 4 0 0 1 4 4 l 0 2 a 4 4 0 0 0 4 4 a 4 4 0 0 1 4 4 l 0 4 a 4 4 0 0 1 -4 4 a 4 4 0 0 0 -4 4 l 0 2 a 4 4 0 0 1 -4 4 h -24 a 4 4 0 0 1 -4 -4 l 0 -2 a 4 4 0 0 0 -4 -4 a 4 4 0 0 1 -4 -4 l 0 -4 a 4 4 0 0 1 4 -4 a 4 4 0 0 0 4 -4 l 0 -2 a 4 4 0 0 1 4 -4 z",
     emptyInputWidth: 12 * Blockly.BlockSvg.GRID_UNIT,
     curvature: 1000,
     leftPath: (block) => {
-      const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
-      const unit = 6 * paddingMultiplier;
-      const remainingHeight = block.height - 36 * paddingMultiplier;
+      const unit = Blockly.BlockSvg.GRID_UNIT * 3;
+      const remainingHeight = block.height - unit * 2;
+      const smallerR = unit * 3 / 10;
+      const biggerR = unit * 4 / 10;
       return [
-        `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit}`,
-        `a ${unit} ${unit} 0 0 0 ${-unit} ${-unit}`,
-        `l -2 0`,
-        `a ${unit} ${unit} 0 0 1 ${-unit} ${-unit}`,
+        `a ${smallerR} ${smallerR} 0 0 1 ${-smallerR} ${-smallerR}`,
+        `a ${smallerR} ${smallerR} 0 0 0 ${-smallerR} ${-smallerR}`,
+        `a ${biggerR} ${biggerR} 0 0 1 ${-biggerR} ${-biggerR}`,
         `l 0 ${-remainingHeight}`,
-        `a ${unit} ${unit} 0 0 1 ${unit} ${-unit}`,
-        `l 2 0`,
-        `a ${unit} ${unit} 0 0 0 ${unit} ${-unit}`,
-        `a ${unit} ${unit} 0 0 1 ${unit} ${-unit}`
+        `a ${biggerR} ${biggerR} 0 0 1 ${biggerR} ${-biggerR}`,
+        `a ${smallerR} ${smallerR} 0 0 0 ${smallerR} ${-smallerR}`,
+        `a ${smallerR} ${smallerR} 0 0 1 ${smallerR} ${-smallerR}`
       ]
     },
     rightPath: (block) => {
-      const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
-      const unit = 6 * paddingMultiplier;
-      const remainingHeight = block.height - 36 * paddingMultiplier;
+      const unit = Blockly.BlockSvg.GRID_UNIT * 3;
+      const remainingHeight = block.height - unit * 2;
+      const smallerR = unit * 3 / 10;
+      const biggerR = unit * 4 / 10;
       return [
-        `a ${unit} ${unit} 0 0 1 ${unit} ${unit}`,
-        `a ${unit} ${unit} 0 0 0 ${unit} ${unit}`,
-        `l 2 0`,
-        `a ${unit} ${unit} 0 0 1 ${unit} ${unit}`,
+        `a ${smallerR} ${smallerR} 0 0 1 ${smallerR} ${smallerR}`,
+        `a ${smallerR} ${smallerR} 0 0 0 ${smallerR} ${smallerR}`,
+        `a ${biggerR} ${biggerR} 0 0 1 ${biggerR} ${biggerR}`,
         `l 0 ${remainingHeight}`,
-        `a ${unit} ${unit} 0 0 1 ${-unit} ${unit}`,
-        `l -2 0`,
-        `a ${unit} ${unit} 0 0 0 ${-unit} ${unit}`,
-        `a ${unit} ${unit} 0 0 1 ${-unit} ${unit}`
+        `a ${biggerR} ${biggerR} 0 0 1 ${-biggerR} ${biggerR}`,
+        `a ${smallerR} ${smallerR} 0 0 0 ${-smallerR} ${smallerR}`,
+        `a ${smallerR} ${smallerR} 0 0 1 ${-smallerR} ${smallerR}`
       ]
     },
     edgeShapeWidth: (original) => {
-      const paddingMultiplier = Blockly.BlockSvg.SEP_SPACE_Y / 2 / Blockly.BlockSvg.GRID_UNIT;
-      const unit = 6 * paddingMultiplier;
-      return unit * 3 + 2;
+      return Blockly.BlockSvg.GRID_UNIT * 3;
     }
   }],
   [Blockly.OUTPUT_SHAPE_OCTAGONAL, {
@@ -2129,7 +2125,6 @@ Blockly.BlockSvg.CUSTOM_SHAPES = new Map([
     leftPath: (block) => {
       const unit = block.edgeShapeWidth_;
       const remainingHeight = block.height - unit * 4;
-
       return [
         `l ${-unit} 0`,
         `l ${unit / 2} ${-unit}`,
@@ -2145,7 +2140,6 @@ Blockly.BlockSvg.CUSTOM_SHAPES = new Map([
     rightPath: (block) => {
       const unit = block.edgeShapeWidth_;
       const remainingHeight = block.height - unit * 4;
-
       return [
         `l ${unit} 0`,
         `l ${-unit / 2} ${unit}`,
