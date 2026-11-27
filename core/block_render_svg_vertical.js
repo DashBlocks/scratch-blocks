@@ -1642,7 +1642,7 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, cursorY) {
     var notchStart = (
       Blockly.BlockSvg.NOTCH_WIDTH +
       Blockly.BlockSvg.NOTCH_START_PADDING +
-      Blockly.BlockSvg.GRID_UNIT
+      Blockly.BlockSvg.CORNER_RADIUS
     );
     if (this.edgeShape_ && (!this.previousConnection || !this.previousConnection.targetConnection || !this.getSurroundParent())) {
       notchStart += this.edgeShapeWidth_;
@@ -1771,7 +1771,7 @@ Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX, block) {
     2 * Blockly.BlockSvg.CORNER_RADIUS + block.edgeShapeWidth_);
   steps.push(Blockly.pathUtils.scale(Blockly.BlockSvg.NOTCH_PATH_RIGHT, 1, Blockly.BlockSvg.NOTCH_HEIGHT / (2 * Blockly.BlockSvg.GRID_UNIT)));
 
-  steps.push('h', -Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE - Blockly.BlockSvg.GRID_UNIT + Blockly.BlockSvg.CORNER_RADIUS);
+  steps.push('h', -Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE);
   steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
 };
 
@@ -1789,7 +1789,7 @@ Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX, block) {
 Blockly.BlockSvg.drawStatementInputBottom_ = function(steps, rightEdge, row) {
   steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
   if (row.statementNotchAtBottom) {
-    steps.push('h ', Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE + Blockly.BlockSvg.GRID_UNIT - Blockly.BlockSvg.CORNER_RADIUS);
+    steps.push('h ', Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE);
     steps.push(Blockly.pathUtils.scale(Blockly.BlockSvg.NOTCH_PATH_LEFT, 1, Blockly.BlockSvg.NOTCH_HEIGHT / (2 * Blockly.BlockSvg.GRID_UNIT)));
   }
   steps.push('H', rightEdge - Blockly.BlockSvg.CORNER_RADIUS);
